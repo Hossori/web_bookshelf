@@ -3,8 +3,9 @@
 class Bookshelf {
 
     constructor(bookshelf, container) {
-        let div = this.createHtml(bookshelf);
-        container.append(div);
+        let html = this.createHtml(bookshelf);
+        html.setAttribute('class', 'bookshelf');
+        container.append(html);
     }
 
     createHtml(bookshelf) {

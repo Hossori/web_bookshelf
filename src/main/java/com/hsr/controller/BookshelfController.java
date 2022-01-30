@@ -11,7 +11,7 @@ import com.hsr.constant.PathConst;
 public class BookshelfController {
 
     @GetMapping("/index")
-    public String indexBookshelf() {
+    public String getBookshelfs() {
         return PathConst.BOOKSHELF_INDEX.getValue();
     }
 
