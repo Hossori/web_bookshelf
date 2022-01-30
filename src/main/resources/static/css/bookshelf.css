@@ -1,6 +1,15 @@
 @charset "UTF-8";
 
 .bookshelf {
-    border : solid 1px black;
-    background-color : green;
+    background-image : url("/image/bookshelf.jpg");
+    background-repeat : no-repeat;
+    color : black;
+    font-weight : bold;
+    font-size : 22px;
+
+    margin : 6px 12px 6px 0px;
+
+    width : 200px;
+    height : 250px;
+    display : inline-block;
 }
