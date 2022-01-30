@@ -10,7 +10,7 @@ import com.hsr.constant.PathConst;
 @RequestMapping("/bookshelf")
 public class BookshelfController {
 
-    @GetMapping
+    @GetMapping("/index")
     public String indexBookshelf() {
         return PathConst.BOOKSHELF_INDEX.getValue();
     }
