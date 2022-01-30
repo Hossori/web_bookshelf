@@ -11,4 +11,6 @@ public interface BookshelfService {
 
     public Page<Bookshelf> getPages(Pageable pageable);
 
+    public void insertOne(Bookshelf bookshelf);
+
 }

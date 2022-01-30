@@ -12,9 +12,13 @@ import javax.persistence.Table;
 import com.hsr.constant.JpaConst;
 import com.hsr.domain.user.model.User;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name=JpaConst.TABLE_BOOKSHELF)
 public class Bookshelf {

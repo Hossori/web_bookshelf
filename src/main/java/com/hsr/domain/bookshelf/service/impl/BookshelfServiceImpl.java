@@ -17,9 +17,12 @@ public class BookshelfServiceImpl implements BookshelfService {
 
     @Override
     public Page<Bookshelf> getPages(Pageable pageable) {
-
         return repository.getPages(pageable);
+    }
 
+    @Override
+    public void insertOne(Bookshelf bookshelf) {
+        repository.save(bookshelf);
     }
 
 }
