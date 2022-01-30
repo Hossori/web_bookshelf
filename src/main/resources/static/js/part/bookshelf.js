@@ -6,7 +6,7 @@ class Bookshelf {
         let div = this.createHtml(bookshelf);
         container.append(div);
     }
-    // comment
+    
     createHtml(bookshelf) {
         let div = document.createElement('div');
 
