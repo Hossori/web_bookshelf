@@ -11,9 +11,13 @@ import javax.persistence.Table;
 
 import com.hsr.constant.JpaConst;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name=JpaConst.TABLE_USER)
 public class User {
@@ -21,10 +25,12 @@ public class User {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
+    private String email;
     private String name;
     private Integer gender;
     private LocalDate birthday;
     private String introduction;
     private LocalDateTime createdAt;
+    private Integer deleteFlag;
 
 }
