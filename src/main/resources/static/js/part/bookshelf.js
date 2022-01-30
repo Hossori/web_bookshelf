@@ -6,7 +6,11 @@ class Bookshelf {
         let div = this.createHtml(bookshelf);
         container.append(div);
     }
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> c8558f2ac81a11889874c56e9c267ccef67bb33d
     createHtml(bookshelf) {
         let div = document.createElement('div');
 
