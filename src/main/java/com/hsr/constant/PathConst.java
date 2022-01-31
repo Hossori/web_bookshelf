@@ -7,9 +7,7 @@ import lombok.RequiredArgsConstructor;
 public enum PathConst {
 
     BOOKSHELF_INDEX("bookshelf"+BasePathEnum.INDEX.getValue());
-
-    String i = "/index";
-
+	
     @Getter
     private final String value;
 
