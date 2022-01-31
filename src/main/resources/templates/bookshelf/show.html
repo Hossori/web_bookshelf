@@ -1,14 +1,24 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	    layout:decorate="~{part/layout}">
-	<head>
-		<meta charset="UTF-8">
-		<title th:text="#{title.bookshelf.show}+#{title.postfix}"></title>
-	</head>
-	<body>
-		<div layout:fragment="content">
-			<h1 th:text="${bookshelf.name}"></h1>
-		</div>
-	</body>
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{part/layout}">
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="#{title.bookshelf.show}+#{title.postfix}"></title>
+        <link rel="stylesheet" th:href="@{/css/bookshelf.css}">
+        <link rel="stylesheet" th:href="@{/css/pagination.css}">
+        <script th:src="@{/js/part/bookshelf.js}" defer></script>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <div th:id="#{bookshelf.detail.container.id}">
+                <h1 th:text="${bookshelf.name}"></h1>
+                <pre th:text="${bookshelf.description}"></pre>
+                <p th:text="${bookshelf.createdAt}"></p>
+                <p th:text="${bookshelf.updatedAt}"></p>
+            </div>
+
+            <div th:id="#{book.list.container.id}"></div>
+        </div>
+    </body>
 </html>

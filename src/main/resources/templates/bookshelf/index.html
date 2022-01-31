@@ -10,7 +10,7 @@
         <script th:src="@{/js/part/bookshelf.js}" defer></script>
         <script th:src="@{/js/part/pagination.js}" defer></script>
         <script type="text/javascript">
-        	$(function() {
+            $(function() {
                 showBookshelfList(0);
             });
         </script>
@@ -22,8 +22,7 @@
                 <input type="text" th:id="#{bookshelf.searchBox.id}">
                 <input type="submit" th:id="#{bookshelf.searchButton.id}" th:value="#{bookshelf.searchButton.caption}">
             </form>
-            <div th:id="#{bookshelf.container.id}"></div>
-            <div th:id="#{book.container.id}"></div>
+            <div th:id="#{bookshelf.list.container.id}"></div>
             <ol th:id="#{pagination.container.id}"></ol>
         </div>
     </body>
