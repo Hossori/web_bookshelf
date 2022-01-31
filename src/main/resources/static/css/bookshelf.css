@@ -3,7 +3,7 @@
 .bookshelf {
     background-image : url("/image/bookshelf.jpg");
     background-repeat : no-repeat;
-    color : black;
+    color : white;
     font-weight : bold;
     font-size : 22px;
 
@@ -12,4 +12,10 @@
     width : 200px;
     height : 250px;
     display : inline-block;
+}
+.bookshelfInfo {
+	width : 80%;
+	height : 80%;
+	margin : 10%;
+	display : inline-block;
 }
