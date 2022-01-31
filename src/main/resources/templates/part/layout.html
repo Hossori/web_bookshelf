@@ -4,21 +4,7 @@
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script th:src="@{/js/part/pagination.js}" defer></script>
-        <script type="text/javascript">
-            function getProperty(key) {
-
-                let res = $.ajax({
-                    url : '/rest/property/get',
-                    type : 'get',
-                    data : {key : key},
-                    dataType : 'json',
-                    async : false
-                }).responseText;
-
-                res = JSON.parse(res);
-                return res.data.value;
-            }
-        </script>
+        <script th:src="@{/js/util/util.js}" defer></script>
     </head>
     <body>
         <div layout:fragment="content"></div>
