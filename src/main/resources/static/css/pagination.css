@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+.pagination li {
+	list-style-type : none;
+	
+	font-size : 18px;
+	
+	padding : 6px;
+	display : inline-block;
+}
+
+.pagination li a {
+	cursor : pointer;
+	color : blue;
+}

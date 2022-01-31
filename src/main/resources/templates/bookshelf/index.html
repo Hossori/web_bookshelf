@@ -7,6 +7,7 @@
         <title th:text="#{title.bookshelf.index}+#{title.postfix}"></title>
         <script th:src="@{/js/part/bookshelf.js}" defer></script>
         <link rel="stylesheet" th:href="@{/css/bookshelf.css}">
+        <link rel="stylesheet" th:href="@{/css/pagination.css}">
         <script type="text/javascript">
 
             $(function() {
@@ -25,12 +26,15 @@
                         let pages = res.data.bookshelfPages;
                         let bookshelfs = pages.content;
 
-                        // create bookshelfs
+                        // reflesh bookshelf container
                         let bookshelfContainer = $('#'+getProperty('bookshelf.container.id'));
+                        bookshelfContainer.empty();
                         bookshelfs.forEach(bookshelf => new Bookshelf(bookshelf, bookshelfContainer));
-                        // create pagination
+                        // reflesh pagination container
                         let paginationContainer = $('#'+getProperty('pagination.container.id'));
-                        new Pagination(pages, paginationContainer);
+                        let methodName = 'getBookshelfPage';
+                        paginationContainer.empty();
+                        new Pagination(pages, methodName, paginationContainer);
                     }
                 );
             }
