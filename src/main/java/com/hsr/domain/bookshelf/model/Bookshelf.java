@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.hsr.constant.JpaConst;
 import com.hsr.domain.user.model.User;
 
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name=JpaConst.TABLE_BOOKSHELF)
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Bookshelf {
 
     @Id
