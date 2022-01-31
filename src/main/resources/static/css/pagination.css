@@ -8,8 +8,7 @@
 	padding : 6px;
 	display : inline-block;
 }
-
-.pagination li a {
-	cursor : pointer;
+.pagination .anchor {
 	color : blue;
+	cursor : pointer;
 }

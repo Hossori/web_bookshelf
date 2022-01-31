@@ -14,15 +14,12 @@ class Pagination {
         let pageCount = pages.totalPages === 0 ? 1 : pages.totalPages;
         for(let i = 1; i <= pageCount; i++) {
             let li = document.createElement('li');
-            let liChild;
-            if(i === pages.number+1) {
-				liChild = document.createTextNode(i);
-			} else {
-				liChild = document.createElement('a');
-				liChild.setAttribute('onclick', this.methodName+'('+(i-1)+')');
-				liChild.append(document.createTextNode(i));
+            li.append(document.createTextNode(i));
+            if(i !== pages.number+1) {
+				li.setAttribute('onclick', this.methodName+'('+(i-1)+')');
+				li.setAttribute('class', 'anchor');
 			}
-			li.append(liChild);
+			
             ol.append(li);
         }
         
