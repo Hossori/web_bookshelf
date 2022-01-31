@@ -16,6 +16,11 @@ public class BookshelfServiceImpl implements BookshelfService {
     private BookshelfRepository repository;
 
     @Override
+    public Bookshelf getById(Integer id) {
+    	return repository.getById(id);
+    }
+    
+    @Override
     public Page<Bookshelf> getPages(Pageable pageable) {
         return repository.getPages(pageable);
     }

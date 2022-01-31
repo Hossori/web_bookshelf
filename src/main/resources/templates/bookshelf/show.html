@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	    layout:decorate="~{part/layout}">
+	<head>
+		<meta charset="UTF-8">
+		<title th:text="#{title.bookshelf.show}+#{title.postfix}"></title>
+	</head>
+	<body>
+		<div layout:fragment="content">
+			<h1 th:text="${bookshelf.name}"></h1>
+		</div>
+	</body>
+</html>

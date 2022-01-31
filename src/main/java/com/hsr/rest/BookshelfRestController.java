@@ -34,5 +34,4 @@ public class BookshelfRestController {
 
         return new Result(0, resultMap);
     }
-
 }
