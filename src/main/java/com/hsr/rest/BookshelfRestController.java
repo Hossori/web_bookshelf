@@ -22,8 +22,8 @@ public class BookshelfRestController {
     @Autowired
     BookshelfService bookshelfService;
 
-    @GetMapping("/getBookshelfs")
-    public Result getBookshelfs(
+    @GetMapping("/getBookshelfPages")
+    public Result getBookshelfPages(
             @PageableDefault(page=0, size=10) Pageable pageable,
             @RequestParam("page") int page) {
 

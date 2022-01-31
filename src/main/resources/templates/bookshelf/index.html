@@ -11,12 +11,12 @@
         <script type="text/javascript">
 
             $(function() {
-                getBookshelfPage(0);
+                showBookshelfList(0);
             });
 
-            function getBookshelfPage(page) {
+            function showBookshelfList(page) {
                 $.ajax({
-                    url : '/rest/bookshelf/getBookshelfs',
+                    url : '/rest/bookshelf/getBookshelfPages',
                     type : 'get',
                     data : {page : page},
                     dataType : 'json'
@@ -32,7 +32,7 @@
                         bookshelfs.forEach(bookshelf => new Bookshelf(bookshelf, bookshelfContainer));
                         // reflesh pagination container
                         let paginationContainer = $('#'+getProperty('pagination.container.id'));
-                        let methodName = 'getBookshelfPage';
+                        let methodName = 'showBookshelfList';
                         paginationContainer.empty();
                         new Pagination(pages, methodName, paginationContainer);
                     }
