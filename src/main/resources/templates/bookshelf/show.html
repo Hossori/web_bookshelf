@@ -6,13 +6,14 @@
         <meta charset="UTF-8">
         <title th:text="#{title.bookshelf.show}+#{title.postfix}"></title>
         <link rel="stylesheet" th:href="@{/css/bookshelf.css}">
+        <link rel="stylesheet" th:href="@{/css/book.css}">
         <link rel="stylesheet" th:href="@{/css/pagination.css}">
         <script th:src="@{/js/part/bookshelf.js}" defer></script>
         <script th:src="@{/js/part/book.js}" defer></script>
         <script th:src="@{/js/part/pagination.js}" defer></script>
         <script type="text/javascript">
             $(function() {
-                showBookList();
+                showBookListInBookshelf(0);
             });
         </script>
     </head>
@@ -21,11 +22,12 @@
             <div th:id="#{bookshelf.detail.container.id}">
                 <h1 th:text="${bookshelf.name}"></h1>
                 <pre th:text="${bookshelf.description}"></pre>
-                <p th:text="${bookshelf.createdAt}"></p>
-                <p th:text="${bookshelf.updatedAt}"></p>
+                <p th:text="${#temporals.format(bookshelf.createdAt, 'yyyy/MM/dd HH:mm')}"></p>
+                <p th:text="${#temporals.format(bookshelf.updatedAt, 'yyyy/MM/dd HH:mm')}"></p>
             </div>
 
-            <div th:id="#{book.list.container.id}" data-id="${bookshelf.id}"></div>
+            <div th:id="#{book.list.container.id}" th:data-id="${bookshelf.id}"></div>
+            <div th:id="#{pagination.container.id}"></div>
         </div>
     </body>
 </html>

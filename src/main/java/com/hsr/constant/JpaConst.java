@@ -11,30 +11,13 @@ public interface JpaConst {
     // database
     // table
     public static final String TABLE_USER = "users";
-    /*
-    public static final String COL_USER_ID = "id";
-    public static final String COL_USER_NAME = "name";
-    public static final String COL_USER_GENDER = "gender";
-    public static final String COL_USER_BIRTHDAY = "birthday";
-    public static final String COL_USER_INTRODUCTION = "introduction";
-    public static final String COL_USER_CREATED_AT = "created_at";
-    */
-
-
     public static final String TABLE_BOOKSHELF = "bookshelfs";
-    /*
-    public static final String COL_BOOKSHELF_ID = "id";
-    public static final String COL_BOOKSHELF_USER_ID = "user_id";
-    public static final String COL_BOOKSHELF_NAME = "name";
-    public static final String COL_BOOKSHELF_DESCRIPTION = "description";
-    public static final String COL_BOOKSHELF_CREATED_AT = "created_at";
-    public static final String COL_BOOKSHELF_UPDATED_AT = "updated_at";
-    */
-
-
+    public static final String TABLE_BOOK = "books";
+    
     // entity
     public static final String ENTITY_USER = "User";
     public static final String ENTITY_BOOKSHELF = "Bookshelf";
+    public static final String ENTITY_BOOK = "Book";
 
     // flag
     public static final int DELETE_FLAG_FALSE = 0;
@@ -47,8 +30,15 @@ public interface JpaConst {
     // parameter
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_PASS = "password";
+    public static final String PARAM_BOOKSHELF = "bookshelf";
 
     // query
-    public static final String BOOKSHELF_GETPAGES = "select bs from " + ENTITY_BOOKSHELF + " as bs order by bs.createdAt desc";
+    public static final String BOOKSHELF_GETPAGES = "select bs from " + ENTITY_BOOKSHELF + " as bs" + 
+														" order by bs.createdAt desc";
+    public static final String BOOK_GETPAGES = "select b from " + ENTITY_BOOK + " as b" + 
+														" order by b.createdAt desc";
+    public static final String BOOK_GETPAGES_IN_BOOKSHELF = "select b from " + ENTITY_BOOK + " as b" +
+														" where b.bookshelf = :" + PARAM_BOOKSHELF +
+														" order by b.createdAt desc";
 
 }

@@ -41,7 +41,8 @@ class BookshelfList {
         let name = document.createElement('p');
         name.append(document.createTextNode(bookshelf.name));
         let createdAt = document.createElement('p');
-        createdAt.append(document.createTextNode(bookshelf.createdAt));
+        let createdAtText = formatDateTime(new Date(bookshelf.createdAt), 'datetime');
+        createdAt.append(document.createTextNode(createdAtText));
 
         let bookshelfInfoDiv = document.createElement('div');
         bookshelfInfoDiv.append(userName);

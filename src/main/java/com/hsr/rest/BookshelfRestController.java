@@ -24,7 +24,7 @@ public class BookshelfRestController {
 
     @GetMapping("/getBookshelfPages")
     public Result getBookshelfPages(
-            @PageableDefault(page=0, size=10) Pageable pageable,
+            @PageableDefault(size=10) Pageable pageable,
             @RequestParam("page") int page) {
 
         Page<Bookshelf> bookshelfPages = bookshelfService.getPages(pageable);

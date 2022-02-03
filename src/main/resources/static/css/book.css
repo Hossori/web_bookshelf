@@ -1,1 +1,27 @@
 @charset "UTF-8";
+
+/* book list */
+.bookList {
+    background-image : url("/image/book.png");
+    background-repeat : no-repeat;
+    color : white;
+    font-weight : bold;
+    font-size : 20px;
+
+    cursor : pointer;
+
+    margin : 6px 12px 6px 0px;
+    width : 200px;
+    height : 250px;
+    display : inline-block;
+}
+.bookList:hover {
+    opacity : 0.8;
+}
+.bookListInfo {
+	vertical-align : middle;
+    width : 90%;
+    height : 50%;
+    margin : 25% 5%;
+    display : inline-block;
+}
