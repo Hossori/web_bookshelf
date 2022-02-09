@@ -40,7 +40,7 @@ class BookList {
 		name.append(document.createTextNode('書籍名　'+book.name));
 		let state = document.createElement('p');
 		let stateText;
-		let stateArray = ['読後', '読後', '読後', '読後'];
+		let stateArray = ['読後', '読中', '未読', '積読'];
 		if(book.state) {
 			stateText = stateArray[book.state];
 		} else {
@@ -73,4 +73,38 @@ class BookList {
 		return anchor;
     }
 
+}
+
+function showBookDetail() {
+	let bookNameTd = $('#'+getProperty('book.detail.name.id')+' td');
+	let bookStateTd = $('#'+getProperty('book.detail.state.id')+' td');
+	let bookEvaluationTd = $('#'+getProperty('book.detail.evaluation.id')+' td');
+	let bookMemoTd = $('#'+getProperty('book.detail.memo.id')+' td');
+	
+	let bookName = bookNameTd.attr('data');
+	bookNameTd.append(document.createTextNode(bookName));
+	
+	let stateArray = ['読後', '読中', '未読', '積読'];
+	let bookState = bookStateTd.attr('data') ? stateArray[bookStateTd.attr('data')] : '-';
+	bookStateTd.append(document.createTextNode(bookState));
+	
+	let bookEvaluation = '';
+	if(bookEvaluationTd.attr('data')) {
+		let starCount = 5;
+		for(let i = 0; i < bookEvaluationTd.attr('data'); i++) {
+			bookEvaluation += '★';
+			starCount--;
+		}
+		for(; 0 < starCount; starCount--) {
+			bookEvaluation += '☆';
+		}
+	} else {
+		bookEvaluation = '-';
+	}
+	bookEvaluationTd.append(document.createTextNode(bookEvaluation));
+	
+	let bookMemo = bookMemoTd.attr('data') ? bookMemoTd.attr('data') : '-';
+	let bookMemoPre = document.createElement('pre');
+	bookMemoPre.append(document.createTextNode(bookMemo));
+	bookMemoTd.append(bookMemoPre);
 }

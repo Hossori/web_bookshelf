@@ -7,14 +7,32 @@
         <link rel="stylesheet" th:href="@{/css/book.css}">
         <script th:src="@{/js/part/book.js}" defer></script>
         <script type="text/javascript">
-            console.log('book/show.html');
+            $(function() {
+            	showBookDetail();
+            });
         </script>
     </head>
     <body>
         <div layout:fragment="content">
             <div th:id="#{book.detail.container.id}">
-                <p th:text="${book.name}"></p>
-                <pre th:text="${book.memo}"></pre>
+            	<table>
+					<tr th:id="#{book.detail.name.id}">
+						<th th:text="#{book.name.caption}"></th>
+						<td th:data="${book.name}"></td>
+					</tr>
+	                <tr th:id="#{book.detail.state.id}">
+	                	<th th:text="#{book.state.caption}"></th>
+	                	<td th:data="${book.state}"></td>
+	                </tr>
+	                <tr th:id="#{book.detail.evaluation.id}">
+	                	<th th:text="#{book.evaluation.caption}"></th>
+	                	<td th:data="${book.evaluation}"></td>
+	                </tr>
+	                <tr th:id="#{book.detail.memo.id}">
+	                	<th th:text="#{book.memo.caption}"></th>
+	                	<td th:data="${book.memo}"></td>
+	                </tr>
+            	</table>
             </div>
         </div>
     </body>
