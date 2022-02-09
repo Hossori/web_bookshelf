@@ -10,8 +10,10 @@ import com.hsr.domain.bookshelf.model.Bookshelf;
 @Service
 public interface BookService {
 
-	public Page<Book> getPages(Pageable pageable);
-	
-	public Page<Book> getPagesInBookshelf(Pageable pageable, Bookshelf bookshelf);
-	
+    public Book getById(Integer id);
+
+    public Page<Book> getPages(Pageable pageable);
+
+    public Page<Book> getPagesInBookshelf(Pageable pageable, Bookshelf bookshelf);
+
 }
