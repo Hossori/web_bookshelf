@@ -1,5 +1,7 @@
 'use strict';
 
+var _stateArray = ['読後', '読中', '未読', '積読'];
+
 function showBookListInBookshelf(page) {
     resetContainers();
     let bookContainer = $('#'+getProperty('book.list.container.id'));
@@ -28,6 +30,7 @@ function showBookListInBookshelf(page) {
 class BookList {
 
     constructor(bookList, container) {
+		this.createStarsOfEvaluation = createStarsOfEvaluation;
 		bookList.forEach(book => {
 			let html = this.createHtml(book);
 			container.append(html);
@@ -40,16 +43,15 @@ class BookList {
 		name.append(document.createTextNode('書籍名　'+book.name));
 		let state = document.createElement('p');
 		let stateText;
-		let stateArray = ['読後', '読中', '未読', '積読'];
 		if(book.state) {
-			stateText = stateArray[book.state];
+			stateText = _stateArray[book.state];
 		} else {
 			stateText = '-';
 		}
-		state.append(document.createTextNode('　状態　'+stateText));
+		state.append(document.createTextNode('状態　'+stateText));
 		let evaluation = document.createElement('p');
-		let evaluationText = book.evaluation === null ? '-' : book.evaluation;
-		evaluation.append(document.createTextNode('　評価　'+evaluationText));
+		let evaluationText = createStarsOfEvaluation(book.evaluation);
+		evaluation.append(document.createTextNode('評価　'+evaluationText));
 		let createdAt = document.createElement('p');
 		let createdAtText = formatDateTime(new Date(book.createdAt), 'datetime');
 		createdAt.append(document.createTextNode('登録日　'+createdAtText));
@@ -84,27 +86,33 @@ function showBookDetail() {
 	let bookName = bookNameTd.attr('data');
 	bookNameTd.append(document.createTextNode(bookName));
 	
-	let stateArray = ['読後', '読中', '未読', '積読'];
-	let bookState = bookStateTd.attr('data') ? stateArray[bookStateTd.attr('data')] : '-';
+	let bookState = bookStateTd.attr('data') ? _stateArray[bookStateTd.attr('data')] : '-';
 	bookStateTd.append(document.createTextNode(bookState));
 	
-	let bookEvaluation = '';
-	if(bookEvaluationTd.attr('data')) {
-		let starCount = 5;
-		for(let i = 0; i < bookEvaluationTd.attr('data'); i++) {
-			bookEvaluation += '★';
-			starCount--;
-		}
-		for(; 0 < starCount; starCount--) {
-			bookEvaluation += '☆';
-		}
-	} else {
-		bookEvaluation = '-';
-	}
+	let bookEvaluation = createStarsOfEvaluation(bookEvaluationTd.attr('data'));
 	bookEvaluationTd.append(document.createTextNode(bookEvaluation));
 	
 	let bookMemo = bookMemoTd.attr('data') ? bookMemoTd.attr('data') : '-';
 	let bookMemoPre = document.createElement('pre');
 	bookMemoPre.append(document.createTextNode(bookMemo));
 	bookMemoTd.append(bookMemoPre);
+}
+
+function createStarsOfEvaluation(evaluationInt) {
+	let evaluationStars = '';
+	
+	if(evaluationInt) {
+		let starCount = 5;
+		for(let i = 0; i < evaluationInt; i++) {
+			evaluationStars += '★';
+			starCount--;
+		}
+		for(; 0 < starCount; starCount--) {
+			evaluationStars += '☆';
+		}
+	} else {
+		evaluationStars = '-';
+	}
+	
+	return evaluationStars;
 }
