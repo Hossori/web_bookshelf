@@ -19,8 +19,13 @@ public class BookshelfController {
 	private BookshelfService bookshelfService;
 	
     @GetMapping("/index")
-    public String index() {
+    public String index(
+    		Model model,
+    		@RequestParam("page") int page) {
+    	
+    	model.addAttribute(page);
         return PathConst.BOOKSHELF_INDEX.getValue();
+        
     }
 
     @GetMapping("/show")

@@ -10,7 +10,9 @@
         <script th:src="@{/js/part/pagination.js}" defer></script>
         <script type="text/javascript">
             $(function() {
-                showBookshelfList(0);
+            	let params = (new URL(document.location)).searchParams;
+            	let page = params.get('page');
+                showBookshelfList(page);
             });
         </script>
     </head>
