@@ -36,35 +36,65 @@ class BookList {
 			container.append(html);
 		});
     }
+    
+    createTrs() {
+	
+		let trs = {
+			name : document.createElement('tr'),
+			state : document.createElement('tr'),
+			evaluation : document.createElement('tr'),
+			createdAt : document.createElement('tr')
+		};
+		/*
+		let nameTh = document.createElement('th');
+		nameTh.append(document.createTextNode(getProperty('book.name.caption')));
+		trs.name.append(nameTh);
+		
+		let stateTh = document.createElement('th');
+		stateTh.append(document.createTextNode(getProperty('book.state.caption')));
+		trs.state.append(stateTh);
+		
+		let evaluationTh = document.createElement('th');
+		evaluationTh.append(document.createTextNode(getProperty('book.evaluation.caption')));
+		trs.evaluation.append(evaluationTh);
+		
+		let createdAtTh = document.createElement('th');
+		createdAtTh.append(document.createTextNode(getProperty('book.createdAt.caption')));
+		trs.createdAt.append(createdAtTh);
+		*/
+		return trs;
+	}
 
     createHtml(book) {
 		
-		let name = document.createElement('p');
-		name.append(document.createTextNode('書籍名　'+book.name));
-		let state = document.createElement('p');
-		let stateText;
-		if(book.state) {
-			stateText = _stateArray[book.state];
-		} else {
-			stateText = '-';
-		}
-		state.append(document.createTextNode('状態　'+stateText));
-		let evaluation = document.createElement('p');
-		let evaluationText = createStarsOfEvaluation(book.evaluation);
-		evaluation.append(document.createTextNode('評価　'+evaluationText));
-		let createdAt = document.createElement('p');
-		let createdAtText = formatDateTime(new Date(book.createdAt), 'datetime');
-		createdAt.append(document.createTextNode('登録日　'+createdAtText));
+		let trs = this.createTrs();
+		
+		let nameTd = document.createElement('td');
+		nameTd.append(document.createTextNode(book.name));
+		trs.name.append(nameTd);
+		
+		let stateTd = document.createElement('td');
+		stateTd.append(document.createTextNode(book.state ? _stateArray[book.state] : getProperty('book.list.state.unset')));
+		trs.state.append(stateTd);
+		
+		let evaluationTd = document.createElement('td');
+		let evaluationText = createStarsOfEvaluation(book.evaluation)
+		evaluationText = evaluationText === '-' ? getProperty('book.list.evaluation.unset') : evaluationText;
+		evaluationTd.append(document.createTextNode(evaluationText));
+		trs.evaluation.append(evaluationTd);
+		
+		let createdAtTd = document.createElement('td');
+		createdAtTd.append(document.createTextNode(formatDateTime(new Date(book.createdAt), 'datetime')));
+		trs.createdAt.append(createdAtTd);
 
-		let bookInfoDiv = document.createElement('div');
-		bookInfoDiv.append(name);
-		bookInfoDiv.append(createdAt);
-		bookInfoDiv.append(state);
-		bookInfoDiv.append(evaluation);
-		bookInfoDiv.setAttribute('class', 'bookListInfo');
+		let bookInfoTable = document.createElement('table');
+		for(let tr of Object.values(trs)) {
+			bookInfoTable.append(tr);
+		}
+		bookInfoTable.setAttribute('class', 'bookListInfo');
 		
 		let div = document.createElement('div');
-		div.append(bookInfoDiv);
+		div.append(bookInfoTable);
 		div.setAttribute('id', 'book'+book.id);
 		div.setAttribute('class', 'bookList');
 		

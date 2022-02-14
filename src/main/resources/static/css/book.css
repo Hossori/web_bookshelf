@@ -4,7 +4,7 @@
 .bookList {
     background-image : url("/image/book.png");
     background-repeat : no-repeat;
-    color : white;
+    color : black;
     font-weight : bold;
     font-size : 20px;
 
@@ -18,10 +18,7 @@
 .bookList:hover {
     opacity : 0.8;
 }
-.bookListInfo {
-	vertical-align : middle;
-    width : 90%;
-    height : 50%;
+table.bookListInfo {
     margin : 25% 5%;
     display : inline-block;
 }
@@ -33,8 +30,6 @@
 }
 .bookDetail table tr th {
 	text-align : right;
-}
-.bookDetail table tr td {
 }
 .bookDetail table tr td pre {
 	font-size : 16px;
