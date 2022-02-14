@@ -28,6 +28,14 @@
 	                	<th th:text="#{book.evaluation.caption}"></th>
 	                	<td th:data="${book.evaluation}"></td>
 	                </tr>
+	                <tr th:id="#{book.detail.createdAt.id}">
+	                	<th th:text="#{book.createdAt.caption}"></th>
+	                	<td th:data="${book.createdAt}"></td>
+	                </tr>
+	                <tr th:id="#{book.detail.updatedAt.id}">
+	                	<th th:text="#{book.updatedAt.caption}"></th>
+	                	<td th:data="${book.updatedAt}"></td>
+	                </tr>
 	                <tr th:id="#{book.detail.memo.id}">
 	                	<th th:text="#{book.memo.caption}"></th>
 	                	<td th:data="${book.memo}"></td>

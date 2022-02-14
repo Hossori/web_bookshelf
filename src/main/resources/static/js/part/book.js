@@ -1,6 +1,6 @@
 'use strict';
 
-var _stateArray = ['読後', '読中', '未読', '積読'];
+var _stateArray = JSON.parse(getProperty('book.state.array'));
 
 function showBookListInBookshelf(page) {
     resetContainers();
@@ -81,6 +81,8 @@ function showBookDetail() {
 	let bookNameTd = $('#'+getProperty('book.detail.name.id')+' td');
 	let bookStateTd = $('#'+getProperty('book.detail.state.id')+' td');
 	let bookEvaluationTd = $('#'+getProperty('book.detail.evaluation.id')+' td');
+	let bookCreatedAtTd = $('#'+getProperty('book.detail.createdAt.id')+' td');
+	let bookUpdatedAtTd = $('#'+getProperty('book.detail.updatedAt.id')+' td');
 	let bookMemoTd = $('#'+getProperty('book.detail.memo.id')+' td');
 	
 	let bookName = bookNameTd.attr('data');
@@ -91,6 +93,12 @@ function showBookDetail() {
 	
 	let bookEvaluation = createStarsOfEvaluation(bookEvaluationTd.attr('data'));
 	bookEvaluationTd.append(document.createTextNode(bookEvaluation));
+	
+	let bookCreatedAt = formatDateTime(new Date(bookCreatedAtTd.attr('data')), 'datetime');
+	bookCreatedAtTd.append(document.createTextNode(bookCreatedAt));
+	
+	let bookUpdatedAt = formatDateTime(new Date(bookUpdatedAtTd.attr('data')), 'datetime');
+	bookUpdatedAtTd.append(document.createTextNode(bookUpdatedAt));
 	
 	let bookMemo = bookMemoTd.attr('data') ? bookMemoTd.attr('data') : '-';
 	let bookMemoPre = document.createElement('pre');

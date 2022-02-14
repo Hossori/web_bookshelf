@@ -27,6 +27,16 @@
 }
 
 /* book detail */
+.bookDetail table tr th,
 .bookDetail table tr td {
-	
+	padding : 8px 36px 8px 0px;
+}
+.bookDetail table tr th {
+	text-align : right;
+}
+.bookDetail table tr td {
+}
+.bookDetail table tr td pre {
+	font-size : 16px;
+	white-space : pre-wrap;
 }

@@ -29,11 +29,11 @@ function formatDateTime(datetime, formatType) {
 	let minute = datetime.getMinutes();
 	
 	let text;
-	if(formatType === 'date') {
+	/*if(formatType === 'date') {
 		text = year+'/'+month+'/'+day;
 	} else if(formatType === 'time') {
 		text = hour+':'+minute+':'+second;
-	} else if(formatType === 'datetime') {
+	} else */if(formatType === 'datetime') {
 		text = year+'/'+month+'/'+day+' '+hour+':'+minute;
 	}
 	
