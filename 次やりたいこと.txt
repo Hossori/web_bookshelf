@@ -1,0 +1,2 @@
+book/show.htmlのtable要素、jsで作成するように修正したい。その際、bookのidをrequest parameterから取得しなきゃだからnew URL(document.location)のやつでやる。
+編集画面への遷移（ページ遷移せずjsでいきたい）に不都合あるようなら上記はやめる
