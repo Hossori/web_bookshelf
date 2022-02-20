@@ -46,7 +46,7 @@ class BookList {
         trs.name.append(nameTd);
 
         let stateTd = document.createElement('td');
-        stateTd.append(document.createTextNode(book.state ? _stateArray[book.state] : getProperty('book.list.state.unset')));
+        stateTd.append(document.createTextNode(book.state !== undefined ? _stateArray[book.state] : getProperty('book.list.state.unset')));
         trs.state.append(stateTd);
 
         let evaluationTd = document.createElement('td');
@@ -136,27 +136,55 @@ class BookDetail {
     }
 
     createHtml() {
-        // ["bookName", "bookState", "bookEvaluation", "bookCreatedAt", "bookUpdatedAt", "bookMemo"]
-        let headerArray = JSON.parse(getProperty('book.detail.caption.array'));
-        let dataArray = [
+        // create trContents which has th and td every key
+        // ["name", "state", "evaluation", "createdAt", "updatedAt", "memo"]
+        let trKeys = JSON.parse(getProperty('book.detail.key.array'));
+        let trContents = {};
+        for(let key of trKeys) {
+            trContents[key] = {
+                header : document.createElement('th'),
+                data : document.createElement('td')
+            };
+        }
+        // create array of header, data, id of tr
+        let headerContentArray = JSON.parse(getProperty('book.detail.caption.array'));
+        let dataContentArray = [
             this.book.name,
-            this.book.state ? _stateArray[this.book.state] : '-',
+            this.book.state !== undefined ? _stateArray[this.book.state] : '-',
             this.createStarsOfEvaluation(this.book.evaluation),
             formatDateTime(new Date(this.book.createdAt), 'datetime'),
             formatDateTime(new Date(this.book.updatedAt),'datetime'),
             this.book.memo
         ];
+        let idArray = JSON.parse(getProperty('book.detail.id.array'));
+        // set content of header and data to trContents
+        for(let i = 0; i < trKeys.length; i++) {
+            let key = trKeys[i];
+            let headerContent = headerContentArray[i];
+            let dataContent = dataContentArray[i];
+
+            if(key === 'memo') {
+                headerContent = document.createTextNode(headerContent);
+                let pre = document.createElement('pre');
+                pre.append(document.createTextNode(dataContent));
+                dataContent = pre;
+            } else {
+                headerContent = document.createTextNode(headerContent);
+                dataContent = document.createTextNode(dataContent);
+            }
+
+            let trContent = trContents[key];
+            trContent.header.append(headerContent);
+            trContent.data.append(dataContent);
+        }
 
         let table = document.createElement('table');
-        for(let r = 0; r < headerArray.length; r++) {
-            let th = document.createElement('th');
-            th.append(document.createTextNode(headerArray[r]));
-            let td = document.createElement('td');
-            td.append(document.createTextNode(dataArray[r]));
+        for(let i = 0; i < trKeys.length; i++) {
             let tr = document.createElement('tr');
-            tr.append(th);
-            tr.append(td);
-
+            let trContent = trContents[trKeys[i]];
+            tr.append(trContent.header);
+            tr.append(trContent.data);
+            tr.setAttribute('id', idArray[i]);
             table.append(tr);
         }
 
