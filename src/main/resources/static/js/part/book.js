@@ -3,7 +3,7 @@
 var _stateArray = JSON.parse(getProperty('book.state.array'));
 
 function showBookListInBookshelf(page) {
-    resetContainers();
+    resetContainers(page);
     let bookListContainer = $('#'+getProperty('book.list.container.id'));
     _containers.push(bookListContainer);
     let bookshelfId = parseInt(bookListContainer.attr('data-id'));
@@ -18,7 +18,7 @@ function showBookListInBookshelf(page) {
         // reflesh book container
         let pages = res.data.bookPages;
         let books = pages.content;
-        new BookList(books, bookListContainer);
+        new BookList(books, bookshelfId, page, bookListContainer);
         // reflesh pagination container
         let paginationContainer = $('#'+getProperty('pagination.container.id'));
         _containers.push(paginationContainer);
@@ -29,7 +29,9 @@ function showBookListInBookshelf(page) {
 
 class BookList {
 
-    constructor(bookList, container) {
+    constructor(bookList, bookshelfId, bookshelfPage, container) {
+        this.bookshelfId = bookshelfId;
+        this.bookshelfPage = bookshelfPage;
         this.createStarsOfEvaluation = createStarsOfEvaluation;
         bookList.forEach(book => {
             let html = this.createHtml(book);
@@ -38,29 +40,52 @@ class BookList {
     }
 
     createHtml(book) {
+        // create object for tr
+        let trContents = {};
+        // initialize object for tr
+        // ["name", "state", "evaluation", "createdAt"]
+        let trKeys = JSON.parse(getProperty('book.list.key.array'));
+        for(let key of trKeys) {
+            trContents[key] = {
+                tooltip : null,
+                data : document.createElement('td')
+            };
+        }
+        // create header array, data array, id array
+        let tooltipContentArray = JSON.parse(getProperty('book.list.caption.array'));
+        let dataContentArray = [
+            book.name,
+            book.state !== undefined ? _stateArray[book.state] : getProperty('book.list.state.unset'),
+            this.createStarsOfEvaluation(book.evaluation),
+            formatDateTime(new Date(book.createdAt), 'datetime'),
+        ];
+        let idArray = JSON.parse(getProperty('book.list.id.array'));
+        // set header, data to object for tr
+        for(let i = 0; i < trKeys.length; i++) {
+            let key = trKeys[i];
+            let tooltipContent = tooltipContentArray[i];
+            let dataContent = dataContentArray[i];
 
-        let trs = this.createTrs();
+            if(key === 'memo') {
+                let pre = document.createElement('pre');
+                pre.append(document.createTextNode(dataContent));
+                dataContent = pre;
+            } else {
+                dataContent = document.createTextNode(dataContent);
+            }
 
-        let nameTd = document.createElement('td');
-        nameTd.append(document.createTextNode(book.name));
-        trs.name.append(nameTd);
-
-        let stateTd = document.createElement('td');
-        stateTd.append(document.createTextNode(book.state !== undefined ? _stateArray[book.state] : getProperty('book.list.state.unset')));
-        trs.state.append(stateTd);
-
-        let evaluationTd = document.createElement('td');
-        let evaluationText = createStarsOfEvaluation(book.evaluation)
-        evaluationText = evaluationText === '-' ? getProperty('book.list.evaluation.unset') : evaluationText;
-        evaluationTd.append(document.createTextNode(evaluationText));
-        trs.evaluation.append(evaluationTd);
-
-        let createdAtTd = document.createElement('td');
-        createdAtTd.append(document.createTextNode(formatDateTime(new Date(book.createdAt), 'datetime')));
-        trs.createdAt.append(createdAtTd);
-
+            let trContent = trContents[key];
+            trContent.tooltip = tooltipContent;
+            trContent.data.append(dataContent);
+        }
+        // set tr id and insert tr to table
         let bookInfoTable = document.createElement('table');
-        for(let tr of Object.values(trs)) {
+        for(let i = 0; i < trKeys.length; i++) {
+            let tr = document.createElement('tr');
+            let trContent = trContents[trKeys[i]];
+            tr.append(trContent.data);
+            tr.setAttribute('title', trContent.tooltip);
+            tr.setAttribute('id', idArray[i]);
             bookInfoTable.append(tr);
         }
         bookInfoTable.setAttribute('class', 'bookListInfo');
@@ -71,40 +96,13 @@ class BookList {
         div.setAttribute('class', 'bookList');
 
         let anchor = document.createElement('a');
-        anchor.setAttribute('href', '/book/show?id='+book.id);
+        anchor.setAttribute('href', '/book/show?id='+book.id+
+                                    '&bookshelfId='+this.bookshelfId+
+                                    '&bookshelfPage='+this.bookshelfPage);
         anchor.append(div);
 
         return anchor;
     }
-
-    createTrs() {
-
-        let trs = {
-            name : document.createElement('tr'),
-            state : document.createElement('tr'),
-            evaluation : document.createElement('tr'),
-            createdAt : document.createElement('tr')
-        };
-        /*
-        let nameTh = document.createElement('th');
-        nameTh.append(document.createTextNode(getProperty('book.name.caption')));
-        trs.name.append(nameTh);
-
-        let stateTh = document.createElement('th');
-        stateTh.append(document.createTextNode(getProperty('book.state.caption')));
-        trs.state.append(stateTh);
-
-        let evaluationTh = document.createElement('th');
-        evaluationTh.append(document.createTextNode(getProperty('book.evaluation.caption')));
-        trs.evaluation.append(evaluationTh);
-
-        let createdAtTh = document.createElement('th');
-        createdAtTh.append(document.createTextNode(getProperty('book.createdAt.caption')));
-        trs.createdAt.append(createdAtTh);
-        */
-        return trs;
-    }
-
 }
 
 function showBookDetail() {
@@ -124,6 +122,11 @@ function showBookDetail() {
         // reflesh book container
         new BookDetail(book, bookDetailContainer);
     });
+
+    let backButton = $('#'+getProperty('book.detail.button.back.id'));
+    let backUrl = '/bookshelf/show?id='+backButton.attr('data-backId')
+                                +'&page='+backButton.attr('data-backPage');
+    backButton.attr('onclick', 'location.href='+'\''+backUrl+'\'');
 }
 
 class BookDetail {
@@ -136,17 +139,18 @@ class BookDetail {
     }
 
     createHtml() {
-        // create trContents which has th and td every key
+        // create object for tr
+        let trContents = {};
+        // initialize object for tr
         // ["name", "state", "evaluation", "createdAt", "updatedAt", "memo"]
         let trKeys = JSON.parse(getProperty('book.detail.key.array'));
-        let trContents = {};
         for(let key of trKeys) {
             trContents[key] = {
                 header : document.createElement('th'),
                 data : document.createElement('td')
             };
         }
-        // create array of header, data, id of tr
+        // create header array, data array, id array
         let headerContentArray = JSON.parse(getProperty('book.detail.caption.array'));
         let dataContentArray = [
             this.book.name,
@@ -157,7 +161,7 @@ class BookDetail {
             this.book.memo
         ];
         let idArray = JSON.parse(getProperty('book.detail.id.array'));
-        // set content of header and data to trContents
+        // set header, data to object for tr
         for(let i = 0; i < trKeys.length; i++) {
             let key = trKeys[i];
             let headerContent = headerContentArray[i];
@@ -177,7 +181,7 @@ class BookDetail {
             trContent.header.append(headerContent);
             trContent.data.append(dataContent);
         }
-
+        // set tr id and insert tr to table
         let table = document.createElement('table');
         for(let i = 0; i < trKeys.length; i++) {
             let tr = document.createElement('tr');

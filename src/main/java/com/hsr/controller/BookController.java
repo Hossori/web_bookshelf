@@ -21,10 +21,14 @@ public class BookController {
     @GetMapping("/show")
     public String show(
             Model model,
-            @RequestParam("id") int id) {
+            @RequestParam("id") int id,
+            @RequestParam("bookshelfId") int bookshelfId,
+            @RequestParam("bookshelfPage") int bookshelfPage) {
 
         Book book = bookService.getById(id);
         model.addAttribute(book);
+        model.addAttribute("bookshelfId", bookshelfId);
+        model.addAttribute("bookshelfPage", bookshelfPage);
 
         return PathConst.BOOK_SHOW.getValue();
     }

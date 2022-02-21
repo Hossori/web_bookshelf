@@ -15,6 +15,11 @@
     <body>
         <div layout:fragment="content">
             <div th:id="#{book.detail.container.id}" class="bookDetail" th:data="${book.id}"></div>
+            <input type="button"
+                th:id="#{book.detail.button.back.id}"
+                th:value="#{book.detail.button.back.caption}"
+                th:data-backId="${bookshelfId}"
+                th:data-backPage="${bookshelfPage}">
         </div>
     </body>
 </html>

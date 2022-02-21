@@ -12,7 +12,8 @@
         <script th:src="@{/js/part/pagination.js}" defer></script>
         <script type="text/javascript">
             $(function() {
-                showBookListInBookshelf(0);
+                let page = new URL(location).searchParams.get('page');
+                showBookListInBookshelf(page);
             });
         </script>
     </head>

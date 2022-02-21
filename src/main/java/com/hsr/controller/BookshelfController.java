@@ -15,28 +15,30 @@ import com.hsr.domain.bookshelf.service.BookshelfService;
 @RequestMapping("/bookshelf")
 public class BookshelfController {
 
-	@Autowired
-	private BookshelfService bookshelfService;
-	
+    @Autowired
+    private BookshelfService bookshelfService;
+
     @GetMapping("/index")
     public String index(
-    		Model model,
-    		@RequestParam("page") int page) {
-    	
-    	model.addAttribute(page);
+            Model model,
+            @RequestParam("page") int page) {
+
+        model.addAttribute(page);
         return PathConst.BOOKSHELF_INDEX.getValue();
-        
+
     }
 
     @GetMapping("/show")
     public String show(
-    		Model model,
-    		@RequestParam("id") int id) {
-    	
-    	Bookshelf bookshelf = bookshelfService.getById(id);
-    	model.addAttribute(bookshelf);
-    	
-    	return PathConst.BOOKSHELF_SHOW.getValue();
+            Model model,
+            @RequestParam("id") int id,
+            @RequestParam("page") int page) {
+
+        Bookshelf bookshelf = bookshelfService.getById(id);
+        model.addAttribute(bookshelf);
+        model.addAttribute("page", page);
+
+        return PathConst.BOOKSHELF_SHOW.getValue();
     }
-    
+
 }

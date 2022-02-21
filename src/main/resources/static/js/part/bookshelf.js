@@ -57,7 +57,7 @@ class BookshelfList {
 
         let anchor = document.createElement('a');
         anchor.append(div);
-        anchor.setAttribute('href', '/bookshelf/show?id='+bookshelf.id);
+        anchor.setAttribute('href', '/bookshelf/show?id='+bookshelf.id+'&page=0');
 
         return anchor;
     }
