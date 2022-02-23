@@ -1,6 +1,6 @@
 'use strict';
 
-var _stateArray = JSON.parse(getProperty('book.state.array'));
+//var _stateArray = JSON.parse(getProperty('book.state.array'));
 
 function showBookListInBookshelf(page) {
     resetContainers(page);

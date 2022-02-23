@@ -12,8 +12,8 @@
         <script th:src="@{/js/part/pagination.js}" defer></script>
         <script type="text/javascript">
             $(function() {
-                let page = new URL(location).searchParams.get('page');
-                showBookListInBookshelf(page);
+                //let page = new URL(location).searchParams.get('page');
+                //showBookListInBookshelf(page);
             });
         </script>
     </head>
@@ -26,8 +26,41 @@
                 <p th:text="${#temporals.format(bookshelf.updatedAt, 'yyyy/MM/dd HH:mm')}"></p>
             </div>
 
-            <div th:id="#{book.list.container.id}" th:data-id="${bookshelf.id}"></div>
+            <div th:id="#{book.list.container.id}" th:data-id="${bookshelf.id}">
+                <a th:each="book:${books}" th:href="'book/show?id='+${book.id}">
+                    <div th:id="'book'+${book.id}" class="bookList">
+                        <table class="bookListInfo">
+                            <tr th:title="#{book.list.caption.name}">
+                                <td th:text="${book.name}"></td>
+                            </tr>
+                            <tr th:title="#{book.list.caption.state}">
+                                <td th:text="${book.state}"></td>
+                            </tr>
+                            <tr th:title="#{book.list.caption.evaluation}">
+                                <td th:text="${book.evaluation}"></td>
+                            </tr>
+                            <tr th:title="#{book.list.caption.createdAt}">
+                                <td th:text="${book.createdAt}"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </a>
+            </div>
             <div th:id="#{pagination.container.id}"></div>
+            <!-- ページネーションの参考(message_board_spring)
+                <ul id="pagination" class="pagination">
+                    <li th:if="${page.first}" class="mr-2"><span>前</span></li>
+                    <li th:if="${!page.first}"><a th:href="@{/message/index?(page=${page.number}-1)}">前</a></li>
+
+                    <li th:each="i:${#numbers.sequence(0,totalPage-1)}" class="mr-2">
+                        <span th:if="${i == page.number}" th:text="${i+1}"></span>
+                        <a th:if="${i != page.number}" th:href="@{/message/index?(page=${i})}" th:text="${i+1}"></a>
+                    </li>
+
+                    <li th:if="${page.last}"><span>次</span></li>
+                    <li th:if="${!page.last}"><a th:href="@{/message/index?(page=${page.number}+1)}">次</a></li>
+                </ul>
+             -->
         </div>
     </body>
 </html>
