@@ -1,7 +1,10 @@
 @charset "UTF-8";
 
 /* book list */
-.bookList {
+a.bookListAnchor {
+    text-decoration : none;
+}
+div.bookList {
     background-image : url("/image/book.png");
     background-repeat : no-repeat;
     color : black;
@@ -15,7 +18,7 @@
     height : 250px;
     display : inline-block;
 }
-.bookList:hover {
+div.bookList:hover {
     opacity : 0.8;
 }
 table.bookListInfo {

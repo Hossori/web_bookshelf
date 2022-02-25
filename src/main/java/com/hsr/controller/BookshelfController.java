@@ -1,7 +1,6 @@
 package com.hsr.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -49,16 +48,14 @@ public class BookshelfController {
 
         Bookshelf bookshelf = bookshelfService.getById(id);
         Page<Book> bookPages = bookService.getPagesInBookshelf(pageable, bookshelf);
-        List<BookView> bookViewList =
-                bookPages.getContent()
-                    .stream()
-                        .map(BookConverter::toView)
-                        .collect(Collectors.toList());
+        List<Book> bookList = bookPages.getContent();
+        List<BookView> bookViewList = BookConverter.toViewList(bookList);
         int pageCount = bookPages.getTotalPages();
 
         model.addAttribute(bookshelf);
+        model.addAttribute("bookPages", bookPages);
         model.addAttribute("books", bookViewList);
-        model.addAttribute(pageCount);
+        model.addAttribute("pageCount", pageCount);
 
         return PathConst.BOOKSHELF_SHOW.getValue();
     }

@@ -2,7 +2,9 @@ package com.hsr.domain.book.model.converter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -35,6 +37,14 @@ public class BookConverter {
                 );
 
         return bookView;
+
+    }
+
+    public static List<BookView> toViewList(List<Book> bookList) {
+
+        return bookList.stream()
+                    .map(BookConverter::toView)
+                    .collect(Collectors.toList());
 
     }
 
