@@ -50,7 +50,8 @@ public class BookshelfController {
         Page<Book> bookPages = bookService.getPagesInBookshelf(pageable, bookshelf);
         List<Book> bookList = bookPages.getContent();
         List<BookView> bookViewList = BookConverter.toViewList(bookList);
-        int pageCount = bookPages.getTotalPages();
+        int pageCount = 
+        		bookPages.getTotalPages() == 0 ? 1 : bookPages.getTotalPages();
 
         model.addAttribute(bookshelf);
         model.addAttribute("bookPages", bookPages);
