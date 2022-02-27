@@ -33,7 +33,26 @@
                     </div>
                 </a>
             </div>
-            <ol th:id="#{pagination.container.id}"></ol>
+            <ul th:id="#{pagination.container.id}" class="pagination">
+                 <li th:if="${bookshelfPages.first}">
+                     <span>前</span>
+                 </li>
+                 <li th:if="${!bookshelfPages.first}">
+                     <a th:href="@{index(page=${bookshelfPages.number}-1)}">前</a>
+                 </li>
+
+                 <li th:each="i:${#numbers.sequence(0, pageCount-1)}">
+                     <span th:if="${i == bookshelfPages.number}" th:text="${i+1}"></span>
+                     <a th:if="${i != bookshelfPages.number}" th:href="@{index(page=${i})}" th:text="${i+1}"></a>
+                 </li>
+
+                 <li th:if="${bookshelfPages.last}">
+                     <span>次</span>
+                 <li>
+                 <li th:if="${!bookshelfPages.last}">
+                     <a th:href="@{index(page=${bookshelfPages.number}+1)}">次</a>
+                 </li>
+            </ul>
         </div>
     </body>
 </html>
