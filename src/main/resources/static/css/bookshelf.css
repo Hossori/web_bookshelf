@@ -2,30 +2,36 @@
 
 /* bookshelf index */
 .bookshelfList {
-    background-image : url("/image/bookshelf.jpg");
-    background-repeat : no-repeat;
-    color : white;
-    font-weight : bold;
-    font-size : 22px;
+    background-image: url("/image/bookshelf.jpg");
+    background-repeat: no-repeat;
+    color: white;
+    font-weight: bold;
+    font-size: 22px;
 
-    cursor : pointer;
+    cursor: pointer;
 
-    margin : 6px 12px 6px 0px;
-    width : 200px;
-    height : 250px;
-    display : inline-block;
+    margin: 6px 12px 6px 0px;
+    width: 200px;
+    height: 250px;
+    display: inline-block;
 }
+
+.bookshelfListAnchor {
+    text-decoration: none;
+}
+
 .bookshelfList:hover {
-    opacity : 0.8;
+    opacity: 0.8;
 }
+
 .bookshelfListInfo {
-    width : 80%;
-    height : 80%;
-    margin : 10%;
-    display : inline-block;
+    width: 80%;
+    height: 80%;
+    margin: 10%;
+    display: inline-block;
 }
 
 /* bookshelf show */
 #bookshelfDetailContainer pre {
-    font-size : 18px;
+    font-size: 18px;
 }

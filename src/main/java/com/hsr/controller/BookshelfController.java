@@ -17,6 +17,8 @@ import com.hsr.domain.book.model.BookView;
 import com.hsr.domain.book.model.converter.BookConverter;
 import com.hsr.domain.book.service.BookService;
 import com.hsr.domain.bookshelf.model.Bookshelf;
+import com.hsr.domain.bookshelf.model.BookshelfView;
+import com.hsr.domain.bookshelf.model.converter.BookshelfConverter;
 import com.hsr.domain.bookshelf.service.BookshelfService;
 
 import lombok.RequiredArgsConstructor;
@@ -32,9 +34,19 @@ public class BookshelfController {
     @GetMapping("/index")
     public String index(
             Model model,
+            @PageableDefault(size=10) Pageable pageable,
             @RequestParam("page") int page) {
 
-        model.addAttribute(page);
+        Page<Bookshelf> bookshelfPages = bookshelfService.getPages(pageable);
+        List<Bookshelf> bookshelfList = bookshelfPages.getContent();
+        List<BookshelfView> bookshelfViewList = BookshelfConverter.toViewList(bookshelfList);
+        int pageCount =
+                bookshelfPages.getTotalPages() == 0 ? 1 : bookshelfPages.getTotalPages();
+
+        model.addAttribute("bookshelfPages", bookshelfPages);
+        model.addAttribute("bookshelfs", bookshelfViewList);
+        model.addAttribute("pageCount", pageCount);
+
         return PathConst.BOOKSHELF_INDEX.getValue();
 
     }
@@ -50,7 +62,8 @@ public class BookshelfController {
         Page<Book> bookPages = bookService.getPagesInBookshelf(pageable, bookshelf);
         List<Book> bookList = bookPages.getContent();
         List<BookView> bookViewList = BookConverter.toViewList(bookList);
-        int pageCount = bookPages.getTotalPages();
+        int pageCount =
+                bookPages.getTotalPages() == 0 ? 1 : bookPages.getTotalPages();
 
         model.addAttribute(bookshelf);
         model.addAttribute("bookPages", bookPages);

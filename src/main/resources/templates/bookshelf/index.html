@@ -8,13 +8,6 @@
         <link rel="stylesheet" th:href="@{/css/pagination.css}">
         <script th:src="@{/js/part/bookshelf.js}" defer></script>
         <script th:src="@{/js/part/pagination.js}" defer></script>
-        <script type="text/javascript">
-            $(function() {
-            	let params = (new URL(document.location)).searchParams;
-            	let page = params.get('page');
-                showBookshelfList(page);
-            });
-        </script>
     </head>
     <body>
         <div layout:fragment="content">
@@ -23,7 +16,23 @@
                 <input type="text" th:id="#{bookshelf.searchBox.id}">
                 <input type="submit" th:id="#{bookshelf.searchButton.id}" th:value="#{bookshelf.searchButton.caption}">
             </form>
-            <div th:id="#{bookshelf.list.container.id}"></div>
+            <div th:id="#{bookshelf.list.container.id}">
+                <a th:each="bookshelf:${bookshelfs}" th:href="@{/bookshelf/show(id=${bookshelf.id}, page=0)}" class="bookshelfListAnchor">
+                    <div th:id="'bookshelf'+${bookshelf.id}" class="bookshelfList">
+                        <table class="bookshelfListInfo">
+                            <tr th:title="#{bookshelf.list.caption.userName}">
+                                <td th:text="${bookshelf.user.name}"></td>
+                            </tr>
+                            <tr th:title="#{bookshelf.list.caption.name}">
+                                <td th:text="${bookshelf.name}"></td>
+                            </tr>
+                            <tr th:title="#{bookshelf.list.caption.createdAt}">
+                                <td th:text="${bookshelf.createdAt}"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </a>
+            </div>
             <ol th:id="#{pagination.container.id}"></ol>
         </div>
     </body>
