@@ -9,7 +9,7 @@ public enum PathConst {
     BOOKSHELF_INDEX("bookshelf"+BasePathEnum.INDEX.getValue()),
     BOOKSHELF_SHOW("bookshelf"+BasePathEnum.SHOW.getValue()),
 
-    BOOK_SHOW("book"+BasePathEnum.SHOW.getValue());
+    BOOK_DETAIL("book"+BasePathEnum.DETAIL.getValue());
 
     @Getter
     private final String value;
@@ -18,6 +18,7 @@ public enum PathConst {
     private enum BasePathEnum {
 
         INDEX("/index"),
+        DETAIL("/detail"),
         SHOW("/show"),
         CREATE("/create"),
         UPDATE("/update"),

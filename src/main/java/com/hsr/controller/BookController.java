@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hsr.constant.PathConst;
 import com.hsr.domain.book.model.Book;
+import com.hsr.domain.book.model.BookView;
+import com.hsr.domain.book.model.converter.BookConverter;
 import com.hsr.domain.book.service.BookService;
 
 @Controller
@@ -21,16 +23,14 @@ public class BookController {
     @GetMapping("/show")
     public String show(
             Model model,
-            @RequestParam("id") int id,
-            @RequestParam("bookshelfId") int bookshelfId,
-            @RequestParam("bookshelfPage") int bookshelfPage) {
+            @RequestParam("id") int id) {
 
         Book book = bookService.getById(id);
-        model.addAttribute(book);
-        model.addAttribute("bookshelfId", bookshelfId);
-        model.addAttribute("bookshelfPage", bookshelfPage);
+        BookView bookView = BookConverter.toView(book);
+        model.addAttribute("book", bookView);
+        model.addAttribute("detailType", "show");
 
-        return PathConst.BOOK_SHOW.getValue();
+        return PathConst.BOOK_DETAIL.getValue();
     }
 
 }

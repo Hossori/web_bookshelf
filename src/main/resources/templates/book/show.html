@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-        layout:decorate="~{part/layout}">
+        layout:decorate="~{book/detail}">
     <head>
         <title th:text="#{title.book.show}+#{title.postfix}"></title>
-        <link rel="stylesheet" th:href="@{/css/book.css}">
-        <script th:src="@{/js/part/book.js}" defer></script>
-        <script type="text/javascript">
-            $(function() {
-                showBookDetail();
-            });
+        <script type="text/javascript" >
+            function showEdit() {
+
+            }
         </script>
     </head>
     <body>
-        <div layout:fragment="content">
-            <div th:id="#{book.detail.container.id}" class="bookDetail" th:data="${book.id}"></div>
-            <input type="button"
-                th:id="#{book.detail.button.back.id}"
-                th:value="#{book.detail.button.back.caption}"
-                th:data-backId="${bookshelfId}"
-                th:data-backPage="${bookshelfPage}">
+        <div th:id="#{book.detail.container.id}" class="bookDetail">
+            <table class="bookDetail">
+                <tr th:id="#{book.detail.name.id}">
+                    <th th:text="#{book.detail.name.caption}"></th>
+                    <td th:text="${book.name}"></td>
+                </tr>
+                <tr th:id="#{book.detail.state.id}">
+                    <th th:text="#{book.detail.state.caption}"></th>
+                    <td th:text="${book.state}"></td>
+                </tr>
+                <tr th:id="#{book.detail.evaluation.id}">
+                    <th th:text="#{book.detail.evaluation.caption}"></th>
+                    <td th:text="${book.evaluation}"></td>
+                </tr>
+                <tr th:id="#{book.detail.createdAt.id}">
+                    <th th:text="#{book.detail.createdAt.caption}"></th>
+                    <td th:text="${book.createdAt}"></td>
+                </tr>
+                <tr th:id="#{book.detail.updatedAt.id}">
+                    <th th:text="#{book.detail.updatedAt.caption}"></th>
+                    <td th:text="${book.updatedAt}"></td>
+                </tr>
+                <tr th:id="#{book.detail.memo.id}">
+                    <th th:text="#{book.detail.memo.caption}"></th>
+                    <td th:text="${book.memo}"></td>
+                </tr>
+            </table>
         </div>
+        <input type="button" th:value="#{book.detail.button.toEdit.caption}" onclick="showEdit();">
+        <input type="button" th:value="#{button.browserBack.caption}" th:title="#{button.browserBack.tooltip}"
+                th:onclick="#{button.browserBack.script}">
     </body>
 </html>
