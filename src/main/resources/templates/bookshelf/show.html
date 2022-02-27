@@ -24,16 +24,16 @@
                 <a th:each="book:${books}" th:href="@{/book/show(id=${book.id})}" class="bookListAnchor">
                     <div th:id="'book'+${book.id}" class="bookList">
                         <table class="bookListInfo">
-                            <tr th:title="#{book.list.caption.name}">
+                            <tr th:title="#{book.list.name.caption}">
                                 <td th:text="${book.name}"></td>
                             </tr>
-                            <tr th:title="#{book.list.caption.state}">
+                            <tr th:title="#{book.list.state.caption}">
                                 <td th:text="${book.state}"></td>
                             </tr>
-                            <tr th:title="#{book.list.caption.evaluation}">
+                            <tr th:title="#{book.list.evaluation.caption}">
                                 <td th:text="${book.evaluation}"></td>
                             </tr>
-                            <tr th:title="#{book.list.caption.createdAt}">
+                            <tr th:title="#{book.list.createdAt.caption}">
                                 <td th:text="${book.createdAt}"></td>
                             </tr>
                         </table>
@@ -41,24 +41,30 @@
                 </a>
             </div>
             <ul th:id="#{pagination.container.id}" class="pagination">
-                <li th:if="${bookPages.first}">
-                    <span>前</span>
-                </li>
-                <li th:if="${!bookPages.first}">
-                    <a th:href="@{show(id=${bookshelf.id}, page=${bookPages.number}-1)}">前</a>
-                </li>
+                <th:block th:switch="${bookPages.first}">
+                    <li th:case=true>
+                        <span>前</span>
+                    </li>
+                    <li th:case=false>
+                        <a th:href="@{show(id=${bookshelf.id}, page=${bookPages.number}-1)}">前</a>
+                    </li>
+                </th:block>
 
                 <li th:each="i:${#numbers.sequence(0, pageCount-1)}">
-                    <span th:if="${i == bookPages.number}" th:text="${i+1}"></span>
-                    <a th:if="${i != bookPages.number}" th:href="@{show(id=${bookshelf.id},page=${i})}" th:text="${i+1}"></a>
+                    <th:block th:switch="${i}">
+                        <span th:case="${bookPages.number}" th:text="${i+1}"></span>
+                        <a th:case=* th:href="@{show(id=${bookshelf.id},page=${i})}" th:text="${i+1}"></a>
+                    </th:block>
                 </li>
 
-                <li th:if="${bookPages.last}">
-                    <span>次</span>
-                <li>
-                <li th:if="${!bookPages.last}">
-                    <a th:href="@{show(id=${bookshelf.id}, page=${bookPages.number}+1)}">次</a>
-                </li>
+                <th:block th:switch="${bookPages.last}">
+                    <li th:case=true>
+                        <span>次</span>
+                    </li>
+                    <li th:case=false>
+                        <a th:href="@{show(id=${bookshelf.id}, page=${bookPages.number}+1)}">次</a>
+                    </li>
+                </th:block>
             </ul>
         </div>
     </body>
