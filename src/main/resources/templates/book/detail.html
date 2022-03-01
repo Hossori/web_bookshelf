@@ -6,6 +6,15 @@
         <link rel="stylesheet" th:href="@{/css/book.css}">
         <script th:src="@{/js/part/book.js}" defer></script>
         <script type="text/javascript">
+            $(function() {
+
+                let toEditButton = $('#'+getProperty('book.show.button.toEdit.id'));
+                toEditButton.click(showEdit);
+
+                function showEdit() {
+                    console.log('showEdit');
+                }
+            });
         </script>
     </head>
     <body>
@@ -38,7 +47,8 @@
                             <td th:text="${book.memo}"></td>
                         </tr>
                     </table>
-                    <input type="button" th:value="#{book.show.button.toEdit.caption}" onclick="showEdit();">
+                    <input type="button" th:id="#{book.show.button.toEdit.id}"
+                            th:value="#{book.show.button.toEdit.caption}">
                 </div>
 
                 <!-- edit -->
