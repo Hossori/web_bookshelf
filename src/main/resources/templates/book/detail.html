@@ -20,31 +20,31 @@
     <body>
         <div layout:fragment="content">
                 <!-- show -->
-                <div th:id="#{book.show.container.id}" class="bookShow">
+                <div th:id="#{book.show.container.id}">
                     <table class="bookShow">
                         <tr th:id="#{book.show.name.id}">
                             <th th:text="#{book.detail.name.caption}"></th>
-                            <td th:text="${book.name}"></td>
+                            <td th:text="${bookView.name}"></td>
                         </tr>
                         <tr th:id="#{book.show.state.id}">
                             <th th:text="#{book.detail.state.caption}"></th>
-                            <td th:text="${book.state}"></td>
+                            <td th:text="${bookView.state}"></td>
                         </tr>
                         <tr th:id="#{book.show.evaluation.id}">
                             <th th:text="#{book.detail.evaluation.caption}"></th>
-                            <td th:text="${book.evaluation}"></td>
+                            <td th:text="${bookView.evaluation}"></td>
                         </tr>
                         <tr th:id="#{book.show.createdAt.id}">
                             <th th:text="#{book.detail.createdAt.caption}"></th>
-                            <td th:text="${book.createdAt}"></td>
+                            <td th:text="${bookView.createdAt}"></td>
                         </tr>
                         <tr th:id="#{book.show.updatedAt.id}">
                             <th th:text="#{book.detail.updatedAt.caption}"></th>
-                            <td th:text="${book.updatedAt}"></td>
+                            <td th:text="${bookView.updatedAt}"></td>
                         </tr>
                         <tr th:id="#{book.show.memo.id}">
                             <th th:text="#{book.detail.memo.caption}"></th>
-                            <td th:text="${book.memo}"></td>
+                            <td><pre th:text="${bookView.memo}"></pre></td>
                         </tr>
                     </table>
                     <input type="button" th:id="#{book.show.button.toEdit.id}"
@@ -52,25 +52,27 @@
                 </div>
 
                 <!-- edit -->
-                <div hidden th:id="#{book.edit.container.id}" class="bookEdit">
-                    <table class="bookEdit">
-                        <tr th:id="#{book.edit.name.id}">
-                            <th th:text="#{book.detail.name.caption}"></th>
-                            <td th:text="${book.name}"></td>
-                        </tr>
-                        <tr th:id="#{book.edit.state.id}">
-                            <th th:text="#{book.detail.state.caption}"></th>
-                            <td th:text="${book.state}"></td>
-                        </tr>
-                        <tr th:id="#{book.edit.evaluation.id}">
-                            <th th:text="#{book.detail.evaluation.caption}"></th>
-                            <td th:text="${book.evaluation}"></td>
-                        </tr>
-                        <tr th:id="#{book.edit.memo.id}">
-                            <th th:text="#{book.detail.memo.caption}"></th>
-                            <td th:text="${book.memo}"></td>
-                        </tr>
-                    </table>
+                <div th:id="#{book.edit.container.id}">
+                    <form th:object="${book}" class="bookEdit">
+                        <table>
+                            <tr th:id="#{book.edit.name.id}">
+                                <th><label th:text="#{book.detail.name.caption}"></label></th>
+                                <td><input type="text" th:field="*{name}"></td>
+                            </tr>
+                            <tr th:id="#{book.edit.state.id}">
+                                <th><label th:text="#{book.detail.state.caption}"></label></th>
+                                <td><input type="text" th:field="*{state}"></td>
+                            </tr>
+                            <tr th:id="#{book.edit.evaluation.id}">
+                                <th><label th:text="#{book.detail.evaluation.caption}"></label></th>
+                                <td><input type="text" th:field="*{evaluation}"></td>
+                            </tr>
+                            <tr th:id="#{book.edit.memo.id}">
+                                <th><label th:text="#{book.detail.memo.caption}"></label></th>
+                                <td><textarea th:field="*{memo}"></textarea></td>
+                            </tr>
+                        </table>
+                    </form>
                     <input type="button" th:value="#{book.edit.button.cancel.caption}" onclick="">
                     <input type="button" th:value="#{book.edit.button.update.caption}" onclick="">
                     <input type="button" th:value="#{book.edit.button.delete.caption}" onclick="">

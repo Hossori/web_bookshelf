@@ -2,39 +2,46 @@
 
 /* book list */
 a.bookListAnchor {
-    text-decoration : none;
+    text-decoration: none;
 }
+
 div.bookList {
-    background-image : url("/image/book.png");
-    background-repeat : no-repeat;
-    color : black;
-    font-weight : bold;
-    font-size : 20px;
+    background-image: url("/image/book.png");
+    background-repeat: no-repeat;
+    color: black;
+    font-weight: bold;
+    font-size: 20px;
 
-    cursor : pointer;
+    cursor: pointer;
 
-    margin : 6px 12px 6px 0px;
-    width : 200px;
-    height : 250px;
-    display : inline-block;
+    margin: 6px 12px 6px 0px;
+    width: 200px;
+    height: 250px;
+    display: inline-block;
 }
+
 div.bookList:hover {
-    opacity : 0.8;
+    opacity: 0.8;
 }
+
 table.bookListInfo {
-    margin : 25% 5%;
-    display : inline-block;
+    margin: 25% 5%;
+    display: inline-block;
 }
 
 /* book detail */
-.bookShow table tr th,
-.bookShow table tr td {
-    padding : 8px 36px 8px 0px;
+th, td, td input, td pre, td textarea {
+    font-size:16px;
+
 }
-.bookShow table tr th {
-    text-align : right;
+th, td {
+    padding: 8px 36px 8px 0px;
 }
-.bookShow table tr td pre {
-    font-size : 16px;
-    white-space : pre-wrap;
+th {
+    text-align: right;
+}
+td pre,
+td textarea {
+    white-space: pre-wrap;
+    vertical-align: top;
 }

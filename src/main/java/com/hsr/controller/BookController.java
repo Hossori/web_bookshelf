@@ -27,8 +27,9 @@ public class BookController {
 
         Book book = bookService.getById(id);
         BookView bookView = BookConverter.toView(book);
-        model.addAttribute("book", bookView);
-        model.addAttribute("detailType", "show");
+
+        model.addAttribute("book", book);
+        model.addAttribute("bookView", bookView);
 
         return PathConst.BOOK_DETAIL.getValue();
     }
