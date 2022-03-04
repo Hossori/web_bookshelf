@@ -30,18 +30,32 @@ table.bookListInfo {
 }
 
 /* book detail */
-th, td, td input, td pre, td textarea {
+table.bookShow tr,
+table.bookEdit tr {
+    height: 40px;
+}
+table.bookShow tr th,
+table.bookShow tr td,
+table.bookShow tr td pre,
+table.bookEdit tr th label,
+table.bookEdit tr td input,
+table.bookEdit tr td textarea {
     font-size:16px;
 
 }
-th, td {
+table.bookShow tr th,
+table.bookShow tr td,
+table.bookEdit tr th,
+table.bookEdit tr td {
     padding: 8px 36px 8px 0px;
 }
-th {
+table.bookShow tr th,
+table.bookEdit tr th {
     text-align: right;
+    width: 115px;
 }
-td pre,
-td textarea {
+table.bookShow tr td pre,
+table.bookEdit tr td textarea {
     white-space: pre-wrap;
     vertical-align: top;
 }

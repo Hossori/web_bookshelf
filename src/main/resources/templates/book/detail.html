@@ -9,11 +9,34 @@
             $(function() {
 
                 let toEditButton = $('#'+getProperty('book.show.button.toEdit.id'));
-                toEditButton.click(showEdit);
+                toEditButton.click(toEdit);
+                let toShowButton = $('#'+getProperty('book.edit.button.toShow.id'));
+                toShowButton.click(toShow);
+                let updateButton = $('#'+getProperty('book.edit.button.update.id'));
+                updateButton.click(updateBook);
+                let deleteButton = $('#'+getProperty('book.edit.button.delete.id'));
+                deleteButton.click(deleteBook);
 
-                function showEdit() {
-                    console.log('showEdit');
+                function toEdit() {
+                    let editContainer = $('#'+getProperty('book.edit.container.id'));
+                    let showContainer = $('#'+getProperty('book.show.container.id'));
+                    editContainer.show();
+                    showContainer.hide();
                 }
+                function toShow() {
+                    let editContainer = $('#'+getProperty('book.edit.container.id'));
+                    let showContainer = $('#'+getProperty('book.show.container.id'));
+                    editContainer.hide();
+                    showContainer.show();
+                }
+                function updateBook() {
+                    console.log('update');
+                }
+                function deleteBook() {
+                    let bookId = $('#'+getProperty('book.edit.id.id')).attr('value');
+                    console.log('delete '+bookId);
+                }
+
             });
         </script>
     </head>
@@ -52,9 +75,10 @@
                 </div>
 
                 <!-- edit -->
-                <div th:id="#{book.edit.container.id}">
-                    <form th:object="${book}" class="bookEdit">
-                        <table>
+                <div th:id="#{book.edit.container.id}"><!--  style="display:none;" -->
+                    <form th:object="${book}">
+                        <input type="hidden" th:id="#{book.edit.id.id}" th:value="${book.id}">
+                        <table class="bookEdit">
                             <tr th:id="#{book.edit.name.id}">
                                 <th><label th:text="#{book.detail.name.caption}"></label></th>
                                 <td><input type="text" th:field="*{name}"></td>
@@ -73,9 +97,12 @@
                             </tr>
                         </table>
                     </form>
-                    <input type="button" th:value="#{book.edit.button.cancel.caption}" onclick="">
-                    <input type="button" th:value="#{book.edit.button.update.caption}" onclick="">
-                    <input type="button" th:value="#{book.edit.button.delete.caption}" onclick="">
+                    <input type="button" th:id="#{book.edit.button.toShow.id}"
+                            th:value="#{book.edit.button.toShow.caption}">
+                    <input type="button" th:id="#{book.edit.button.update.id}"
+                            th:value="#{book.edit.button.update.caption}">
+                    <input type="button" th:id="#{book.edit.button.delete.id}"
+                            th:value="#{book.edit.button.delete.caption}">
                 </div>
             </th:block>
 
