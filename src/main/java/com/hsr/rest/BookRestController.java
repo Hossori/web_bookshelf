@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -67,6 +69,17 @@ public class BookRestController {
         resultMap.put("book", book);
 
         return new Result(0, resultMap);
+    }
+
+    @PutMapping("/update")
+    public Result update(
+            @ModelAttribute Book newBook) {
+
+        Book book = bookService.getById(newBook.getId());
+        int resultCode = bookService.update(book, newBook);
+
+        return new Result(resultCode, null);
+
     }
 
 }

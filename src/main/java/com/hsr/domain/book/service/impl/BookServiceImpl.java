@@ -1,5 +1,7 @@
 package com.hsr.domain.book.service.impl;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +31,20 @@ public class BookServiceImpl implements BookService {
     @Override
     public Page<Book> getPagesInBookshelf(Pageable pageable, Bookshelf bookshelf) {
         return repository.getPagesInBookshelf(pageable, bookshelf);
+    }
+
+    @Override
+    public int update(Book book, Book newBook) {
+
+        book.setName(newBook.getName());
+        book.setState(newBook.getState());
+        book.setEvaluation(newBook.getEvaluation());
+        book.setMemo(newBook.getMemo());
+        book.setUpdatedAt(LocalDateTime.now());
+        book = repository.save(book);
+
+        return 0;
+
     }
 
 }

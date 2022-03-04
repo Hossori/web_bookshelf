@@ -30,7 +30,19 @@
                     showContainer.show();
                 }
                 function updateBook() {
-                    console.log('update');
+                    let editForm = $('#'+getProperty('book.edit.form.id'));
+                    let formData = editForm.serializeArray();
+
+                    $.ajax({
+                        type : 'put',
+                        url : '/rest/book/update',
+                        data : formData,
+                        dataType : 'json'
+                    }).done(function(result) {
+                        if(result.code === 0) {
+                            location.reload();
+                        }
+                    });
                 }
                 function deleteBook() {
                     let bookId = $('#'+getProperty('book.edit.id.id')).attr('value');
@@ -75,9 +87,9 @@
                 </div>
 
                 <!-- edit -->
-                <div th:id="#{book.edit.container.id}"><!--  style="display:none;" -->
-                    <form th:object="${book}">
-                        <input type="hidden" th:id="#{book.edit.id.id}" th:value="${book.id}">
+                <div th:id="#{book.edit.container.id}" style="display:none;">
+                    <form th:id="#{book.edit.form.id}" th:object="${book}" th:action method="post">
+                        <input type="hidden" th:id="#{book.edit.id.id}" th:field="${book.id}">
                         <table class="bookEdit">
                             <tr th:id="#{book.edit.name.id}">
                                 <th><label th:text="#{book.detail.name.caption}"></label></th>
