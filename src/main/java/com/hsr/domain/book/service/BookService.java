@@ -16,6 +16,8 @@ public interface BookService {
 
     public Page<Book> getPagesInBookshelf(Pageable pageable, Bookshelf bookshelf);
 
-    public int update(Book book, Book newBook);
+    public Book update(Book book, Book newBook);
+
+    public void delete(Book book);
 
 }

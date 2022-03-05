@@ -34,17 +34,21 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public int update(Book book, Book newBook) {
+    public Book update(Book book, Book newBook) {
 
         book.setName(newBook.getName());
         book.setState(newBook.getState());
         book.setEvaluation(newBook.getEvaluation());
         book.setMemo(newBook.getMemo());
         book.setUpdatedAt(LocalDateTime.now());
-        book = repository.save(book);
 
-        return 0;
+        return repository.save(book);
 
+    }
+
+    @Override
+    public void delete(Book book) {
+        repository.delete(book);
     }
 
 }
