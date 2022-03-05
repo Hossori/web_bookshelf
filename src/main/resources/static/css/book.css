@@ -4,6 +4,11 @@
 a.bookListAnchor {
     text-decoration: none;
 }
+a.bookListAnchor:hover,
+a.bookListAnchor:focus {
+    outline:none;
+    opacity: 0.8;
+}
 
 div.bookList {
     background-image: url("/image/book.png");
@@ -18,10 +23,6 @@ div.bookList {
     width: 200px;
     height: 250px;
     display: inline-block;
-}
-
-div.bookList:hover {
-    opacity: 0.8;
 }
 
 table.bookListInfo {
@@ -40,8 +41,8 @@ table.bookShow tr td pre,
 table.bookEdit tr th label,
 table.bookEdit tr td input,
 table.bookEdit tr td textarea {
-    font-size:16px;
-
+    font-size:20px;
+    color: white;
 }
 table.bookShow tr th,
 table.bookShow tr td,
@@ -52,7 +53,7 @@ table.bookEdit tr td {
 table.bookShow tr th,
 table.bookEdit tr th {
     text-align: right;
-    width: 115px;
+    width: 135px;
 }
 table.bookShow tr td pre,
 table.bookEdit tr td textarea {

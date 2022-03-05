@@ -10,6 +10,24 @@
         <script th:src="@{/js/part/bookshelf.js}" defer></script>
         <script th:src="@{/js/part/book.js}" defer></script>
         <script th:src="@{/js/part/pagination.js}" defer></script>
+        <script type="text/javascript">
+            $(function() {
+                $('#button').click(showBookCreateDialog);
+                function showBookCreateDialog() {
+                    let bookCreateDialog = $('#bookCreateDialog');
+                    bookCreateDialog.dialog({
+                        modal : true,
+                        title : 'register book',
+                        buttons : {
+                            'OK' : function() {
+                                $(this).dialog('close');
+                                location.reload();
+                            }
+                        }
+                    });
+                }
+            });
+        </script>
     </head>
     <body>
         <div layout:fragment="content">
@@ -18,8 +36,10 @@
                 <pre th:text="${bookshelf.description}"></pre>
                 <p th:text="${#temporals.format(bookshelf.createdAt, 'yyyy/MM/dd HH:mm')}"></p>
                 <p th:text="${#temporals.format(bookshelf.updatedAt, 'yyyy/MM/dd HH:mm')}"></p>
+                <input id="button" type="button" th:value="#{bookshelf.detail.button.bookCreate.caption}">
             </div>
 
+            <div id="bookCreateDialog"></div>
             <div th:id="#{book.list.container.id}">
                 <a th:each="book:${books}" th:href="@{/book/show(id=${book.id})}" class="bookListAnchor">
                     <div th:id="'book'+${book.id}" class="bookList">
