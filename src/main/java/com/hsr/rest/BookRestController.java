@@ -1,13 +1,6 @@
 package com.hsr.rest;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +9,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.service.BookService;
-import com.hsr.domain.bookshelf.model.Bookshelf;
 import com.hsr.domain.bookshelf.service.BookshelfService;
 
 @RestController
@@ -43,7 +35,7 @@ public class BookRestController {
 
     }
     */
-
+    /*
     @GetMapping("/getBookPagesInBookshelf")
     public Result getBookPagesInBookshelf(
             @PageableDefault(size=10) Pageable pageable,
@@ -70,13 +62,27 @@ public class BookRestController {
 
         return new Result(0, resultMap);
     }
+    */
 
     @PutMapping("/update")
     public Result update(
             @ModelAttribute Book newBook) {
 
         Book book = bookService.getById(newBook.getId());
-        int resultCode = bookService.update(book, newBook);
+        int resultCode =
+                bookService.update(book, newBook) != null ? 0 : 403;
+
+        return new Result(resultCode, null);
+
+    }
+
+    @PutMapping("/delete")
+    public Result delete(
+            @RequestParam("bookId") int bookId) {
+
+        Book book = bookService.getById(bookId);
+        bookService.delete(book);
+        int resultCode = 0;
 
         return new Result(resultCode, null);
 
