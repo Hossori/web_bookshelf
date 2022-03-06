@@ -74,59 +74,6 @@
 
                     });
                 }
-                /*
-                let bookCreateDialog = createBookCreateDialog();
-                let bookCreateButton = $('#'+getProperty('bookshelf.detail.button.bookCreate.id'));
-                bookCreateButton.click(function() {
-                    bookCreateDialog.dialog('open');
-                });
-
-                function createBookCreateDialog() {
-                    let bookCreateDialog = $('#'+getProperty('book.create.dialog.id'));
-                    let registerButton = {
-                        text : getProperty('book.create.dialog.buttons.register.caption'),
-                        click : function() {
-                            let formData = $('#'+getProperty('book.create.form.id')).serializeArray();
-                            $.ajax({
-                                type : 'put',
-                                url : '/rest/book/create',
-                                data : formData,
-                                dataType : 'json'
-                            })
-                            .done(function(result) {
-                                if(result.code === 0) {
-                                    bookCreateDialog.dialog('close');
-                                    location.reload();
-                                } else {
-                                    console.log('error '+result.code);
-                                }
-                            })
-                            .fail(function() {
-
-                            });
-                        }
-                    };
-                    let cancelButton = {
-                        text : getProperty('book.create.dialog.buttons.cancel.caption'),
-                        click : function() {
-                            $(this).dialog('close');
-                            bookCreateButton.blur();
-                        }
-                    }
-
-                    bookCreateDialog.dialog({
-                        modal : true,
-                        autoOpen : false,
-                        title : getProperty('book.create.dialog.title'),
-                        buttons : [registerButton, cancelButton],
-                        open : () => {$(this).css(widt)},
-                        beforeClose : () => {}
-                    });
-
-                    return bookCreateDialog;
-                }
-                */
-
             });
         </script>
     </head>
