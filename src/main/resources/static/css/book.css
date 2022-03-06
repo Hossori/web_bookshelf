@@ -30,9 +30,10 @@ table.bookListInfo {
     display: inline-block;
 }
 
-/* book detail */
+/* book create, book detail */
 table.bookShow tr,
-table.bookEdit tr {
+table.bookEdit tr,
+table.bookCreate tr {
     height: 40px;
 }
 table.bookShow tr th,
@@ -40,23 +41,30 @@ table.bookShow tr td,
 table.bookShow tr td pre,
 table.bookEdit tr th label,
 table.bookEdit tr td input,
-table.bookEdit tr td textarea {
+table.bookEdit tr td textarea,
+table.bookCreate tr th label,
+table.bookCreate tr td input,
+table.bookCreate tr td textarea {
     font-size:20px;
     color: white;
 }
 table.bookShow tr th,
 table.bookShow tr td,
 table.bookEdit tr th,
-table.bookEdit tr td {
+table.bookEdit tr td,
+table.bookCreate tr th,
+table.bookCreate tr td  {
     padding: 8px 36px 8px 0px;
 }
 table.bookShow tr th,
-table.bookEdit tr th {
+table.bookEdit tr th,
+table.bookCreate tr th  {
     text-align: right;
     width: 135px;
 }
 table.bookShow tr td pre,
-table.bookEdit tr td textarea {
+table.bookEdit tr td textarea,
+table.bookCreate tr td textarea  {
     white-space: pre-wrap;
     vertical-align: top;
 }

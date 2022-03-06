@@ -10,6 +10,17 @@ h1 {
     margin: 24px 0px;
 }
 
+input[type="text"] {
+    border-bottom: solid 1px white;
+    width: 350px;
+}
+
+textarea {
+    border: solid 1px white;
+    min-width: 350px;
+    min-height: 150px;
+}
+
 input[type="button"] {
     margin: 12px 12px 0 0;
     padding: 12px;
@@ -23,5 +34,61 @@ input[type="button"].buttonDanger {
 }
 input[type="button"]:hover,
 input[type="button"]:focus {
-    opacity: 0.6;
+    background-color: darkgreen;
+}
+input[type="button"].buttonDanger:hover,
+input[type="button"].buttonDanger:focus {
+    background-color: darkred;
+}
+
+
+.dialog {
+    display: none;
+    border-radius: 12px;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height:480px;
+    width: 615px;
+    z-index: 11;
+
+    background-image: url("/image/wood-texture_00126.jpg");
+
+}
+.dialogTitle {
+    padding: 12px;
+    border-radius: 12px 12px 0 0;
+
+    font-size: 32px;
+    background-color: olive;
+    color: white;
+}
+.dialogContent {
+    padding: 24px;
+}
+input[type="button"].dialogButton {
+    margin: 12px 0 0 12px;
+    background-color: olive;
+}
+input[type="button"].dialogButton:hover,
+input[type="button"].dialogButton:focus {
+    background-color: darkolivegreen;
+}
+.dialogButtonWrapper {
+    text-align: right;
+}
+#overlay {
+    display: none;
+
+    position: fixed;
+    z-index: 10;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+
+    background-color: black;
+    opacity: 0.7;
 }

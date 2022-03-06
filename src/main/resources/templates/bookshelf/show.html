@@ -12,20 +12,121 @@
         <script th:src="@{/js/part/pagination.js}" defer></script>
         <script type="text/javascript">
             $(function() {
-                $('#button').click(showBookCreateDialog);
+
+                let isShowDialog = false;
+                let isFocusOnDialog = false;
+
+                let bookCreateButton = $('#'+getProperty('bookshelf.detail.button.bookCreate.id'));
+                bookCreateButton.click(function() {
+                    showBookCreateDialog();
+                });
+
+                let overlay = $('#overlay');
+                let bookCreateDialog = $('#'+getProperty('book.create.dialog.id'));
+                let bookCreateDialogFirstElement = $('#'+getProperty('book.create.name.id')+' td input');
+                let bookCreateDialogRegisterButton = $('#'+getProperty('book.create.dialog.buttons.register.id'));
+                bookCreateDialogRegisterButton.on('click', function() {
+                    createBook();
+                });
+                let bookCreateDialogCancelButton = $('#'+getProperty('book.create.dialog.buttons.cancel.id'));
+                bookCreateDialogCancelButton.on('click', function() {
+                    hideBookCreateDialog();
+                });
+
+                bookCreateDialog.on('focusin', function() {
+                    isFocusOnDialog = true;
+                });
+                $(document.body).on('focusin', function() {
+                    if(isShowDialog && !isFocusOnDialog) {
+                        bookCreateDialogFirstElement.focus();
+                    } else {
+                        isFocusOnDialog = false;
+                    }
+                });
+
                 function showBookCreateDialog() {
-                    let bookCreateDialog = $('#bookCreateDialog');
-                    bookCreateDialog.dialog({
-                        modal : true,
-                        title : 'register book',
-                        buttons : {
-                            'OK' : function() {
-                                $(this).dialog('close');
-                                location.reload();
-                            }
+                    overlay.show();
+                    bookCreateDialog.show();
+                    bookCreateDialogFirstElement.focus();
+                    isShowDialog = true;
+                }
+                function hideBookCreateDialog() {
+                    overlay.hide();
+                    bookCreateDialog.hide();
+                    isShowDialog = false;
+                }
+                function createBook() {
+                    let formData = $('#'+getProperty('book.create.form.id')).serializeArray();
+                    $.ajax({
+                        type : 'put',
+                        url : '/rest/book/create',
+                        data : formData,
+                        dataType : 'json'
+                    })
+                    .done(function(result) {
+                        if(result.code === 0) {
+                            location.reload();
+                        } else {
+                            console.log('error '+result.code);
                         }
+                    })
+                    .fail(function() {
+
                     });
                 }
+                /*
+                let bookCreateDialog = createBookCreateDialog();
+                let bookCreateButton = $('#'+getProperty('bookshelf.detail.button.bookCreate.id'));
+                bookCreateButton.click(function() {
+                    bookCreateDialog.dialog('open');
+                });
+
+                function createBookCreateDialog() {
+                    let bookCreateDialog = $('#'+getProperty('book.create.dialog.id'));
+                    let registerButton = {
+                        text : getProperty('book.create.dialog.buttons.register.caption'),
+                        click : function() {
+                            let formData = $('#'+getProperty('book.create.form.id')).serializeArray();
+                            $.ajax({
+                                type : 'put',
+                                url : '/rest/book/create',
+                                data : formData,
+                                dataType : 'json'
+                            })
+                            .done(function(result) {
+                                if(result.code === 0) {
+                                    bookCreateDialog.dialog('close');
+                                    location.reload();
+                                } else {
+                                    console.log('error '+result.code);
+                                }
+                            })
+                            .fail(function() {
+
+                            });
+                        }
+                    };
+                    let cancelButton = {
+                        text : getProperty('book.create.dialog.buttons.cancel.caption'),
+                        click : function() {
+                            $(this).dialog('close');
+                            bookCreateButton.blur();
+                        }
+                    }
+
+                    bookCreateDialog.dialog({
+                        modal : true,
+                        autoOpen : false,
+                        title : getProperty('book.create.dialog.title'),
+                        buttons : [registerButton, cancelButton],
+                        open : () => {$(this).css(widt)},
+                        beforeClose : () => {}
+                    });
+
+                    return bookCreateDialog;
+                }
+                */
+
             });
         </script>
     </head>
@@ -36,10 +137,46 @@
                 <pre th:text="${bookshelf.description}"></pre>
                 <p th:text="${#temporals.format(bookshelf.createdAt, 'yyyy/MM/dd HH:mm')}"></p>
                 <p th:text="${#temporals.format(bookshelf.updatedAt, 'yyyy/MM/dd HH:mm')}"></p>
-                <input id="button" type="button" th:value="#{bookshelf.detail.button.bookCreate.caption}">
+                <input th:id="#{bookshelf.detail.button.bookCreate.id}" type="button" th:value="#{bookshelf.detail.button.bookCreate.caption}">
             </div>
 
-            <div id="bookCreateDialog"></div>
+            <!-- book create dialog -->
+            <div id="overlay"></div>
+            <div th:id="#{book.create.dialog.id}" class="dialog">
+                <h3 class="dialogTitle" th:text="#{book.create.dialog.title}"></h3>
+                <div class="dialogContent">
+                    <form th:id="#{book.create.form.id}" th:object="${book}" th:action method="post">
+                        <input type="hidden" th:field="*{bookshelf}">
+                        <table class="bookCreate">
+                            <tr th:id="#{book.create.name.id}">
+                                <th><label th:text="#{book.create.name.caption}"></label></th>
+                                <td><input type="text" th:field="*{name}"></td>
+                            </tr>
+                            <tr th:id="#{book.create.state.id}">
+                                <th><label th:text="#{book.create.state.caption}"></label></th>
+                                <td><input type="text" th:field="*{state}"></td>
+                            </tr>
+                            <tr th:id="#{book.create.evaluation.id}">
+                                <th><label th:text="#{book.create.evaluation.caption}"></label></th>
+                                <td><input type="text" th:field="*{evaluation}"></td>
+                            </tr>
+                            <tr th:id="#{book.create.memo.id}">
+                                <th><label th:text="#{book.create.memo.caption}"></label></th>
+                                <td><textarea th:field="*{memo}"></textarea></td>
+                            </tr>
+                        </table>
+                        <div class="dialogButtonWrapper">
+                            <input type="button" class="dialogButton"
+                                    th:id="#{book.create.dialog.buttons.register.id}"
+                                    th:value="#{book.create.dialog.buttons.register.caption}">
+                            <input type="button" class="dialogButton"
+                                    th:id="#{book.create.dialog.buttons.cancel.id}"
+                                    th:value="#{book.create.dialog.buttons.cancel.caption}">
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <div th:id="#{book.list.container.id}">
                 <a th:each="book:${books}" th:href="@{/book/show(id=${book.id})}" class="bookListAnchor">
                     <div th:id="'book'+${book.id}" class="bookList">

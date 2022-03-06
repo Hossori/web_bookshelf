@@ -34,6 +34,16 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Book create(Book book) {
+
+        book.setCreatedAt(LocalDateTime.now());
+        book.setUpdatedAt(LocalDateTime.now());
+
+        return repository.save(book);
+
+    }
+
+    @Override
     public Book update(Book book, Book newBook) {
 
         book.setName(newBook.getName());

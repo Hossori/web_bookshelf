@@ -64,6 +64,17 @@ public class BookRestController {
     }
     */
 
+    @PutMapping("/create")
+    public Result create(
+            @ModelAttribute Book book) {
+
+        int resultCode =
+                bookService.create(book) != null ? 0 : 403;
+
+        return new Result(resultCode, null);
+
+    }
+
     @PutMapping("/update")
     public Result update(
             @ModelAttribute Book newBook) {

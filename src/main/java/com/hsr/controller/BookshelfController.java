@@ -59,6 +59,8 @@ public class BookshelfController {
             @RequestParam("page") int page) {
 
         Bookshelf bookshelf = bookshelfService.getById(id);
+        Book book = new Book(); // for register book
+        book.setBookshelf(bookshelf);
         Page<Book> bookPages = bookService.getPagesInBookshelf(pageable, bookshelf);
         List<Book> bookList = bookPages.getContent();
         List<BookView> bookViewList = BookConverter.toViewList(bookList);
@@ -66,6 +68,7 @@ public class BookshelfController {
                 bookPages.getTotalPages() == 0 ? 1 : bookPages.getTotalPages();
 
         model.addAttribute(bookshelf);
+        model.addAttribute(book);
         model.addAttribute("bookPages", bookPages);
         model.addAttribute("books", bookViewList);
         model.addAttribute("pageCount", pageCount);
