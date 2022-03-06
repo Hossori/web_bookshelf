@@ -145,7 +145,7 @@
             <div th:id="#{book.create.dialog.id}" class="dialog">
                 <h3 class="dialogTitle" th:text="#{book.create.dialog.title}"></h3>
                 <div class="dialogContent">
-                    <form th:id="#{book.create.form.id}" th:object="${book}" th:action method="post">
+                    <form th:id="#{book.create.form.id}" th:object="${book}" th:action method="post" autocomplete="off">
                         <input type="hidden" th:field="*{bookshelf}">
                         <table class="bookCreate">
                             <tr th:id="#{book.create.name.id}">
