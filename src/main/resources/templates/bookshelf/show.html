@@ -96,19 +96,19 @@
                         <input type="hidden" th:field="*{bookshelf}">
                         <table class="bookCreate">
                             <tr th:id="#{book.create.name.id}">
-                                <th><label th:text="#{book.create.name.caption}"></label></th>
+                                <th th:text="#{book.create.name.caption}"></th>
                                 <td><input type="text" th:field="*{name}"></td>
                             </tr>
                             <tr th:id="#{book.create.state.id}">
-                                <th><label th:text="#{book.create.state.caption}"></label></th>
+                                <th th:text="#{book.create.state.caption}"></th>
                                 <td><input type="text" th:field="*{state}"></td>
                             </tr>
                             <tr th:id="#{book.create.evaluation.id}">
-                                <th><label th:text="#{book.create.evaluation.caption}"></label></th>
+                                <th th:text="#{book.create.evaluation.caption}"></th>
                                 <td><input type="text" th:field="*{evaluation}"></td>
                             </tr>
                             <tr th:id="#{book.create.memo.id}">
-                                <th><label th:text="#{book.create.memo.caption}"></label></th>
+                                <th th:text="#{book.create.memo.caption}"></th>
                                 <td><textarea th:field="*{memo}"></textarea></td>
                             </tr>
                         </table>

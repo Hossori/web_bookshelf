@@ -39,10 +39,10 @@ table.bookCreate tr {
 table.bookShow tr th,
 table.bookShow tr td,
 table.bookShow tr td pre,
-table.bookEdit tr th label,
+table.bookEdit tr th,
 table.bookEdit tr td input,
 table.bookEdit tr td textarea,
-table.bookCreate tr th label,
+table.bookCreate tr th,
 table.bookCreate tr td input,
 table.bookCreate tr td textarea {
     font-size:20px;

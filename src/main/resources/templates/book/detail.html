@@ -114,19 +114,19 @@
                         <input type="hidden" th:id="#{book.edit.id.id}" th:field="${book.id}">
                         <table class="bookEdit">
                             <tr th:id="#{book.edit.name.id}">
-                                <th><label th:text="#{book.detail.name.caption}"></label></th>
+                                <th th:text="#{book.detail.name.caption}"></th>
                                 <td><input type="text" th:field="*{name}"></td>
                             </tr>
                             <tr th:id="#{book.edit.state.id}">
-                                <th><label th:text="#{book.detail.state.caption}"></label></th>
+                                <th th:text="#{book.detail.state.caption}"></th>
                                 <td><input type="text" th:field="*{state}"></td>
                             </tr>
                             <tr th:id="#{book.edit.evaluation.id}">
-                                <th><label th:text="#{book.detail.evaluation.caption}"></label></th>
+                                <th th:text="#{book.detail.evaluation.caption}"></th>
                                 <td><input type="text" th:field="*{evaluation}"></td>
                             </tr>
                             <tr th:id="#{book.edit.memo.id}">
-                                <th><label th:text="#{book.detail.memo.caption}"></label></th>
+                                <th th:text="#{book.detail.memo.caption}"></th>
                                 <td><textarea th:field="*{memo}"></textarea></td>
                             </tr>
                         </table>
