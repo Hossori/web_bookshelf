@@ -19,6 +19,7 @@ textarea {
     border: solid 1px white;
     min-width: 350px;
     min-height: 150px;
+    resize: none;
 }
 
 input[type="button"] {
