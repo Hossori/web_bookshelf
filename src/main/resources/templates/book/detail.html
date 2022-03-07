@@ -3,6 +3,7 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{part/layout}">
     <head>
+        <title th:text="${book.name}+' | '+${book.bookshelf.name}+#{title.postfix}"></title>
         <meta th:id="#{meta.csrf.token.id}" th:content="${_csrf.token}">
         <meta th:id="#{meta.csrf.header.id}" th:content="${_csrf.headerName}">
         <link rel="stylesheet" th:href="@{/css/book.css}">
@@ -105,7 +106,8 @@
                         </tr>
                     </table>
                     <input type="button" th:id="#{book.show.button.toEdit.id}"
-                            th:value="#{book.show.button.toEdit.caption}">
+                            th:value="#{book.show.button.toEdit.caption}"
+                            th:title="#{book.show.button.toEdit.tooltip}">
                 </div>
 
                 <!-- edit -->
@@ -132,11 +134,15 @@
                         </table>
                     </form>
                     <input type="button" th:id="#{book.edit.button.toShow.id}"
-                            th:value="#{book.edit.button.toShow.caption}">
+                            th:value="#{book.edit.button.toShow.caption}"
+                            th:title="#{book.edit.button.toShow.tooltip}">
                     <input type="button" th:id="#{book.edit.button.update.id}"
-                            th:value="#{book.edit.button.update.caption}">
+                            th:value="#{book.edit.button.update.caption}"
+                            th:title="#{book.edit.button.update.tooltip}">
                     <input type="button" th:id="#{book.edit.button.delete.id}"
-                            th:value="#{book.edit.button.delete.caption}" class="buttonDanger">
+                            th:value="#{book.edit.button.delete.caption}"
+                            th:title="#{book.edit.button.delete.tooltip}"
+                            class="buttonDanger">
                 </div>
             </th:block>
 

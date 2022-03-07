@@ -3,7 +3,7 @@
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{part/layout}">
     <head>
-        <title th:text="#{title.bookshelf.show}+#{title.postfix}"></title>
+        <title th:text="${bookshelf.name}+#{title.postfix}"></title>
         <link rel="stylesheet" th:href="@{/css/bookshelf.css}">
         <link rel="stylesheet" th:href="@{/css/book.css}">
         <link rel="stylesheet" th:href="@{/css/pagination.css}">
@@ -84,7 +84,9 @@
                 <pre th:text="${bookshelf.description}"></pre>
                 <p th:text="${#temporals.format(bookshelf.createdAt, 'yyyy/MM/dd HH:mm')}"></p>
                 <p th:text="${#temporals.format(bookshelf.updatedAt, 'yyyy/MM/dd HH:mm')}"></p>
-                <input th:id="#{bookshelf.detail.button.bookCreate.id}" type="button" th:value="#{bookshelf.detail.button.bookCreate.caption}">
+                <input type="button" th:id="#{bookshelf.detail.button.bookCreate.id}"
+                        th:value="#{bookshelf.detail.button.bookCreate.caption}"
+                        th:title="#{bookshelf.detail.button.bookCreate.tooltip}">
             </div>
 
             <!-- book create dialog -->
@@ -125,7 +127,7 @@
             </div>
 
             <div th:id="#{book.list.container.id}">
-                <a th:each="book:${books}" th:href="@{/book/show(id=${book.id})}" class="bookListAnchor">
+                <a th:each="book:${books}" th:href="@{/book/detail(id=${book.id})}" class="bookListAnchor">
                     <div th:id="'book'+${book.id}" class="bookList">
                         <table class="bookListInfo">
                             <tr th:title="#{book.list.name.caption}">
@@ -150,14 +152,14 @@
                         <span>前</span>
                     </li>
                     <li th:case=false>
-                        <a th:href="@{show(id=${bookshelf.id}, page=${bookPages.number}-1)}">前</a>
+                        <a th:href="@{detail(id=${bookshelf.id}, page=${bookPages.number}-1)}">前</a>
                     </li>
                 </th:block>
 
                 <li th:each="i:${#numbers.sequence(0, pageCount-1)}">
                     <th:block th:switch="${i}">
                         <span th:case="${bookPages.number}" th:text="${i+1}"></span>
-                        <a th:case=* th:href="@{show(id=${bookshelf.id},page=${i})}" th:text="${i+1}"></a>
+                        <a th:case=* th:href="@{detail(id=${bookshelf.id},page=${i})}" th:text="${i+1}"></a>
                     </th:block>
                 </li>
 
@@ -166,10 +168,14 @@
                         <span>次</span>
                     </li>
                     <li th:case=false>
-                        <a th:href="@{show(id=${bookshelf.id}, page=${bookPages.number}+1)}">次</a>
+                        <a th:href="@{detail(id=${bookshelf.id}, page=${bookPages.number}+1)}">次</a>
                     </li>
                 </th:block>
             </ul>
+            <input type="button" th:id="#{bookshelf.detail.button.backToList.id}"
+                    th:value="#{bookshelf.detail.button.backToList.caption}"
+                    th:title="#{bookshelf.detail.button.backToList.tooltip}"
+                    th:onclick="'location.href=\''+@{index(page=0)}+'\''">
         </div>
     </body>
 </html>

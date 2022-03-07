@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 public enum PathConst {
 
     BOOKSHELF_INDEX("bookshelf"+BasePathEnum.INDEX.getValue()),
-    BOOKSHELF_SHOW("bookshelf"+BasePathEnum.SHOW.getValue()),
+    BOOKSHELF_DETAIL("bookshelf"+BasePathEnum.DETAIL.getValue()),
 
     BOOK_DETAIL("book"+BasePathEnum.DETAIL.getValue());
 
@@ -19,7 +19,6 @@ public enum PathConst {
 
         INDEX("/index"),
         DETAIL("/detail"),
-        SHOW("/show"),
         CREATE("/create"),
         UPDATE("/update"),
         DELETE("/delete");

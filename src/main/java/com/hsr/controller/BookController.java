@@ -20,8 +20,8 @@ public class BookController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping("/show")
-    public String show(
+    @GetMapping("/detail")
+    public String detail(
             Model model,
             @RequestParam("id") int id) {
 

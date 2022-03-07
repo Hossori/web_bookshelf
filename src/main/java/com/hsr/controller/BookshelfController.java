@@ -51,8 +51,8 @@ public class BookshelfController {
 
     }
 
-    @GetMapping("/show")
-    public String show(
+    @GetMapping("/detail")
+    public String detail(
             Model model,
             @PageableDefault(size=10) Pageable pageable,
             @RequestParam("id") int id,
@@ -73,7 +73,7 @@ public class BookshelfController {
         model.addAttribute("books", bookViewList);
         model.addAttribute("pageCount", pageCount);
 
-        return PathConst.BOOKSHELF_SHOW.getValue();
+        return PathConst.BOOKSHELF_DETAIL.getValue();
     }
 
 }
