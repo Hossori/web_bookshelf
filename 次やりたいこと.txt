@@ -4,6 +4,16 @@
 ▼ → 作業中項目
 -------------------
 
+▼JSお掃除
+いらなくなったJS消しとく。layout.htmlに書いた_containersも要らないなら削除忘れずに。
+
+●bookshelf listの検索機能
+RESTにするかどうか、ブラウザバックを考慮しよく考える。
+
+●bookshelf detailのcss
+
+●bookshelf detailのedit form
+
 ●本の編集画面
 ・stateはプルダウンで、evaluationは☆表示で編集できるようにしたい。
 （☆を5つ並べてhoverで黒くなる、クリックで黒の数確定する、という感じで。）
@@ -11,16 +21,14 @@
 
 ●REST
 RESTは詳細⇔編集の行き来や登録・更新のみにする。
-検索もいいかもだけどブラウザバックを考慮しよく考える。
 layout.htmlにあるJSのglobal変数_containersいらなくなったかも。
-
-●本棚詳細から本棚一覧に戻るボタン
-本棚詳細でページネーションあるためブラウザバックではダメ。
-bookshelf.detail.button.backToList.caption[tooltip]かな。
-本棚id,本棚一覧のページ番号を保持しておく必要ある。
 
 ●認証
 ・editは作成者しか表示できないように。update, deleteも作成者しかできないように。
+
+■本棚詳細から本棚一覧に戻るボタン
+本棚詳細でページネーションあるためブラウザバックではダメ。
+bookshelf.detail.button.backToList.caption[tooltip]かな。
 
 ■bookshelf/show.htmlをdetail.htmlに名称変更
 
