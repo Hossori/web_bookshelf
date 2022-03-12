@@ -4,24 +4,23 @@
 ▼ → 作業中項目
 -------------------
 
-▼JSお掃除
-いらなくなったJS消しとく。layout.htmlに書いた_containersも要らないなら削除忘れずに。
+●bookshelf detailのcss
+
+▼bookshelf detailのedit form
 
 ●bookshelf listの検索機能
 RESTにするかどうか、ブラウザバックを考慮しよく考える。
-
-●bookshelf detailのcss
-
-●bookshelf detailのedit form
 
 ●本の編集画面
 ・stateはプルダウンで、evaluationは☆表示で編集できるようにしたい。
 （☆を5つ並べてhoverで黒くなる、クリックで黒の数確定する、という感じで。）
 ・削除,更新,作成は確認画面通すように。
 
+●本の作成・編集
+バリデーションいれないと。
+
 ●REST
 RESTは詳細⇔編集の行き来や登録・更新のみにする。
-layout.htmlにあるJSのglobal変数_containersいらなくなったかも。
 
 ●認証
 ・editは作成者しか表示できないように。update, deleteも作成者しかできないように。
@@ -40,3 +39,6 @@ bookshelf.detail.button.backToList.caption[tooltip]かな。
 ■本の登録ボタン作成
 本棚詳細画面でregister bookボタンを押してダイアログを表示→ajaxで登録し画面リロードする処理。
 ボタン、ダイアログのid,caption等プロパティファイルに追加しとく。
+
+■JSお掃除
+いらなくなったJS消しとく。layout.htmlに書いた_containersも要らないなら削除忘れずに。

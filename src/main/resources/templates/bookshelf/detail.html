@@ -7,73 +7,33 @@
         <link rel="stylesheet" th:href="@{/css/bookshelf.css}">
         <link rel="stylesheet" th:href="@{/css/book.css}">
         <link rel="stylesheet" th:href="@{/css/pagination.css}">
-        <script th:src="@{/js/part/bookshelf.js}" defer></script>
         <script th:src="@{/js/part/book.js}" defer></script>
-        <script th:src="@{/js/part/pagination.js}" defer></script>
+        <script th:src="@{/js/util/dialog.js}" defer></script>
         <script type="text/javascript">
             $(function() {
-
-                let isShowDialog = false;
-                let isFocusOnDialog = false;
-
-                let bookCreateButton = $('#'+getProperty('bookshelf.detail.button.bookCreate.id'));
-                bookCreateButton.click(function() {
-                    showBookCreateDialog();
-                });
-
-                let overlay = $('#overlay');
-                let bookCreateDialog = $('#'+getProperty('book.create.dialog.id'));
-                let bookCreateDialogFirstElement = $('#'+getProperty('book.create.name.id')+' td input');
-                let bookCreateDialogRegisterButton = $('#'+getProperty('book.create.dialog.buttons.register.id'));
-                bookCreateDialogRegisterButton.on('click', function() {
-                    createBook();
-                });
-                let bookCreateDialogCancelButton = $('#'+getProperty('book.create.dialog.buttons.cancel.id'));
-                bookCreateDialogCancelButton.on('click', function() {
-                    hideBookCreateDialog();
-                });
-
-                bookCreateDialog.on('focusin', function() {
-                    isFocusOnDialog = true;
-                });
-                $(document.body).on('focusin', function() {
-                    if(isShowDialog && !isFocusOnDialog) {
-                        bookCreateDialogFirstElement.focus();
-                    } else {
-                        isFocusOnDialog = false;
-                    }
-                });
-
-                function showBookCreateDialog() {
-                    overlay.show();
-                    bookCreateDialog.show();
-                    bookCreateDialogFirstElement.focus();
-                    isShowDialog = true;
+                let bookCreateDialogShowButton = {
+                    element : $('#'+getProperty('bookshelf.detail.button.bookCreate.id')),
+                    click : 'show'
                 }
-                function hideBookCreateDialog() {
-                    overlay.hide();
-                    bookCreateDialog.hide();
-                    isShowDialog = false;
+                let bookCreateDialogRegisterButton = {
+                    element : $('#'+getProperty('book.create.dialog.buttons.register.id')),
+                    click : createBook
+                };
+                let bookCreateDialogCancelButton = {
+                    element : $('#'+getProperty('book.create.dialog.buttons.cancel.id')),
+                    click : 'hide'
+                };
+                let bookCreateDialogButtons = [
+                    bookCreateDialogShowButton,
+                    bookCreateDialogRegisterButton,
+                    bookCreateDialogCancelButton
+                ]
+                let bookCreateDialogDef = {
+                    dialog : $('#'+getProperty('book.create.dialog.id')),
+                    firstElement : $('#'+getProperty('book.create.name.id')+' td input'),
+                    buttons : bookCreateDialogButtons
                 }
-                function createBook() {
-                    let formData = $('#'+getProperty('book.create.form.id')).serializeArray();
-                    $.ajax({
-                        type : 'put',
-                        url : '/rest/book/create',
-                        data : formData,
-                        dataType : 'json'
-                    })
-                    .done(function(result) {
-                        if(result.code === 0) {
-                            location.reload();
-                        } else {
-                            console.log('error '+result.code);
-                        }
-                    })
-                    .fail(function() {
-
-                    });
-                }
+                let bookCreateDialog = new Dialog(bookCreateDialogDef);
             });
         </script>
     </head>
