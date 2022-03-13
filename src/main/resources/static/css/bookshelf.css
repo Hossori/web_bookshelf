@@ -32,6 +32,28 @@
 }
 
 /* bookshelf show */
-#bookshelfDetailContainer pre {
-    font-size: 18px;
+div#bookshelfDetailContainer {
+    margin-bottom: 36px;
+}
+div#bookshelfDetailContainer div {
+    margin: 20px 0;
+}
+div#bookshelfDetailContainer div p,
+div#bookshelfDetailContainer div pre {
+    font-size: 20px;
+}
+div#bookshelfDetailContainer div p.caption {
+    font-weight: bold;
+}
+div#bookshelfShowDescription pre {
+    font-family: meiryo;
+    margin-top: 8px;
+}
+div#bookshelfShowCreatedAt p,
+div#bookshelfShowUpdatedAt p {
+    display: inline-block;
+}
+div#bookshelfShowCreatedAt p.caption,
+div#bookshelfShowUpdatedAt p.caption {
+    width: 150px;
 }

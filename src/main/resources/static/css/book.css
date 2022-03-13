@@ -65,6 +65,7 @@ table.bookCreate tr th  {
 table.bookShow tr td pre,
 table.bookEdit tr td textarea,
 table.bookCreate tr td textarea  {
+    font-family: meiryo;
     white-space: pre-wrap;
     vertical-align: top;
 }

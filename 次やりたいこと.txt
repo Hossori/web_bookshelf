@@ -4,7 +4,7 @@
 ▼ → 作業中項目
 -------------------
 
-●bookshelf detailのcss
+▼bookshelf detailのcss
 
 ▼bookshelf detailのedit form
 

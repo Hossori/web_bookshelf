@@ -40,10 +40,20 @@
     <body>
         <div layout:fragment="content">
             <div th:id="#{bookshelf.detail.container.id}">
-                <h1 th:text="${bookshelf.name}"></h1>
-                <pre th:text="${bookshelf.description}"></pre>
-                <p th:text="${#temporals.format(bookshelf.createdAt, 'yyyy/MM/dd HH:mm')}"></p>
-                <p th:text="${#temporals.format(bookshelf.updatedAt, 'yyyy/MM/dd HH:mm')}"></p>
+                <h1 th:id="#{bookshelf.show.name.id}"
+                    th:text="${bookshelf.name}"></h1>
+                <div th:id="#{bookshelf.show.description.id}">
+                    <p class="caption" th:text="#{bookshelf.show.description.caption}"></p>
+                    <pre class="content" th:text="${bookshelf.description}"></pre>
+                </div>
+                <div th:id="#{bookshelf.show.createdAt.id}">
+                    <p class="caption" th:text="#{bookshelf.show.createdAt.caption}"></p>
+                    <p class="content" th:text="${#temporals.format(bookshelf.createdAt, 'yyyy/MM/dd HH:mm')}"></p>
+                </div>
+                <div th:id="#{bookshelf.show.updatedAt.id}">
+                    <p class="caption" th:text="#{bookshelf.show.updatedAt.caption}"></p>
+                    <p  class="content" th:text="${#temporals.format(bookshelf.updatedAt, 'yyyy/MM/dd HH:mm')}"></p>
+                </div>
                 <input type="button" th:id="#{bookshelf.detail.button.bookCreate.id}"
                         th:value="#{bookshelf.detail.button.bookCreate.caption}"
                         th:title="#{bookshelf.detail.button.bookCreate.tooltip}">
