@@ -9,10 +9,14 @@ import com.hsr.domain.bookshelf.model.Bookshelf;
 @Service
 public interface BookshelfService {
 
-	public Bookshelf getById(Integer id);
-	
+    public Bookshelf getById(Integer id);
+
     public Page<Bookshelf> getPages(Pageable pageable);
 
-    public void insertOne(Bookshelf bookshelf);
+    public void create(Bookshelf bookshelf);
+
+    public Bookshelf update(Bookshelf bookshelf, Bookshelf newBookshelf);
+
+    public void delete(Bookshelf bookshelf);
 
 }

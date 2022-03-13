@@ -4,59 +4,114 @@
         layout:decorate="~{part/layout}">
     <head>
         <title th:text="${bookshelf.name}+#{title.postfix}"></title>
+        <meta th:id="#{meta.csrf.token.id}" th:content="${_csrf.token}">
+        <meta th:id="#{meta.csrf.header.id}" th:content="${_csrf.headerName}">
         <link rel="stylesheet" th:href="@{/css/bookshelf.css}">
         <link rel="stylesheet" th:href="@{/css/book.css}">
         <link rel="stylesheet" th:href="@{/css/pagination.css}">
+        <script th:src="@{/js/part/bookshelf.js}" defer></script>
         <script th:src="@{/js/part/book.js}" defer></script>
         <script th:src="@{/js/util/dialog.js}" defer></script>
         <script type="text/javascript">
             $(function() {
-                let bookCreateDialogShowButton = {
-                    element : $('#'+getProperty('bookshelf.detail.button.bookCreate.id')),
-                    click : 'show'
+                initializeBookCreateDialog();
+                initializeButtons();
+
+                function initializeBookCreateDialog() {
+                    let bookCreateDialogShowButton = {
+                        element : $('#'+getProperty('bookshelf.detail.button.bookCreate.id')),
+                        click : 'show'
+                    }
+                    let bookCreateDialogRegisterButton = {
+                        element : $('#'+getProperty('book.create.dialog.buttons.register.id')),
+                        click : createBook
+                    };
+                    let bookCreateDialogCancelButton = {
+                        element : $('#'+getProperty('book.create.dialog.buttons.cancel.id')),
+                        click : 'hide'
+                    };
+                    let bookCreateDialogButtons = [
+                        bookCreateDialogShowButton,
+                        bookCreateDialogRegisterButton,
+                        bookCreateDialogCancelButton
+                    ]
+                    let bookCreateDialogDef = {
+                        dialog : $('#'+getProperty('book.create.dialog.id')),
+                        firstElement : $('#'+getProperty('book.create.name.id')+' td input'),
+                        buttons : bookCreateDialogButtons
+                    }
+                    new Dialog(bookCreateDialogDef);
                 }
-                let bookCreateDialogRegisterButton = {
-                    element : $('#'+getProperty('book.create.dialog.buttons.register.id')),
-                    click : createBook
-                };
-                let bookCreateDialogCancelButton = {
-                    element : $('#'+getProperty('book.create.dialog.buttons.cancel.id')),
-                    click : 'hide'
-                };
-                let bookCreateDialogButtons = [
-                    bookCreateDialogShowButton,
-                    bookCreateDialogRegisterButton,
-                    bookCreateDialogCancelButton
-                ]
-                let bookCreateDialogDef = {
-                    dialog : $('#'+getProperty('book.create.dialog.id')),
-                    firstElement : $('#'+getProperty('book.create.name.id')+' td input'),
-                    buttons : bookCreateDialogButtons
+                function initializeButtons() {
+                    let toEditButton = $('#'+getProperty('bookshelf.show.button.toEdit.id'));
+                    toEditButton.click(toEdit);
+                    let toShowButton = $('#'+getProperty('bookshelf.edit.button.toShow.id'));
+                    toShowButton.click(toShow);
+                    let updateButton = $('#'+getProperty('bookshelf.edit.button.update.id'));
+                    updateButton.click(updateBookshelf);
+                    let deleteButton = $('#'+getProperty('bookshelf.edit.button.delete.id'));
+                    deleteButton.click(deleteBookshelf);
+
+                    function toEdit() {
+                        let editContainer = $('#'+getProperty('bookshelf.edit.container.id'));
+                        let showContainer = $('#'+getProperty('bookshelf.show.container.id'));
+                        editContainer.show();
+                        showContainer.hide();
+                    }
+                    function toShow() {
+                        let editContainer = $('#'+getProperty('bookshelf.edit.container.id'));
+                        let showContainer = $('#'+getProperty('bookshelf.show.container.id'));
+                        editContainer.hide();
+                        showContainer.show();
+                    }
+
                 }
-                let bookCreateDialog = new Dialog(bookCreateDialogDef);
             });
         </script>
     </head>
     <body>
         <div layout:fragment="content">
-            <div th:id="#{bookshelf.detail.container.id}">
-                <h1 th:id="#{bookshelf.show.name.id}"
-                    th:text="${bookshelf.name}"></h1>
+            <h1 th:id="#{bookshelf.detail.name.id}" th:text="${bookshelf.name}"></h1>
+            <!-- bookshelf show -->
+            <div th:id="#{bookshelf.show.container.id}">
                 <div th:id="#{bookshelf.show.description.id}">
-                    <p class="caption" th:text="#{bookshelf.show.description.caption}"></p>
-                    <pre class="content" th:text="${bookshelf.description}"></pre>
+                    <pre th:text="${bookshelf.description}"></pre>
                 </div>
                 <div th:id="#{bookshelf.show.createdAt.id}">
                     <p class="caption" th:text="#{bookshelf.show.createdAt.caption}"></p>
-                    <p class="content" th:text="${#temporals.format(bookshelf.createdAt, 'yyyy/MM/dd HH:mm')}"></p>
+                    <p th:text="${#temporals.format(bookshelf.createdAt, 'yyyy/MM/dd HH:mm')}"></p>
                 </div>
                 <div th:id="#{bookshelf.show.updatedAt.id}">
                     <p class="caption" th:text="#{bookshelf.show.updatedAt.caption}"></p>
-                    <p  class="content" th:text="${#temporals.format(bookshelf.updatedAt, 'yyyy/MM/dd HH:mm')}"></p>
+                    <p th:text="${#temporals.format(bookshelf.updatedAt, 'yyyy/MM/dd HH:mm')}"></p>
                 </div>
-                <input type="button" th:id="#{bookshelf.detail.button.bookCreate.id}"
-                        th:value="#{bookshelf.detail.button.bookCreate.caption}"
-                        th:title="#{bookshelf.detail.button.bookCreate.tooltip}">
+                <input type="button" th:id="#{bookshelf.show.button.toEdit.id}"
+                        th:value="#{bookshelf.show.button.toEdit.caption}"
+                        th:title="#{bookshelf.show.button.toEdit.tooltip}">
+            </div>
+            <!-- bookshelf edit -->
+            <div th:id="#{bookshelf.edit.container.id}" style="display:none;">
+                <form th:id="#{bookshelf.edit.form.id}" th:object="${bookshelf}" th:action method="post" autocomplete="off">
+                    <input type="hidden" th:id="#{bookshelf.edit.id.id}" th:field="*{id}">
+                    <div th:id="#{bookshelf.edit.name.id}">
+                        <p class="caption" th:text="#{bookshelf.detail.name.caption}"></p>
+                        <input type="text" th:field="*{name}">
+                    </div>
+                    <div th:id="#{bookshelf.edit.description.id}">
+                        <p class="caption" th:text="#{bookshelf.detail.description.caption}"></p>
+                        <textarea th:field="*{description}"></textarea>
+                    </div>
+                </form>
+                <input type="button" th:id="#{bookshelf.edit.button.toShow.id}"
+                        th:value="#{bookshelf.edit.button.toShow.caption}"
+                        th:title="#{bookshelf.edit.button.toShow.tooltip}">
+                <input type="button" th:id="#{bookshelf.edit.button.update.id}"
+                        th:value="#{bookshelf.edit.button.update.caption}"
+                        th:title="#{bookshelf.edit.button.update.tooltip}">
+                <input type="button" th:id="#{bookshelf.edit.button.delete.id}"
+                        th:value="#{bookshelf.edit.button.delete.caption}"
+                        th:title="#{bookshelf.edit.button.delete.tooltip}"
+                        class="buttonDanger">
             </div>
 
             <!-- book create dialog -->
@@ -96,6 +151,9 @@
                 </div>
             </div>
 
+            <input type="button" th:id="#{bookshelf.detail.button.bookCreate.id}"
+                    th:value="#{bookshelf.detail.button.bookCreate.caption}"
+                    th:title="#{bookshelf.detail.button.bookCreate.tooltip}">
             <div th:id="#{book.list.container.id}">
                 <a th:each="book:${books}" th:href="@{/book/detail(id=${book.id})}" class="bookListAnchor">
                     <div th:id="'book'+${book.id}" class="bookList">

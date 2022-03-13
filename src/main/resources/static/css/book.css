@@ -1,6 +1,10 @@
 @charset "UTF-8";
 
 /* book list */
+div#bookListContainer {
+    margin: 24px 0;
+}
+
 a.bookListAnchor {
     text-decoration: none;
 }
@@ -47,6 +51,14 @@ table.bookCreate tr td input,
 table.bookCreate tr td textarea {
     font-size:20px;
     color: white;
+}
+table.bookEdit tr td input,
+table.bookCreate tr td input {
+    border-bottom: solid 1px white;
+}
+table.bookEdit tr td textarea,
+table.bookCreate tr td textarea {
+    border: solid 1px white;
 }
 table.bookShow tr th,
 table.bookShow tr td,

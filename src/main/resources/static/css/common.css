@@ -11,7 +11,6 @@ h1 {
 }
 
 input[type="text"] {
-    border-bottom: solid 1px white;
     width: 350px;
 }
 

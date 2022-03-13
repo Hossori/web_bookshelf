@@ -35,5 +35,6 @@ public class Bookshelf {
     private String description;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private Integer deleteFlag;
 
 }

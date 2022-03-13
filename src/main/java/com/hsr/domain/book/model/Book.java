@@ -37,5 +37,6 @@ public class Book {
     private String memo;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
+    private Integer deleteFlag;
 
 }

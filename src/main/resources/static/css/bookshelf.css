@@ -31,29 +31,49 @@
     display: inline-block;
 }
 
-/* bookshelf show */
-div#bookshelfDetailContainer {
+/* bookshelf show, bookshelf edit */
+div#bookshelfShowContainer,
+div#bookshelfEditContainer {
     margin-bottom: 36px;
 }
-div#bookshelfDetailContainer div {
-    margin: 20px 0;
-}
-div#bookshelfDetailContainer div p,
-div#bookshelfDetailContainer div pre {
+div#bookshelfShowContainer div p,
+div#bookshelfEditContainer div p {
     font-size: 20px;
 }
-div#bookshelfDetailContainer div p.caption {
-    font-weight: bold;
+div#bookshelfShowDescription,
+div#bookshelfEditDescription {
+    margin: 20px 0;
 }
 div#bookshelfShowDescription pre {
     font-family: meiryo;
-    margin-top: 8px;
+    font-size: 28px;
 }
 div#bookshelfShowCreatedAt p,
 div#bookshelfShowUpdatedAt p {
     display: inline-block;
+    margin-bottom: 10px;
 }
 div#bookshelfShowCreatedAt p.caption,
 div#bookshelfShowUpdatedAt p.caption {
-    width: 150px;
+    width: 140px;
+}
+div#bookshelfEditName p,
+div#bookshelfEditDescription p {
+    margin-bottom: 10px;
+}
+div#bookshelfEditName input,
+div#bookshelfEditDescription textarea {
+    font-family: meiryo;
+    font-size: 20px;
+}
+div#bookshelfEditName input {
+    border-bottom: solid 1px black;
+}
+div#bookshelfEditDescription textarea {
+    border: solid 1px black;
+}
+div#bookshelfEditName p.caption,
+div#bookshelfEditDescription p.caption {
+    width: 170px;
+    font-weight: bold;
 }

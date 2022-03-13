@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import com.hsr.constant.JpaConst;
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.service.BookService;
 import com.hsr.domain.bookshelf.model.Bookshelf;
@@ -38,6 +39,7 @@ public class BookServiceImpl implements BookService {
 
         book.setCreatedAt(LocalDateTime.now());
         book.setUpdatedAt(LocalDateTime.now());
+        book.setDeleteFlag(JpaConst.DELETE_FLAG_FALSE);
 
         return repository.save(book);
 
@@ -58,7 +60,8 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void delete(Book book) {
-        repository.delete(book);
+        book.setDeleteFlag(JpaConst.DELETE_FLAG_TRUE);
+        repository.save(book);
     }
 
 }

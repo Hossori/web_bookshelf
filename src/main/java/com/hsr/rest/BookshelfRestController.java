@@ -1,13 +1,8 @@
 package com.hsr.rest;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +17,7 @@ public class BookshelfRestController {
     @Autowired
     BookshelfService bookshelfService;
 
-    @GetMapping("/getBookshelfPages")
+    /*@GetMapping("/getBookshelfPages")
     public Result getBookshelfPages(
             @PageableDefault(size=10) Pageable pageable,
             @RequestParam("page") int page) {
@@ -33,5 +28,26 @@ public class BookshelfRestController {
         resultMap.put("bookshelfPages", bookshelfPages);
 
         return new Result(0, resultMap);
+    }*/
+
+
+    @PutMapping("/update")
+    public Result update(
+            @ModelAttribute Bookshelf newBookshelf) {
+
+        Bookshelf bookshelf = bookshelfService.getById(newBookshelf.getId());
+        int resultCode =
+                bookshelfService.update(bookshelf, newBookshelf) != null ? 0 : 403;
+        return new Result(resultCode, null);
+
+    }
+
+    @PutMapping("/delete")
+    public Result delete(
+            @RequestParam("bookshelfId") int bookshelfId) {
+        Bookshelf bookshelf = bookshelfService.getById(bookshelfId);
+        bookshelfService.delete(bookshelf);
+        int resultCode = 0;
+        return new Result(resultCode, null);
     }
 }
