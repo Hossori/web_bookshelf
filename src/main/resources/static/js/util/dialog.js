@@ -45,11 +45,14 @@ class Dialog {
         }
     }
 
+    /*
+        アロー関数を用いることで関数内のthisをDialogに確定させる。
+    */
     initializeFocusControl() {
-        this.dialog.on('focusin', function() {
+        this.dialog.on('focusin', () => {
             this.isFocusOnDialog = true;
         });
-        $(document.body).on('focusin', function() {
+        $(document.body).on('focusin', () => {
             if(this.isShowDialog && !this.isFocusOnDialog) {
                 this.firstElement.focus();
             } else {

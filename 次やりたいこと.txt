@@ -4,10 +4,6 @@
 ▼ → 作業中項目
 -------------------
 
-▼bookshelf detailのcss
-
-▼bookshelf detailのedit form
-
 ●bookshelf listの検索機能
 RESTにするかどうか、ブラウザバックを考慮しよく考える。
 
@@ -42,3 +38,7 @@ bookshelf.detail.button.backToList.caption[tooltip]かな。
 
 ■JSお掃除
 いらなくなったJS消しとく。layout.htmlに書いた_containersも要らないなら削除忘れずに。
+
+■bookshelf detailのcss
+
+■bookshelf detailのedit form
