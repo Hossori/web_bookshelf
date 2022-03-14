@@ -85,7 +85,13 @@
                             </tr>
                             <tr th:id="#{book.edit.state.id}">
                                 <th th:text="#{book.detail.state.caption}"></th>
-                                <td><input type="text" th:field="*{state}"></td>
+                                <td>
+                                    <select>
+                                        <option th:each="i:${#numbers.sequence(0, states.size()-1)}"
+                                                 th:text="${states[i]}" th:value="${i}">
+                                        </option>
+                                    </select>
+                                </td>
                             </tr>
                             <tr th:id="#{book.edit.evaluation.id}">
                                 <th th:text="#{book.detail.evaluation.caption}"></th>
