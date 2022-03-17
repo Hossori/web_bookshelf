@@ -81,3 +81,13 @@ table.bookCreate tr td textarea  {
     white-space: pre-wrap;
     vertical-align: top;
 }
+#editBookState td ol li {
+    list-style-type: none;
+    display: inline-block;
+    margin-right: 12px;
+    color: brown;
+    font-size: 20px;
+    background-color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+}

@@ -11,6 +11,7 @@
         <script type="text/javascript">
             $(function() {
                 initializeButtons();
+                changeBookStateRadio();
 
                 function initializeButtons() {
                     let toEditButton = $('#'+getProperty('book.show.button.toEdit.id'));
@@ -33,6 +34,16 @@
                         let showContainer = $('#'+getProperty('book.show.container.id'));
                         editContainer.hide();
                         showContainer.show();
+                    }
+                }
+
+                function changeBookStateRadio() {
+                    let bookStateOl = $('#'+getProperty('book.edit.state.id')+' ol');
+                    let bookStateRadio = bookStateOl.find('input');
+                    for(let radio of bookStateRadio) {
+                        $(radio).change(() => {
+                            $(radio).parent().css('backgroundColor', 'aqua');
+                        });
                     }
                 }
 
@@ -86,11 +97,20 @@
                             <tr th:id="#{book.edit.state.id}">
                                 <th th:text="#{book.detail.state.caption}"></th>
                                 <td>
-                                    <select>
+                                    <!-- <select>
                                         <option th:each="i:${#numbers.sequence(0, states.size()-1)}"
                                                  th:text="${states[i]}" th:value="${i}">
                                         </option>
-                                    </select>
+                                    </select> -->
+                                    <ol>
+                                        <li th:each="i:${#numbers.sequence(0, states.size()-1)}">
+                                            <label th:for="'state'+${i}">
+                                                <input type="radio" th:id="'state'+${i}" name="state"
+                                                    th:value="${i}" th:checked="${book.state eq i}">
+                                                <span th:text="${states[i]}"></span>
+                                            </label>
+                                        </li>
+                                    </ol>
                                 </td>
                             </tr>
                             <tr th:id="#{book.edit.evaluation.id}">

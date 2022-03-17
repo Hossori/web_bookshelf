@@ -55,7 +55,6 @@ input[type="button"].buttonDanger:focus {
     z-index: 11;
 
     background-image: url("/image/wood-texture_00126.jpg");
-
 }
 .dialogTitle {
     padding: 12px;
