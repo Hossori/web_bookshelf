@@ -11,7 +11,7 @@
         <script type="text/javascript">
             $(function() {
                 initializeButtons();
-                changeBookStateRadio();
+                controlBookStateRadioView();
 
                 function initializeButtons() {
                     let toEditButton = $('#'+getProperty('book.show.button.toEdit.id'));
@@ -37,13 +37,31 @@
                     }
                 }
 
-                function changeBookStateRadio() {
+                function controlBookStateRadioView() {
                     let bookStateOl = $('#'+getProperty('book.edit.state.id')+' ol');
                     let bookStateRadio = bookStateOl.find('input');
-                    for(let radio of bookStateRadio) {
-                        $(radio).change(() => {
-                            $(radio).parent().css('backgroundColor', 'aqua');
+                    bookStateRadio.each((idx, radio) => {
+                        if($(radio).attr('checked')) {
+                            changeRadioView($(radio), true);
+                        }
+                    });
+                    $(bookStateRadio).change(function(e) {
+                        let checkedRadio = e.currentTarget;
+                        bookStateRadio.each((idx, radio) => {
+                            if(radio === checkedRadio) {
+                                changeRadioView($(radio), true);
+                            } else {
+                                changeRadioView($(radio), false);
+                            }
                         });
+                    });
+                    function changeRadioView(radio, checked) {
+                        let view = checked ?
+                            {textColor:'sienna', bgColor:'white', fontWeight:'bold'} :
+                            {textColor:'white', bgColor:'sienna', fontWeight:'normal'};
+                        radio.parent().children('span').css('color', view.textColor);
+                        radio.parent().css('backgroundColor', view.bgColor);
+                        radio.parent().children('span').css('font-weight', view.fontWeight);
                     }
                 }
 
@@ -97,11 +115,6 @@
                             <tr th:id="#{book.edit.state.id}">
                                 <th th:text="#{book.detail.state.caption}"></th>
                                 <td>
-                                    <!-- <select>
-                                        <option th:each="i:${#numbers.sequence(0, states.size()-1)}"
-                                                 th:text="${states[i]}" th:value="${i}">
-                                        </option>
-                                    </select> -->
                                     <ol>
                                         <li th:each="i:${#numbers.sequence(0, states.size()-1)}">
                                             <label th:for="'state'+${i}">

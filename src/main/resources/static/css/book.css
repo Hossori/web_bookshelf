@@ -85,9 +85,17 @@ table.bookCreate tr td textarea  {
     list-style-type: none;
     display: inline-block;
     margin-right: 12px;
-    color: brown;
-    font-size: 20px;
-    background-color: white;
+}
+#editBookState td ol li label {
+    list-style-type: none;
+    display: inline-block;
+    width: 90px;
+    text-align: center;
     padding: 6px 10px;
     border-radius: 6px;
+    background-color: sienna;
+}
+#editBookState td ol li label span {
+    font-size: 20px;
+    color: white;
 }
