@@ -1,7 +1,9 @@
 package com.hsr.controller;
 
 import java.util.List;
+import java.util.Locale;
 
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -30,6 +32,7 @@ public class BookshelfController {
 
     private final BookshelfService bookshelfService;
     private final BookService bookService;
+    private final MessageSource messageSource;
 
     @GetMapping("/index")
     public String index(
@@ -61,6 +64,7 @@ public class BookshelfController {
         Bookshelf bookshelf = bookshelfService.getById(id);
         Book book = new Book(); // for register book
         book.setBookshelf(bookshelf);
+        List<String> states = List.of(messageSource.getMessage("book.state.array", null, Locale.getDefault()).split(", "));
         Page<Book> bookPages = bookService.getPagesInBookshelf(pageable, bookshelf);
         List<Book> bookList = bookPages.getContent();
         List<BookView> bookViewList = BookConverter.toViewList(bookList);
@@ -69,6 +73,7 @@ public class BookshelfController {
 
         model.addAttribute(bookshelf);
         model.addAttribute(book);
+        model.addAttribute("states", states);
         model.addAttribute("bookPages", bookPages);
         model.addAttribute("books", bookViewList);
         model.addAttribute("pageCount", pageCount);

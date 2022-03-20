@@ -35,11 +35,6 @@ table.bookListInfo {
 }
 
 /* book create, book detail */
-table.bookShow tr,
-table.bookEdit tr,
-table.bookCreate tr {
-    height: 40px;
-}
 table.bookShow tr th,
 table.bookShow tr td,
 table.bookShow tr td pre,
@@ -82,34 +77,44 @@ table.bookCreate tr td textarea  {
     vertical-align: top;
 }
 #editBookState td ol,
-#editBookEvaluation td ol {
+#editBookEvaluation td ol,
+#createBookState td ol,
+#createBookEvaluation td ol {
     font-size: 0;
 }
 #editBookState td ol li,
-#editBookEvaluation td ol li {
+#editBookEvaluation td ol li,
+#createBookState td ol li,
+#createBookEvaluation td ol li {
     list-style-type: none;
     display: inline-block;
 }
-#editBookState td ol li {
+#editBookState td ol li,
+#createBookState td ol li {
     margin-right: 12px;
 }
 #editBookState td ol li label,
-#editBookEvaluation td ol li label {
+#editBookEvaluation td ol li label,
+#createBookState td ol li label
+#createBookEvaluation td ol li label {
     list-style-type: none;
     display: inline-block;
     text-align: center;
 }
-#editBookState td ol li label {
+#editBookState td ol li label,
+#createBookState td ol li label {
     width: 70px;
     padding: 6px 3px;
     background-color: sienna;
     border-radius: 6px;
 }
-#editBookState td ol li label span {
+#editBookState td ol li label span,
+#createBookState td ol li label span {
     font-size: 16px;
     color: white;
 }
-#editBookEvaluation td ol li label span {
+#editBookEvaluation td ol li label span,
+#createBookEvaluation td ol li label span {
     font-size: 20px;
     color: white;
 }
