@@ -9,9 +9,12 @@
         <link rel="stylesheet" th:href="@{/css/book.css}">
         <script th:src="@{/js/part/book.js}" defer></script>
         <script type="text/javascript">
+            var _bookEvaluationValue;
+
             $(function() {
                 initializeButtons();
                 controlBookStateRadioView();
+                controlBookEvaluationRadioView();
 
                 function initializeButtons() {
                     let toEditButton = $('#'+getProperty('book.show.button.toEdit.id'));
@@ -38,7 +41,7 @@
                 }
 
                 function controlBookStateRadioView() {
-                    let bookStateOl = $('#'+getProperty('book.edit.state.id')+' ol');
+                    let bookStateOl = $('#'+getProperty('book.edit.state.id')+' td ol');
                     let bookStateRadio = bookStateOl.find('input');
                     bookStateRadio.each((idx, radio) => {
                         if($(radio).attr('checked')) {
@@ -62,6 +65,34 @@
                         radio.parent().children('span').css('color', view.textColor);
                         radio.parent().css('backgroundColor', view.bgColor);
                         radio.parent().children('span').css('font-weight', view.fontWeight);
+                    }
+                }
+
+                function controlBookEvaluationRadioView() {
+                    let bookEvaluationOl = $('#'+getProperty('book.edit.evaluation.id')+' td ol');
+                    let bookEvaluationRadio = bookEvaluationOl.find('input');
+                    _bookEvaluationValue = bookEvaluationOl.find('input[checked=checked]').val();
+                    changeRadioView(_bookEvaluationValue);
+                    bookEvaluationRadio.each((idx, radio) => {
+                        $(radio).parent().mouseover((e) => {
+                            changeRadioView($(e.currentTarget).children('input').val());
+                        });
+                        $(radio).parent().mouseout(() => {
+                            changeRadioView(_bookEvaluationValue);
+                        });
+                        $(radio).parent().click((e) => {
+                            _bookEvaluationValue = $(e.currentTarget).children('input').val();
+                            changeRadioView(_bookEvaluationValue);
+                        })
+                    });
+                    function changeRadioView(currentValue) {
+                        bookEvaluationRadio.each((idx, radio) => {
+                            if($(radio).val() <= currentValue) {
+                                $(radio).parent().children('span').text('★');
+                            } else {
+                                $(radio).parent().children('span').text('☆');
+                            }
+                        });
                     }
                 }
 
@@ -114,21 +145,27 @@
                             </tr>
                             <tr th:id="#{book.edit.state.id}">
                                 <th th:text="#{book.detail.state.caption}"></th>
-                                <td>
-                                    <ol>
-                                        <li th:each="i:${#numbers.sequence(0, states.size()-1)}">
-                                            <label th:for="'state'+${i}">
-                                                <input type="radio" th:id="'state'+${i}" name="state"
-                                                    th:value="${i}" th:checked="${book.state eq i}">
-                                                <span th:text="${states[i]}"></span>
-                                            </label>
-                                        </li>
-                                    </ol>
-                                </td>
+                                <td><ol>
+                                    <li th:each="i:${#numbers.sequence(0, states.size()-1)}">
+                                        <label th:for="'state'+${i}">
+                                            <input type="radio" th:id="'state'+${i}" name="state"
+                                                th:value="${i}" th:checked="${book.state eq i}">
+                                            <span th:text="${states[i]}"></span>
+                                        </label>
+                                    </li>
+                                </ol></td>
                             </tr>
                             <tr th:id="#{book.edit.evaluation.id}">
                                 <th th:text="#{book.detail.evaluation.caption}"></th>
-                                <td><input type="text" th:field="*{evaluation}"></td>
+                                <td><ol>
+                                    <li th:each="i:${#numbers.sequence(1, 5)}">
+                                        <label th:for="'evaluation'+${i}">
+                                            <input type="radio" th:id="'evaluation'+${i}" name="evaluation"
+                                                    th:value="${i}" th:checked="${book.evaluation eq i}">
+                                            <span>☆</span>
+                                        </label>
+                                     </li>
+                                </ol></td>
                             </tr>
                             <tr th:id="#{book.edit.memo.id}">
                                 <th th:text="#{book.detail.memo.caption}"></th>
