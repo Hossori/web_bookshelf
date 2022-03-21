@@ -1,6 +1,15 @@
 package com.hsr.rest;
 
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.Map;
+
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -8,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hsr.domain.book.model.Book;
+import com.hsr.domain.book.model.BookForm;
 import com.hsr.domain.book.service.BookService;
 import com.hsr.domain.bookshelf.service.BookshelfService;
 
@@ -19,6 +29,10 @@ public class BookRestController {
     private BookService bookService;
     @Autowired
     private BookshelfService bookshelfService;
+    @Autowired
+    private ModelMapper modelMapper;
+    @Autowired
+    private MessageSource messageSource;
 
     /*
     @GetMapping("/getBookPages")
@@ -66,10 +80,24 @@ public class BookRestController {
 
     @PutMapping("/create")
     public Result create(
-            @ModelAttribute Book book) {
+            @ModelAttribute @Validated BookForm bookForm,
+            BindingResult bindingResult,
+            Locale locale) {
 
-        int resultCode =
-                bookService.create(book) != null ? 0 : 403;
+        int resultCode;
+
+        System.out.println(bookForm);
+        if(bindingResult.hasErrors()) {
+            Map<String, Object> errors = new HashMap<>();
+            bindingResult.getFieldErrors().forEach((FieldError error) -> {
+                String message = messageSource.getMessage(error, locale);
+                errors.put(error.getField(), message);
+            });
+            resultCode = 90;
+            return new Result(resultCode, errors);
+        }
+        Book book = modelMapper.map(bookForm, Book.class);
+        resultCode = bookService.create(book) != null ? 0 : 403;
 
         return new Result(resultCode, null);
 

@@ -13,8 +13,8 @@ function createBook() {
     .done(function(result) {
         if(result.code === 0) {
             location.reload();
-        } else {
-            console.log('error '+result.code);
+        } else if(result.code === 90) {
+            console.log(result.data);
         }
     })
     .fail(function() {
