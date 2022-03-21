@@ -20,7 +20,10 @@ textarea {
 
 input[type='checkbox'],
 input[type='radio'] {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  clip: rect(0 0 0 0);
 }
 
 input[type='submit'],
