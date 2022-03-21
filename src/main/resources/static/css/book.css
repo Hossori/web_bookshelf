@@ -95,7 +95,7 @@ table.bookCreate tr td textarea  {
 }
 #editBookState td ol li label,
 #editBookEvaluation td ol li label,
-#createBookState td ol li label
+#createBookState td ol li label,
 #createBookEvaluation td ol li label {
     list-style-type: none;
     display: inline-block;
