@@ -9,12 +9,13 @@
         <link rel="stylesheet" th:href="@{/css/book.css}">
         <script th:src="@{/js/part/book.js}" defer></script>
         <script type="text/javascript">
-            var _bookEvaluationValue;
-
             $(function() {
                 initializeButtons();
-                controlBookStateRadioView();
-                controlBookEvaluationRadioView();
+
+                let bookStateRadios = $('#'+getProperty('book.edit.state.id')+' td ol').find('input');;
+                controlBookStateRadioView(bookStateRadios);
+                let bookEvaluationRadios = $('#'+getProperty('book.edit.evaluation.id')).find('input');
+                controlBookEvaluationRadioView(bookEvaluationRadios);
 
                 function initializeButtons() {
                     let toEditButton = $('#'+getProperty('book.show.button.toEdit.id'));
@@ -37,62 +38,6 @@
                         let showContainer = $('#'+getProperty('book.show.container.id'));
                         editContainer.hide();
                         showContainer.show();
-                    }
-                }
-
-                function controlBookStateRadioView() {
-                    let bookStateOl = $('#'+getProperty('book.edit.state.id')+' td ol');
-                    let bookStateRadio = bookStateOl.find('input');
-                    bookStateRadio.each((idx, radio) => {
-                        if($(radio).attr('checked')) {
-                            changeRadioView($(radio), true);
-                        }
-                    });
-                    $(bookStateRadio).change(function(e) {
-                        let checkedRadio = e.currentTarget;
-                        bookStateRadio.each((idx, radio) => {
-                            if(radio === checkedRadio) {
-                                changeRadioView($(radio), true);
-                            } else {
-                                changeRadioView($(radio), false);
-                            }
-                        });
-                    });
-                    function changeRadioView(radio, checked) {
-                        let view = checked ?
-                            {textColor:'sienna', bgColor:'white', fontWeight:'bold'} :
-                            {textColor:'white', bgColor:'sienna', fontWeight:'normal'};
-                        radio.parent().children('span').css('color', view.textColor);
-                        radio.parent().css('backgroundColor', view.bgColor);
-                        radio.parent().children('span').css('font-weight', view.fontWeight);
-                    }
-                }
-
-                function controlBookEvaluationRadioView() {
-                    let bookEvaluationOl = $('#'+getProperty('book.edit.evaluation.id')+' td ol');
-                    let bookEvaluationRadio = bookEvaluationOl.find('input');
-                    _bookEvaluationValue = bookEvaluationOl.find('input[checked=checked]').val();
-                    changeRadioView(_bookEvaluationValue);
-                    bookEvaluationRadio.each((idx, radio) => {
-                        $(radio).parent().mouseover((e) => {
-                            changeRadioView($(e.currentTarget).children('input').val());
-                        });
-                        $(radio).parent().mouseout(() => {
-                            changeRadioView(_bookEvaluationValue);
-                        });
-                        $(radio).parent().click((e) => {
-                            _bookEvaluationValue = $(e.currentTarget).children('input').val();
-                            changeRadioView(_bookEvaluationValue);
-                        })
-                    });
-                    function changeRadioView(currentValue) {
-                        bookEvaluationRadio.each((idx, radio) => {
-                            if($(radio).val() <= currentValue) {
-                                $(radio).parent().children('span').text('★');
-                            } else {
-                                $(radio).parent().children('span').text('☆');
-                            }
-                        });
                     }
                 }
 

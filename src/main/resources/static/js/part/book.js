@@ -1,23 +1,6 @@
 'use strict';
 
-/*function createStarsOfEvaluation(evaluationInt) {
-    let evaluationStars = '';
-
-    if(evaluationInt) {
-        let starCount = 5;
-        for(let i = 0; i < evaluationInt; i++) {
-            evaluationStars += '★';
-            starCount--;
-        }
-        for(; 0 < starCount; starCount--) {
-            evaluationStars += '☆';
-        }
-    } else {
-        evaluationStars = '-';
-    }
-
-    return evaluationStars;
-}*/
+var _bookEvaluationValue;
 
 function createBook() {
     let formData = $('#'+getProperty('book.create.form.id')).serializeArray();
@@ -77,4 +60,56 @@ function deleteBook() {
             history.back();
         }
     });
+}
+
+function controlBookStateRadioView(bookStateRadios) {
+    bookStateRadios.each((idx, radio) => {
+        if($(radio).attr('checked')) {
+            changeRadioView($(radio), true);
+        }
+    });
+    $(bookStateRadios).change(function(e) {
+        let checkedRadio = e.currentTarget;
+        bookStateRadios.each((idx, radio) => {
+            if(radio === checkedRadio) {
+                changeRadioView($(radio), true);
+            } else {
+                changeRadioView($(radio), false);
+            }
+        });
+    });
+    function changeRadioView(radio, checked) {
+        let view = checked ?
+            {textColor:'sienna', bgColor:'white', fontWeight:'bold'} :
+            {textColor:'white', bgColor:'sienna', fontWeight:'normal'};
+        radio.parent().children('span').css('color', view.textColor);
+        radio.parent().css('backgroundColor', view.bgColor);
+        radio.parent().children('span').css('font-weight', view.fontWeight);
+    }
+}
+
+function controlBookEvaluationRadioView(bookEvaluationRadios) {
+    _bookEvaluationValue = bookEvaluationRadios.filter('[checked=checked]').val();
+    changeRadioView(_bookEvaluationValue);
+    bookEvaluationRadios.each((idx, radio) => {
+        $(radio).parent().mouseover((e) => {
+            changeRadioView($(e.currentTarget).children('input').val());
+        });
+        $(radio).parent().mouseout(() => {
+            changeRadioView(_bookEvaluationValue);
+        });
+        $(radio).parent().click((e) => {
+            _bookEvaluationValue = $(e.currentTarget).children('input').val();
+            changeRadioView(_bookEvaluationValue);
+        })
+    });
+    function changeRadioView(currentValue) {
+        bookEvaluationRadios.each((idx, radio) => {
+            if($(radio).val() <= currentValue) {
+                $(radio).parent().children('span').text('★');
+            } else {
+                $(radio).parent().children('span').text('☆');
+            }
+        });
+    }
 }

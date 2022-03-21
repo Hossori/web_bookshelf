@@ -17,6 +17,11 @@
                 initializeBookCreateDialog();
                 initializeButtons();
 
+                let bookStateRadios = $('#'+getProperty('book.create.state.id')+' td ol').find('input');;
+                controlBookStateRadioView(bookStateRadios);
+                let bookEvaluationRadios = $('#'+getProperty('book.create.evaluation.id')).find('input');
+                controlBookEvaluationRadioView(bookEvaluationRadios);
+
                 function initializeBookCreateDialog() {
                     let bookCreateDialogShowButton = {
                         element : $('#'+getProperty('bookshelf.detail.button.bookCreate.id')),
