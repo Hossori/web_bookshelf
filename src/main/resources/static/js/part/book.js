@@ -11,9 +11,11 @@ function createBook() {
         dataType : 'json'
     })
     .done(function(result) {
-        if(result.code === 0) {
+        if(result.code === STATUS.OK) {
             location.reload();
-        } else if(result.code === 90) {
+        } else if(result.code === STATUS.BAD_REQUEST) {
+            console.log(result.data);
+        } else if(result.code === STATUS.FORBIDDEN) {
             console.log(result.data);
         }
     })
@@ -37,7 +39,7 @@ function updateBook() {
         data : formData,
         dataType : 'json'
     }).done(function(result) {
-        if(result.code === 0) {
+        if(result.code === STATUS.OK) {
             location.reload();
         }
     });
@@ -56,7 +58,7 @@ function deleteBook() {
         data : {bookId : bookId},
         dataType : 'json'
     }).done(function(result) {
-        if(result.code === 0) {
+        if(result.code === STATUS.OK) {
             history.back();
         }
     });

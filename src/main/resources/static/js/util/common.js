@@ -1,5 +1,11 @@
 'use strict';
 
+var STATUS = {
+    OK : Number(getProperty('statusCode.ok')),
+    BAD_REQUEST : Number(getProperty('statusCode.badRequest')),
+    FORBIDDEN : Number(getProperty('statusCode.forbidden'))
+};
+
 function getProperty(key) {
     let res = $.ajax({
         url : '/rest/property/get',

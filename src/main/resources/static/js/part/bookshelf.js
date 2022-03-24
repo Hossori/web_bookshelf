@@ -15,7 +15,7 @@ function updateBookshelf() {
         data : formData,
         dataType : 'json'
     }).done(function(result) {
-        if(result.code === 0) {
+        if(result.code === STATUS.OK) {
             location.reload();
         }
     });
@@ -34,7 +34,7 @@ function deleteBookshelf() {
         data : {bookshelfId : bookshelfId},
         dataType : 'json'
     }).done(function(result) {
-        if(result.code === 0) {
+        if(result.code === STATUS.OK) {
             location.href = '/bookshelf/index?page=0';
         }
     });

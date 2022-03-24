@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hsr.constant.StatusCodeConst;
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.model.BookForm;
 import com.hsr.domain.book.service.BookService;
@@ -85,19 +86,18 @@ public class BookRestController {
             Locale locale) {
 
         int resultCode;
-
-        System.out.println(bookForm);
         if(bindingResult.hasErrors()) {
             Map<String, Object> errors = new HashMap<>();
             bindingResult.getFieldErrors().forEach((FieldError error) -> {
                 String message = messageSource.getMessage(error, locale);
                 errors.put(error.getField(), message);
             });
-            resultCode = 90;
+            resultCode = StatusCodeConst.BAD_REQUEST.getValue();
             return new Result(resultCode, errors);
         }
         Book book = modelMapper.map(bookForm, Book.class);
-        resultCode = bookService.create(book) != null ? 0 : 403;
+        resultCode = bookService.create(book) != null
+                ? StatusCodeConst.OK.getValue() : StatusCodeConst.FORBIDDEN.getValue();
 
         return new Result(resultCode, null);
 
@@ -108,8 +108,8 @@ public class BookRestController {
             @ModelAttribute Book newBook) {
 
         Book book = bookService.getById(newBook.getId());
-        int resultCode =
-                bookService.update(book, newBook) != null ? 0 : 403;
+        int resultCode = bookService.update(book, newBook) != null
+                ? StatusCodeConst.OK.getValue() : StatusCodeConst.FORBIDDEN.getValue();
 
         return new Result(resultCode, null);
 
@@ -121,7 +121,7 @@ public class BookRestController {
 
         Book book = bookService.getById(bookId);
         bookService.delete(book);
-        int resultCode = 0;
+        int resultCode = StatusCodeConst.OK.getValue();
 
         return new Result(resultCode, null);
 

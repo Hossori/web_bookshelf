@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hsr.constant.StatusCodeConst;
 import com.hsr.domain.bookshelf.model.Bookshelf;
 import com.hsr.domain.bookshelf.service.BookshelfService;
 
@@ -36,8 +37,8 @@ public class BookshelfRestController {
             @ModelAttribute Bookshelf newBookshelf) {
 
         Bookshelf bookshelf = bookshelfService.getById(newBookshelf.getId());
-        int resultCode =
-                bookshelfService.update(bookshelf, newBookshelf) != null ? 0 : 403;
+        int resultCode = bookshelfService.update(bookshelf, newBookshelf) != null
+                        ? StatusCodeConst.OK.getValue() : StatusCodeConst.FORBIDDEN.getValue();
         return new Result(resultCode, null);
 
     }
@@ -47,7 +48,7 @@ public class BookshelfRestController {
             @RequestParam("bookshelfId") int bookshelfId) {
         Bookshelf bookshelf = bookshelfService.getById(bookshelfId);
         bookshelfService.delete(bookshelf);
-        int resultCode = 0;
+        int resultCode = StatusCodeConst.OK.getValue();
         return new Result(resultCode, null);
     }
 }
