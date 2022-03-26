@@ -1,6 +1,7 @@
 package com.hsr.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +17,9 @@ import com.hsr.domain.bookshelf.service.BookshelfService;
 public class BookshelfRestController {
 
     @Autowired
-    BookshelfService bookshelfService;
+    private BookshelfService bookshelfService;
+    @Autowired
+    private MessageSource messageSource;
 
     /*@GetMapping("/getBookshelfPages")
     public Result getBookshelfPages(
@@ -38,7 +41,8 @@ public class BookshelfRestController {
 
         Bookshelf bookshelf = bookshelfService.getById(newBookshelf.getId());
         int resultCode = bookshelfService.update(bookshelf, newBookshelf) != null
-                        ? StatusCodeConst.OK.getValue() : StatusCodeConst.FORBIDDEN.getValue();
+                        ? StatusCodeConst.OK
+                        : StatusCodeConst.FORBIDDEN;
         return new Result(resultCode, null);
 
     }
@@ -48,7 +52,7 @@ public class BookshelfRestController {
             @RequestParam("bookshelfId") int bookshelfId) {
         Bookshelf bookshelf = bookshelfService.getById(bookshelfId);
         bookshelfService.delete(bookshelf);
-        int resultCode = StatusCodeConst.OK.getValue();
+        int resultCode = StatusCodeConst.OK;
         return new Result(resultCode, null);
     }
 }

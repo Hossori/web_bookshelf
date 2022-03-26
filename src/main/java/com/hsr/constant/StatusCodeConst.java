@@ -1,25 +1,11 @@
 package com.hsr.constant;
 
-import java.util.Locale;
+import com.hsr.util.PropertyReader;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
+public interface StatusCodeConst {
 
-import lombok.Getter;
+    public static final Integer OK = PropertyReader.getStatusCode("statusCode.ok");
+    public static final Integer BAD_REQUEST = PropertyReader.getStatusCode("statusCode.badRequest");
+    public static final Integer FORBIDDEN = PropertyReader.getStatusCode("statusCode.forbidden");
 
-public enum StatusCodeConst {
-
-    OK("statusCode.ok"),
-    BAD_REQUEST("statusCode.badRequest"),
-    FORBIDDEN("statusCode.forbidden");
-
-    @Autowired
-    private MessageSource messageSource;
-
-    @Getter
-    private Integer value;
-
-    private StatusCodeConst(String key) {
-        this.value = Integer.parseInt(messageSource.getMessage(key, null, Locale.getDefault()));
-    }
 }

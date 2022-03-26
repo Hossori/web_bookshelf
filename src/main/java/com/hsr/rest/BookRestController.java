@@ -92,12 +92,13 @@ public class BookRestController {
                 String message = messageSource.getMessage(error, locale);
                 errors.put(error.getField(), message);
             });
-            resultCode = StatusCodeConst.BAD_REQUEST.getValue();
+            resultCode = StatusCodeConst.BAD_REQUEST;
             return new Result(resultCode, errors);
         }
         Book book = modelMapper.map(bookForm, Book.class);
         resultCode = bookService.create(book) != null
-                ? StatusCodeConst.OK.getValue() : StatusCodeConst.FORBIDDEN.getValue();
+                ? StatusCodeConst.OK
+                : StatusCodeConst.FORBIDDEN;
 
         return new Result(resultCode, null);
 
@@ -109,7 +110,8 @@ public class BookRestController {
 
         Book book = bookService.getById(newBook.getId());
         int resultCode = bookService.update(book, newBook) != null
-                ? StatusCodeConst.OK.getValue() : StatusCodeConst.FORBIDDEN.getValue();
+                ? StatusCodeConst.OK
+                : StatusCodeConst.FORBIDDEN;
 
         return new Result(resultCode, null);
 
@@ -121,7 +123,7 @@ public class BookRestController {
 
         Book book = bookService.getById(bookId);
         bookService.delete(book);
-        int resultCode = StatusCodeConst.OK.getValue();
+        int resultCode = StatusCodeConst.OK;
 
         return new Result(resultCode, null);
 

@@ -17,8 +17,12 @@ import com.hsr.rest.Result;
 @RequestMapping("/rest/property")
 public class PropertyReader {
 
+    private static MessageSource messageSource;
+
     @Autowired
-    MessageSource messageSource;
+    public PropertyReader(MessageSource messageSource) {
+        PropertyReader.messageSource = messageSource;
+    }
 
     @GetMapping("/get")
     public Result getProperty(
@@ -30,6 +34,10 @@ public class PropertyReader {
         resultMap.put("value", prop);
 
         return new Result(0, resultMap);
+    }
+
+    public static Integer getStatusCode(String key) {
+        return Integer.parseInt(messageSource.getMessage(key, null, Locale.getDefault()));
     }
 
 }
