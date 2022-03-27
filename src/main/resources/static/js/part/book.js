@@ -41,6 +41,10 @@ function updateBook() {
     }).done(function(result) {
         if(result.code === STATUS.OK) {
             location.reload();
+        } else if(result.code === STATUS.BAD_REQUEST) {
+            console.log(result.data);
+        } else if(result.code === STATUS.FORBIDDEN) {
+            console.log(result.data);
         }
     });
 }

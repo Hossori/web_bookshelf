@@ -2,12 +2,15 @@ package com.hsr.domain.book.service.impl;
 
 import java.time.LocalDateTime;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.hsr.constant.JpaConst;
+import com.hsr.constant.StatusCodeConst;
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.service.BookService;
 import com.hsr.domain.bookshelf.model.Bookshelf;
@@ -35,30 +38,39 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public Book create(Book book) {
+    @Transactional
+    public Integer create(Book book) {
 
         book.setCreatedAt(LocalDateTime.now());
         book.setUpdatedAt(LocalDateTime.now());
         book.setDeleteFlag(JpaConst.DELETE_FLAG_FALSE);
-
-        return repository.save(book);
+        Integer resultCode =
+                repository.save(book) != null
+                    ? StatusCodeConst.OK
+                    : StatusCodeConst.FORBIDDEN;;
+        return resultCode;
 
     }
 
     @Override
-    public Book update(Book book, Book newBook) {
+    @Transactional
+    public Integer update(Book book, Book newBook) {
 
         book.setName(newBook.getName());
         book.setState(newBook.getState());
         book.setEvaluation(newBook.getEvaluation());
         book.setMemo(newBook.getMemo());
         book.setUpdatedAt(LocalDateTime.now());
-
-        return repository.save(book);
+        Integer resultCode =
+                repository.save(book)!= null
+                    ? StatusCodeConst.OK
+                    : StatusCodeConst.FORBIDDEN;
+        return resultCode;
 
     }
 
     @Override
+    @Transactional
     public void delete(Book book) {
         book.setDeleteFlag(JpaConst.DELETE_FLAG_TRUE);
         repository.save(book);

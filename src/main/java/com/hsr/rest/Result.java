@@ -10,6 +10,6 @@ import lombok.RequiredArgsConstructor;
 public class Result {
 
     private final int code;
-    private final Map<String, Object> data;
+    private final Map<String, String> data;
 
 }

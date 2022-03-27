@@ -1,6 +1,5 @@
 package com.hsr.rest;
 
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
@@ -8,7 +7,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -19,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hsr.constant.StatusCodeConst;
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.model.BookForm;
+import com.hsr.domain.book.model.validator.BookValidator;
 import com.hsr.domain.book.service.BookService;
 import com.hsr.domain.bookshelf.service.BookshelfService;
 
@@ -86,19 +85,15 @@ public class BookRestController {
             Locale locale) {
 
         int resultCode;
-        if(bindingResult.hasErrors()) {
-            Map<String, Object> errors = new HashMap<>();
-            bindingResult.getFieldErrors().forEach((FieldError error) -> {
-                String message = messageSource.getMessage(error, locale);
-                errors.put(error.getField(), message);
-            });
+
+        Map<String, String> errors = BookValidator.validate(bindingResult, locale);
+        if(errors != null) {
             resultCode = StatusCodeConst.BAD_REQUEST;
             return new Result(resultCode, errors);
         }
+
         Book book = modelMapper.map(bookForm, Book.class);
-        resultCode = bookService.create(book) != null
-                ? StatusCodeConst.OK
-                : StatusCodeConst.FORBIDDEN;
+        resultCode = bookService.create(book);
 
         return new Result(resultCode, null);
 
@@ -106,12 +101,21 @@ public class BookRestController {
 
     @PutMapping("/update")
     public Result update(
-            @ModelAttribute Book newBook) {
+            @ModelAttribute @Validated BookForm bookForm,
+            BindingResult bindingResult,
+            Locale locale) {
 
-        Book book = bookService.getById(newBook.getId());
-        int resultCode = bookService.update(book, newBook) != null
-                ? StatusCodeConst.OK
-                : StatusCodeConst.FORBIDDEN;
+        int resultCode;
+
+        Map<String, String> errors = BookValidator.validate(bindingResult, locale);
+        if(errors != null) {
+            resultCode = StatusCodeConst.BAD_REQUEST;
+            return new Result(resultCode, errors);
+        }
+
+        Book book = bookService.getById(bookForm.getId());
+        Book newBook = modelMapper.map(bookForm, Book.class);
+        resultCode = bookService.update(book, newBook);
 
         return new Result(resultCode, null);
 

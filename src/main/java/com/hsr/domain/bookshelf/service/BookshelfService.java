@@ -15,7 +15,7 @@ public interface BookshelfService {
 
     public void create(Bookshelf bookshelf);
 
-    public Bookshelf update(Bookshelf bookshelf, Bookshelf newBookshelf);
+    public Integer update(Bookshelf bookshelf, Bookshelf newBookshelf);
 
     public void delete(Bookshelf bookshelf);
 

@@ -30,7 +30,7 @@ public class PropertyReader {
             Locale locale) {
 
         String prop = messageSource.getMessage(key, null, locale);
-        Map<String, Object> resultMap = new HashMap<>();
+        Map<String, String> resultMap = new HashMap<>();
         resultMap.put("value", prop);
 
         return new Result(0, resultMap);

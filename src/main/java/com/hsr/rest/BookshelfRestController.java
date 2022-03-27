@@ -40,9 +40,7 @@ public class BookshelfRestController {
             @ModelAttribute Bookshelf newBookshelf) {
 
         Bookshelf bookshelf = bookshelfService.getById(newBookshelf.getId());
-        int resultCode = bookshelfService.update(bookshelf, newBookshelf) != null
-                        ? StatusCodeConst.OK
-                        : StatusCodeConst.FORBIDDEN;
+        Integer resultCode = bookshelfService.update(bookshelf, newBookshelf);
         return new Result(resultCode, null);
 
     }

@@ -16,9 +16,9 @@ public interface BookService {
 
     public Page<Book> getPagesInBookshelf(Pageable pageable, Bookshelf bookshelf);
 
-    public Book create(Book book);
+    public Integer create(Book book);
 
-    public Book update(Book book, Book newBook);
+    public Integer update(Book book, Book newBook);
 
     public void delete(Book book);
 
