@@ -70,7 +70,7 @@ function deleteBook() {
 
 function appendValidationMessages(errors) {
     let forms = {
-        name : $('#'+getProperty('book.create.name.id')+' td'),
+        name : $('#'+getProperty('book.create.name.id')),
         /*
         state : $('#'+getProperty('book.create.state.id')+' td'),
         evaluation : $('#'+getProperty('book.create.evaluation.id')+' td'),
@@ -78,10 +78,19 @@ function appendValidationMessages(errors) {
         */
     };
 
+    let style = $('<style type="text/css">');
+    style.append(
+        '#createBookName.error th {color: yellow;}' +
+        '#createBookName.error td p {color: yellow; margin-top: 6px;}' +
+        '#createBookName.error td input {border-bottom: solid 1px yellow;}'
+    );
+    $('body').append(style);
+
     for(let key in errors) {
         if(errors[key]) {
             let errorMsg = $('<p class="error">').append(errors[key]);
-            forms[key].append(errorMsg);
+            forms[key].addClass('error');
+            forms[key].find('td').append(errorMsg);
         }
     }
 }

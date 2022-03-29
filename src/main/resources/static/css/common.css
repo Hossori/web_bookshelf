@@ -41,7 +41,7 @@ input[type="button"].buttonDanger:focus {
     background-color: darkred;
 }
 
-
+/* dialog */
 .dialog {
     display: none;
     border-radius: 12px;
