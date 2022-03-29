@@ -14,7 +14,7 @@ function createBook() {
         if(result.code === STATUS.OK) {
             location.reload();
         } else if(result.code === STATUS.BAD_REQUEST) {
-            console.log(result.data);
+            appendValidationMessages(result.data);
         } else if(result.code === STATUS.FORBIDDEN) {
             console.log(result.data);
         }
@@ -42,7 +42,7 @@ function updateBook() {
         if(result.code === STATUS.OK) {
             location.reload();
         } else if(result.code === STATUS.BAD_REQUEST) {
-            console.log(result.data);
+            appendValidationMessages(result.data);
         } else if(result.code === STATUS.FORBIDDEN) {
             console.log(result.data);
         }
@@ -66,6 +66,24 @@ function deleteBook() {
             history.back();
         }
     });
+}
+
+function appendValidationMessages(errors) {
+    let forms = {
+        name : $('#'+getProperty('book.create.name.id')+' td'),
+        /*
+        state : $('#'+getProperty('book.create.state.id')+' td'),
+        evaluation : $('#'+getProperty('book.create.evaluation.id')+' td'),
+        memo : $('#'+getProperty('book.create.memo.id')+' td')
+        */
+    };
+
+    for(let key in errors) {
+        if(errors[key]) {
+            let errorMsg = $('<p class="error">').append(errors[key]);
+            forms[key].append(errorMsg);
+        }
+    }
 }
 
 function controlBookStateRadioView(bookStateRadios) {
