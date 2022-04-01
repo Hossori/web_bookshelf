@@ -7,12 +7,8 @@
 ●bookshelf listの検索機能
 RESTにするかどうか、ブラウザバックを考慮しよく考える。
 
-●本の編集画面
+▼本の編集画面
 削除,更新,作成は確認画面通すように。
-
-▼bookshelfのbookList1列目ずれてる。book.cssかな
-
-●book.jsのapplyValidationMessages()力技で作っちゃった。nameにしか対応してない。
 
 ●REST
 RESTは詳細⇔編集の行き来や登録・更新のみにする。
@@ -46,3 +42,9 @@ bookshelf.detail.button.backToList.caption[tooltip]かな。
 
 ■本の作成・編集
 バリデーションいれないと。
+
+■bookshelfのbookList1列目ずれてる。book.cssかな
+ずれてなかった…
+
+■book.jsのapplyValidationMessages()力技で作っちゃった。nameにしか対応してない。
+依然力技ではあるけど割と他にも対応させれそうになった。
