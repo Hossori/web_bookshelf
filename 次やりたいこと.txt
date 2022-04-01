@@ -10,9 +10,6 @@ RESTにするかどうか、ブラウザバックを考慮しよく考える。
 ●本の編集画面
 削除,更新,作成は確認画面通すように。
 
-▼本の作成・編集
-バリデーションいれないと。
-
 ▼bookshelfのbookList1列目ずれてる。book.cssかな
 
 ●book.jsのapplyValidationMessages()力技で作っちゃった。nameにしか対応してない。
@@ -46,3 +43,6 @@ bookshelf.detail.button.backToList.caption[tooltip]かな。
 ■bookshelf detailのedit form
 
 ■formReset.cssでradioのdisplayをnoneにしている関係でfocusが止まらない問題
+
+■本の作成・編集
+バリデーションいれないと。

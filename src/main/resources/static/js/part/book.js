@@ -14,7 +14,7 @@ function createBook() {
         if(result.code === STATUS.OK) {
             location.reload();
         } else if(result.code === STATUS.BAD_REQUEST) {
-            applyValidationMessages(result.data);
+            applyValidationMessages(result.data, 'create');
         } else if(result.code === STATUS.FORBIDDEN) {
             console.log(result.data);
         }
@@ -42,7 +42,7 @@ function updateBook() {
         if(result.code === STATUS.OK) {
             location.reload();
         } else if(result.code === STATUS.BAD_REQUEST) {
-            applyValidationMessages(result.data);
+            applyValidationMessages(result.data, 'update');
         } else if(result.code === STATUS.FORBIDDEN) {
             console.log(result.data);
         }
@@ -68,23 +68,34 @@ function deleteBook() {
     });
 }
 
-function applyValidationMessages(errors) {
-    let forms = {
-        name : $('#'+getProperty('book.create.name.id')),
+function applyValidationMessages(errors, methodName) {
+    let id;
+    if(methodName === 'create') {
+        id = '#'+getProperty('book.create.name.id');
+    } else if(methodName === 'update') {
+        id = '#'+getProperty('book.edit.name.id');
+    }
+
+    let target = {
+        name : {
+            messageWrapper : $(id+' td'),
+            header : $(id+' th'),
+            form : $(id+' td input')
+        }
     };
 
     $('p.error').remove();
-    $('#createBookName th').css('color', 'white');
-    $('#createBookName td input').css('border-bottom', 'solid 1px white');
+    target['name'].header.css('color', 'white');
+    target['name'].form.css('border-bottom', 'solid 1px white');
 
     for(let key in errors) {
         if(errors[key]) {
             let errorMsg = $('<p class="error">').append(errors[key]);
-            forms[key].find('td').append(errorMsg);
+            target[key].messageWrapper.append(errorMsg);
             errorMsg.css('color', 'yellow');
             errorMsg.css('margin-top', '6px');
-            $('#createBookName th').css('color', 'yellow');
-            $('#createBookName td input').css('border-bottom', 'solid 1px yellow');
+            target[key].header.css('color', 'yellow');
+            target[key].form.css('border-bottom', 'solid 1px yellow');
         }
     }
 }
