@@ -50,9 +50,9 @@ input[type="button"].buttonDanger:focus {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    height:480px;
-    width: 615px;
     z-index: 11;
+
+    min-width: 600px;
 
     background-image: url("/image/wood-texture_00126.jpg");
 }

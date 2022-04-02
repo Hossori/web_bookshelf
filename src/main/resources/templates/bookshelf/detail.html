@@ -42,6 +42,7 @@
                     ]
                     let bookCreateDialogDef = {
                         dialog : $('#'+getProperty('book.create.dialog.id')),
+                        titleText : getProperty('book.create.dialog.title'),
                         firstElement : $('#'+getProperty('book.create.name.id')+' td input'),
                         buttons : bookCreateDialogButtons
                     }
@@ -122,7 +123,6 @@
             <!-- book create dialog -->
             <div id="overlay"></div>
             <div th:id="#{book.create.dialog.id}" class="dialog">
-                <h3 class="dialogTitle" th:text="#{book.create.dialog.title}"></h3>
                 <div class="dialogContent">
                     <form th:id="#{book.create.form.id}" th:object="${book}" th:action method="post" autocomplete="off">
                         <input type="hidden" th:field="*{bookshelf}">

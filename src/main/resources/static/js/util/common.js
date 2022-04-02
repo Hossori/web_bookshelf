@@ -38,3 +38,30 @@ function formatDateTime(datetime, formatType) {
 
     return text;
 }
+
+function initializeConfirmDialog(message) {
+    let bookCreateDialogShowButton = {
+        element : $('#'+getProperty('bookshelf.detail.button.bookCreate.id')),
+        click : 'show'
+    }
+    let bookCreateDialogRegisterButton = {
+        element : $('#'+getProperty('book.create.dialog.buttons.register.id')),
+        click : createBook
+    };
+    let bookCreateDialogCancelButton = {
+        element : $('#'+getProperty('book.create.dialog.buttons.cancel.id')),
+        click : 'hide'
+    };
+    let bookCreateDialogButtons = [
+        bookCreateDialogShowButton,
+        bookCreateDialogRegisterButton,
+        bookCreateDialogCancelButton
+    ]
+    let confirmDialogDef = {
+        dialog : $('#'+getProperty('confirm.dialog.id')),
+        titleText : getProperty('confirm.dialog.title'),
+        firstElement : $('#'+getProperty('book.create.name.id')+' td input'),
+        buttons : bookCreateDialogButtons
+    }
+    new Dialog(confirmDialogDef);
+}

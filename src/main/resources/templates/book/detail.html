@@ -11,6 +11,7 @@
         <script type="text/javascript">
             $(function() {
                 initializeButtons();
+                initialize
 
                 let bookStateRadios = $('#'+getProperty('book.edit.state.id')+' td ol').find('input');;
                 controlBookStateRadioView(bookStateRadios);
@@ -46,90 +47,95 @@
     </head>
     <body>
         <div layout:fragment="content">
-                <!-- show -->
-                <div th:id="#{book.show.container.id}">
-                    <table class="bookShow">
-                        <tr th:id="#{book.show.name.id}">
+            <!-- confirm dialog -->
+            <div id="overlay"></div>
+            <div th:id="#{confirm.dialog.id}" class="dialog">
+                <div class="dialogContent"></div>
+            </div>
+
+            <!-- show -->
+            <div th:id="#{book.show.container.id}">
+                <table class="bookShow">
+                    <tr th:id="#{book.show.name.id}">
+                        <th th:text="#{book.detail.name.caption}"></th>
+                        <td th:text="${bookView.name}"></td>
+                    </tr>
+                    <tr th:id="#{book.show.state.id}">
+                        <th th:text="#{book.detail.state.caption}"></th>
+                        <td th:text="${bookView.state}"></td>
+                    </tr>
+                    <tr th:id="#{book.show.evaluation.id}">
+                        <th th:text="#{book.detail.evaluation.caption}"></th>
+                        <td th:text="${bookView.evaluation}"></td>
+                    </tr>
+                    <tr th:id="#{book.show.createdAt.id}">
+                        <th th:text="#{book.detail.createdAt.caption}"></th>
+                        <td th:text="${bookView.createdAt}"></td>
+                    </tr>
+                    <tr th:id="#{book.show.updatedAt.id}">
+                        <th th:text="#{book.detail.updatedAt.caption}"></th>
+                        <td th:text="${bookView.updatedAt}"></td>
+                    </tr>
+                    <tr th:id="#{book.show.memo.id}">
+                        <th th:text="#{book.detail.memo.caption}"></th>
+                        <td><pre th:text="${bookView.memo}"></pre></td>
+                    </tr>
+                </table>
+                <input type="button" th:id="#{book.show.button.toEdit.id}"
+                        th:value="#{book.show.button.toEdit.caption}"
+                        th:title="#{book.show.button.toEdit.tooltip}">
+            </div>
+
+            <!-- edit -->
+            <div th:id="#{book.edit.container.id}" style="display:none;">
+                <form th:id="#{book.edit.form.id}" th:object="${book}" th:action method="post" autocomplete="off">
+                    <input type="hidden" th:id="#{book.edit.id.id}" th:field="*{id}">
+                    <table class="bookEdit">
+                        <tr th:id="#{book.edit.name.id}">
                             <th th:text="#{book.detail.name.caption}"></th>
-                            <td th:text="${bookView.name}"></td>
+                            <td><input type="text" th:field="*{name}"></td>
                         </tr>
-                        <tr th:id="#{book.show.state.id}">
+                        <tr th:id="#{book.edit.state.id}">
                             <th th:text="#{book.detail.state.caption}"></th>
-                            <td th:text="${bookView.state}"></td>
+                            <td><ol>
+                                <li th:each="i:${#numbers.sequence(0, states.size()-1)}">
+                                    <label th:for="'state'+${i}">
+                                        <input type="radio" th:id="'state'+${i}" name="state"
+                                            th:value="${i}" th:checked="${book.state eq i}">
+                                        <span th:text="${states[i]}"></span>
+                                    </label>
+                                </li>
+                            </ol></td>
                         </tr>
-                        <tr th:id="#{book.show.evaluation.id}">
+                        <tr th:id="#{book.edit.evaluation.id}">
                             <th th:text="#{book.detail.evaluation.caption}"></th>
-                            <td th:text="${bookView.evaluation}"></td>
+                            <td><ol>
+                                <li th:each="i:${#numbers.sequence(1, 5)}">
+                                    <label th:for="'evaluation'+${i}">
+                                        <input type="radio" th:id="'evaluation'+${i}" name="evaluation"
+                                                th:value="${i}" th:checked="${book.evaluation eq i}">
+                                        <span>☆</span>
+                                    </label>
+                                 </li>
+                            </ol></td>
                         </tr>
-                        <tr th:id="#{book.show.createdAt.id}">
-                            <th th:text="#{book.detail.createdAt.caption}"></th>
-                            <td th:text="${bookView.createdAt}"></td>
-                        </tr>
-                        <tr th:id="#{book.show.updatedAt.id}">
-                            <th th:text="#{book.detail.updatedAt.caption}"></th>
-                            <td th:text="${bookView.updatedAt}"></td>
-                        </tr>
-                        <tr th:id="#{book.show.memo.id}">
+                        <tr th:id="#{book.edit.memo.id}">
                             <th th:text="#{book.detail.memo.caption}"></th>
-                            <td><pre th:text="${bookView.memo}"></pre></td>
+                            <td><textarea th:field="*{memo}"></textarea></td>
                         </tr>
                     </table>
-                    <input type="button" th:id="#{book.show.button.toEdit.id}"
-                            th:value="#{book.show.button.toEdit.caption}"
-                            th:title="#{book.show.button.toEdit.tooltip}">
-                </div>
-
-                <!-- edit -->
-                <div th:id="#{book.edit.container.id}" style="display:none;">
-                    <form th:id="#{book.edit.form.id}" th:object="${book}" th:action method="post" autocomplete="off">
-                        <input type="hidden" th:id="#{book.edit.id.id}" th:field="*{id}">
-                        <table class="bookEdit">
-                            <tr th:id="#{book.edit.name.id}">
-                                <th th:text="#{book.detail.name.caption}"></th>
-                                <td><input type="text" th:field="*{name}"></td>
-                            </tr>
-                            <tr th:id="#{book.edit.state.id}">
-                                <th th:text="#{book.detail.state.caption}"></th>
-                                <td><ol>
-                                    <li th:each="i:${#numbers.sequence(0, states.size()-1)}">
-                                        <label th:for="'state'+${i}">
-                                            <input type="radio" th:id="'state'+${i}" name="state"
-                                                th:value="${i}" th:checked="${book.state eq i}">
-                                            <span th:text="${states[i]}"></span>
-                                        </label>
-                                    </li>
-                                </ol></td>
-                            </tr>
-                            <tr th:id="#{book.edit.evaluation.id}">
-                                <th th:text="#{book.detail.evaluation.caption}"></th>
-                                <td><ol>
-                                    <li th:each="i:${#numbers.sequence(1, 5)}">
-                                        <label th:for="'evaluation'+${i}">
-                                            <input type="radio" th:id="'evaluation'+${i}" name="evaluation"
-                                                    th:value="${i}" th:checked="${book.evaluation eq i}">
-                                            <span>☆</span>
-                                        </label>
-                                     </li>
-                                </ol></td>
-                            </tr>
-                            <tr th:id="#{book.edit.memo.id}">
-                                <th th:text="#{book.detail.memo.caption}"></th>
-                                <td><textarea th:field="*{memo}"></textarea></td>
-                            </tr>
-                        </table>
-                    </form>
-                    <input type="button" th:id="#{book.edit.button.toShow.id}"
-                            th:value="#{book.edit.button.toShow.caption}"
-                            th:title="#{book.edit.button.toShow.tooltip}">
-                    <input type="button" th:id="#{book.edit.button.update.id}"
-                            th:value="#{book.edit.button.update.caption}"
-                            th:title="#{book.edit.button.update.tooltip}">
-                    <input type="button" th:id="#{book.edit.button.delete.id}"
-                            th:value="#{book.edit.button.delete.caption}"
-                            th:title="#{book.edit.button.delete.tooltip}"
-                            class="buttonDanger">
-                </div>
-            </th:block>
+                </form>
+                <input type="button" th:id="#{book.edit.button.toShow.id}"
+                        th:value="#{book.edit.button.toShow.caption}"
+                        th:title="#{book.edit.button.toShow.tooltip}">
+                <input type="button" th:id="#{book.edit.button.update.id}"
+                        th:value="#{book.edit.button.update.caption}"
+                        th:title="#{book.edit.button.update.tooltip}">
+                <input type="button" th:id="#{book.edit.button.delete.id}"
+                        th:value="#{book.edit.button.delete.caption}"
+                        th:title="#{book.edit.button.delete.tooltip}"
+                        class="buttonDanger">
+            </div>
 
             <input type="button" th:value="#{button.browserBack.caption}" th:title="#{button.browserBack.tooltip}"
                     th:onclick="#{button.browserBack.script}">

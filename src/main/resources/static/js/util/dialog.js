@@ -1,9 +1,10 @@
 'use strict';
 
 /*
-    arg def is object has below properties
+    arg 'def' is object has below properties
     {
         dialog : dialog by jquery selector,
+        titleText : dialog title text,
         firstElement : first focus element in dialog div by jquery selector,
         buttons : array of object has button info {
             element : button by jquery selector,
@@ -22,9 +23,16 @@ class Dialog {
         this.dialog = def.dialog;
         this.firstElement = def.firstElement;
 
+        this.createDialogTitle(def.titleText);
         this.initializeButtons(def.buttons);
         this.initializeFocusControl();
 
+    }
+
+    createDialogTitle(titleText) {
+        let dialogTitle = $('<h3 class="dialogTitle">');
+        dialogTitle.text(titleText);
+        this.dialog.prepend(dialogTitle);
     }
 
     /*
@@ -72,5 +80,35 @@ class Dialog {
         this.overlay.hide();
         this.dialog.hide();
         this.isShowDialog = false;
+    }
+}
+
+class ConfirmDialog extends Dialog {
+    createDialogTitle(titleText) {
+        this.dialog.find('h3').remove();
+
+        let dialogTitle = $('<h3 class="dialogTitle">');
+        dialogTitle.text(titleText);
+        this.dialog.prepend(dialogTitle);
+    }
+
+    initializeButtons(buttons) {
+        for(let button of buttons) {
+            let clickFunc;
+            if(button.click === 'show') {
+                clickFunc = () => { this.show(); };
+            } else if(button.click === 'ok') {
+                clickFunc = () => {
+                    this.hide();
+                    return true;
+                };
+            } else if(button.click === 'cancel') {
+                clickFunc = () => {
+                    this.hide();
+                    return false;
+                };
+            }
+            button.element.on('click', clickFunc);
+        }
     }
 }
