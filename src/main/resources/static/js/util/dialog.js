@@ -15,7 +15,6 @@
 */
 class Dialog {
     constructor(def) {
-
         this.isShowDialog = false;
         this.isFocusOnDialog = false;
         this.overlay = $('#overlay');
@@ -24,33 +23,14 @@ class Dialog {
         this.firstElement = def.firstElement;
 
         this.createDialogTitle(def.titleText);
-        this.initializeButtons(def.buttons);
         this.initializeFocusControl();
-
     }
 
     createDialogTitle(titleText) {
+        this.dialog.find('h3').remove();
         let dialogTitle = $('<h3 class="dialogTitle">');
         dialogTitle.text(titleText);
         this.dialog.prepend(dialogTitle);
-    }
-
-    /*
-        this.show, this.hideはアロー関数の中で呼びだす形にすることで、
-        処理内のthisの参照をDialogに確定させる。
-    */
-    initializeButtons(buttons) {
-        for(let button of buttons) {
-            let clickFunc;
-            if(button.click === 'show') {
-                clickFunc = () => { this.show(); };
-            } else if(button.click === 'hide') {
-                clickFunc = () => { this.hide(); };
-            } else {
-                clickFunc = button.click;
-            }
-            button.element.on('click', clickFunc);
-        }
     }
 
     /*
@@ -83,32 +63,59 @@ class Dialog {
     }
 }
 
-class ConfirmDialog extends Dialog {
-    createDialogTitle(titleText) {
-        this.dialog.find('h3').remove();
-
-        let dialogTitle = $('<h3 class="dialogTitle">');
-        dialogTitle.text(titleText);
-        this.dialog.prepend(dialogTitle);
+class CommonDialog extends Dialog {
+    constructor(def) {
+        super(def);
+        this.initializeButtons(def.buttons);
     }
 
+    /*
+        button.click is 'show' or 'hide' or function literal
+    */
+    //this.show, this.hideはアロー関数の中で呼びだす形にすることで、
+    //処理内のthisの参照をDialogに確定させる。
     initializeButtons(buttons) {
         for(let button of buttons) {
-            let clickFunc;
-            if(button.click === 'show') {
-                clickFunc = () => { this.show(); };
-            } else if(button.click === 'ok') {
-                clickFunc = () => {
-                    this.hide();
-                    return true;
-                };
-            } else if(button.click === 'cancel') {
-                clickFunc = () => {
-                    this.hide();
-                    return false;
-                };
-            }
+            let clickFunc = this.setClickFunc(button.click);
             button.element.on('click', clickFunc);
         }
+    }
+    setClickFunc(buttonClick) {
+        switch(buttonClick) {
+            case 'show':
+                return () => { super.show(); };
+            case 'hide':
+                return () => { super.hide(); };
+            default:
+                return buttonClick;
+        }
+    }
+}
+
+class ConfirmDialog extends Dialog {
+    constructor(def) {
+        super(def);
+        this.buttons = def.buttons;
+        return await this.confirm();
+    }
+
+    async confirm() {
+        return new Promise((resolve, reject) => {
+            super.show();
+            for(let button of buttons) {
+                let result;
+                if(buttonClick === 'ok') {
+                    result = true;
+                } else if(buttonClick === 'cancel') {
+                    result = false;
+                }
+
+                let clickFunc = () => {
+                    super.hide();
+                    resolve(result);
+                };
+                button.element.on('click', clickFunc);
+            }
+        });
     }
 }

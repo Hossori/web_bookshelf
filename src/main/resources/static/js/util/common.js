@@ -40,28 +40,23 @@ function formatDateTime(datetime, formatType) {
 }
 
 function initializeConfirmDialog(message) {
-    let bookCreateDialogShowButton = {
-        element : $('#'+getProperty('bookshelf.detail.button.bookCreate.id')),
-        click : 'show'
+    let confirmDialogOkButton = {
+        element : $('#'+getProperty('confirm.dialog.buttons.ok.id')),
+        click : 'ok'
     }
-    let bookCreateDialogRegisterButton = {
-        element : $('#'+getProperty('book.create.dialog.buttons.register.id')),
-        click : createBook
+    let confirmDialogCancelButton = {
+        element : $('#'+getProperty('confirm.dialog.buttons.ok.id')),
+        click : 'cancel'
     };
-    let bookCreateDialogCancelButton = {
-        element : $('#'+getProperty('book.create.dialog.buttons.cancel.id')),
-        click : 'hide'
-    };
-    let bookCreateDialogButtons = [
-        bookCreateDialogShowButton,
-        bookCreateDialogRegisterButton,
-        bookCreateDialogCancelButton
+    let confirmDialogButtons = [
+        confirmDialogOkButton,
+        confirmDialogCancelButton
     ]
     let confirmDialogDef = {
         dialog : $('#'+getProperty('confirm.dialog.id')),
         titleText : getProperty('confirm.dialog.title'),
-        firstElement : $('#'+getProperty('book.create.name.id')+' td input'),
-        buttons : bookCreateDialogButtons
+        firstElement : $('#'+getProperty('')),
+        buttons : confirmDialogButtons
     }
-    new Dialog(confirmDialogDef);
+    new ConfirmDialog(confirmDialogDef);
 }
