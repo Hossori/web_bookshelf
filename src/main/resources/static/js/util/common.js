@@ -38,25 +38,3 @@ function formatDateTime(datetime, formatType) {
 
     return text;
 }
-
-function initializeConfirmDialog(message) {
-    let confirmDialogOkButton = {
-        element : $('#'+getProperty('confirm.dialog.buttons.ok.id')),
-        click : 'ok'
-    }
-    let confirmDialogCancelButton = {
-        element : $('#'+getProperty('confirm.dialog.buttons.ok.id')),
-        click : 'cancel'
-    };
-    let confirmDialogButtons = [
-        confirmDialogOkButton,
-        confirmDialogCancelButton
-    ]
-    let confirmDialogDef = {
-        dialog : $('#'+getProperty('confirm.dialog.id')),
-        titleText : getProperty('confirm.dialog.title'),
-        firstElement : $('#'+getProperty('')),
-        buttons : confirmDialogButtons
-    }
-    new ConfirmDialog(confirmDialogDef);
-}

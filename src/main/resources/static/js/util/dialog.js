@@ -96,17 +96,16 @@ class ConfirmDialog extends Dialog {
     constructor(def) {
         super(def);
         this.buttons = def.buttons;
-        return await this.confirm();
     }
 
-    async confirm() {
+    confirm() {
         return new Promise((resolve, reject) => {
             super.show();
-            for(let button of buttons) {
+            for(let button of this.buttons) {
                 let result;
-                if(buttonClick === 'ok') {
+                if(button.click === 'ok') {
                     result = true;
-                } else if(buttonClick === 'cancel') {
+                } else if(button.click === 'cancel') {
                     result = false;
                 }
 
@@ -118,4 +117,27 @@ class ConfirmDialog extends Dialog {
             }
         });
     }
+}
+
+function displayConfirm(message) {
+    let confirmDialogOkButton = {
+        element : $('#'+getProperty('confirm.dialog.buttons.ok.id')),
+        click : 'ok'
+    }
+    let confirmDialogCancelButton = {
+        element : $('#'+getProperty('confirm.dialog.buttons.cancel.id')),
+        click : 'cancel'
+    };
+    let confirmDialogButtons = [
+        confirmDialogOkButton,
+        confirmDialogCancelButton
+    ]
+    let confirmDialogDef = {
+        dialog : $('#'+getProperty('confirm.dialog.id')),
+        titleText : getProperty('confirm.dialog.title'),
+        message : message,
+        firstElement : confirmDialogCancelButton.element,
+        buttons : confirmDialogButtons
+    }
+    return new ConfirmDialog(confirmDialogDef).confirm();
 }

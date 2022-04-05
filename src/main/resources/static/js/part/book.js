@@ -29,7 +29,11 @@ spring bootのデフォルト設定によりpost通信はcsrf情報必要。
 updateはformにth:actionとpost="method"を追加することで自動処理にし、
 deleteはmetaタグに用意したcsrf情報をリクエストヘッダに追加する方法を採った。
 */
-function updateBook() {
+async function updateBook() {
+    if(!await displayConfirm(getProperty('book.edit.confirm.update.message'))) {
+        return;
+    }
+
     let editForm = $('#'+getProperty('book.edit.form.id'));
     let formData = editForm.serializeArray();
 
@@ -48,7 +52,11 @@ function updateBook() {
         }
     });
 }
-function deleteBook() {
+async function deleteBook() {
+    if(!await displayConfirm(getProperty('book.edit.confirm.delete.message'))) {
+        return;
+    }
+
     let csrfToken = $('#'+getProperty('meta.csrf.token.id')).attr('content');
     let csrfHeader = $('#'+getProperty('meta.csrf.header.id')).attr('content');
     $(document).ajaxSend(function(e, xhr, options) {

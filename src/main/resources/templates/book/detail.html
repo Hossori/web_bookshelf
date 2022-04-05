@@ -7,11 +7,11 @@
         <meta th:id="#{meta.csrf.token.id}" th:content="${_csrf.token}">
         <meta th:id="#{meta.csrf.header.id}" th:content="${_csrf.headerName}">
         <link rel="stylesheet" th:href="@{/css/book.css}">
+        <script th:src="@{/js/util/dialog.js}" defer></script>
         <script th:src="@{/js/part/book.js}" defer></script>
         <script type="text/javascript">
             $(function() {
                 initializeButtons();
-                initialize
 
                 let bookStateRadios = $('#'+getProperty('book.edit.state.id')+' td ol').find('input');;
                 controlBookStateRadioView(bookStateRadios);
@@ -41,7 +41,6 @@
                         showContainer.show();
                     }
                 }
-
             });
         </script>
     </head>
@@ -51,6 +50,14 @@
             <div id="overlay"></div>
             <div th:id="#{confirm.dialog.id}" class="dialog">
                 <div class="dialogContent"></div>
+                <div class="dialogButtonWrapper">
+                    <input type="button" class="dialogButton"
+                            th:id="#{confirm.dialog.buttons.cancel.id}"
+                            th:value="#{confirm.dialog.buttons.cancel.caption}">
+                    <input type="button" class="dialogButton"
+                            th:id="#{confirm.dialog.buttons.ok.id}"
+                            th:value="#{confirm.dialog.buttons.ok.caption}">
+                </div>
             </div>
 
             <!-- show -->
