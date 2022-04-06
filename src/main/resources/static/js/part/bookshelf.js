@@ -5,7 +5,12 @@
     updateはformにth:actionとpost="method"を追加することで自動処理にし、
     deleteはmetaタグに用意したcsrf情報をリクエストヘッダに追加する方法を採った。
 */
-function updateBookshelf() {
+async function updateBookshelf() {
+    let confirmMessage = getProperty('bookshelf.edit.confirm.update.message');
+    if(!await displayConfirm(confirmMessage, false)) {
+        return;
+    }
+
     let editForm = $('#'+getProperty('bookshelf.edit.form.id'));
     let formData = editForm.serializeArray();
 
@@ -20,7 +25,12 @@ function updateBookshelf() {
         }
     });
 }
-function deleteBookshelf() {
+async function deleteBookshelf() {
+    let confirmMessage = getProperty('bookshelf.edit.confirm.delete.message');
+    if(!await displayConfirm(confirmMessage, true)) {
+        return;
+    }
+
     let csrfToken = $('#'+getProperty('meta.csrf.token.id')).attr('content');
     let csrfHeader = $('#'+getProperty('meta.csrf.header.id')).attr('content');
     $(document).ajaxSend(function(e, xhr, options) {

@@ -30,7 +30,8 @@ updateはformにth:actionとpost="method"を追加することで自動処理に
 deleteはmetaタグに用意したcsrf情報をリクエストヘッダに追加する方法を採った。
 */
 async function updateBook() {
-    if(!await displayConfirm(getProperty('book.edit.confirm.update.message'))) {
+    let confirmMessage = getProperty('book.edit.confirm.update.message');
+    if(!await displayConfirm(confirmMessage, false)) {
         return;
     }
 
@@ -53,7 +54,8 @@ async function updateBook() {
     });
 }
 async function deleteBook() {
-    if(!await displayConfirm(getProperty('book.edit.confirm.delete.message'))) {
+    let confirmMessage = getProperty('book.edit.confirm.delete.message');
+    if(!await displayConfirm(confirmMessage, true)) {
         return;
     }
 

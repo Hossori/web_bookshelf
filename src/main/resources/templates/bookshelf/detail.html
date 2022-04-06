@@ -172,6 +172,22 @@
                 </div>
             </div>
 
+            <!-- confirm dialog -->
+            <div id="overlay"></div>
+            <div th:id="#{confirm.dialog.id}" class="dialog confirmDialog">
+                <div class="dialogContent">
+                    <pre class="confirmDialogMessage"></pre>
+                    <div class="dialogButtonWrapper">
+                        <input type="button" class="dialogButton"
+                                th:id="#{confirm.dialog.buttons.cancel.id}"
+                                th:value="#{confirm.dialog.buttons.cancel.caption}">
+                        <input type="button" class="dialogButton"
+                                th:id="#{confirm.dialog.buttons.ok.id}"
+                                th:value="#{confirm.dialog.buttons.ok.caption}">
+                    </div>
+                </div>
+            </div>
+
             <input type="button" th:id="#{bookshelf.detail.button.bookCreate.id}"
                     th:value="#{bookshelf.detail.button.bookCreate.caption}"
                     th:title="#{bookshelf.detail.button.bookCreate.tooltip}">

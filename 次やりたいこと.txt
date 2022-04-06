@@ -7,11 +7,6 @@
 ●bookshelf listの検索機能
 RESTにするかどうか、ブラウザバックを考慮しよく考える。
 
-▼本の編集画面
-削除,更新,作成は確認画面通すように。
-次、ConfirmDialogでdef.messageで受け取ったやつをダイアログ内にhtml追加する。
-cssで余白整える。
-
 ●REST
 RESTは詳細⇔編集の行き来や登録・更新のみにする。
 
@@ -50,3 +45,6 @@ bookshelf.detail.button.backToList.caption[tooltip]かな。
 
 ■book.jsのapplyValidationMessages()力技で作っちゃった。nameにしか対応してない。
 依然力技ではあるけど割と他にも対応させれそうになった。
+
+■本の編集画面
+削除,更新,作成は確認画面通すように。

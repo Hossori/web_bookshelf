@@ -96,6 +96,16 @@ class ConfirmDialog extends Dialog {
     constructor(def) {
         super(def);
         this.buttons = def.buttons;
+        this.insertMessage(def.message, def.isDanger);
+    }
+
+    insertMessage(message, isDanger) {
+        let pre = $('pre.confirmDialogMessage');
+        let dialogTitle = $('h3.dialogTitle');
+        let style = isDanger ? 'color: yellow;' : 'color: white;';
+        pre.text(message);
+        pre.attr('style', style);
+        dialogTitle.attr('style', style);
     }
 
     confirm() {
@@ -119,7 +129,7 @@ class ConfirmDialog extends Dialog {
     }
 }
 
-function displayConfirm(message) {
+function displayConfirm(message, isDanger) {
     let confirmDialogOkButton = {
         element : $('#'+getProperty('confirm.dialog.buttons.ok.id')),
         click : 'ok'
@@ -136,6 +146,7 @@ function displayConfirm(message) {
         dialog : $('#'+getProperty('confirm.dialog.id')),
         titleText : getProperty('confirm.dialog.title'),
         message : message,
+        isDanger : isDanger,
         firstElement : confirmDialogCancelButton.element,
         buttons : confirmDialogButtons
     }
