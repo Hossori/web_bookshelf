@@ -10,10 +10,10 @@
     <body>
         <div layout:fragment="content">
             <h1>Bookshelf</h1>
-            <form>
+            <!-- <form>
                 <input type="text" th:id="#{bookshelf.searchBox.id}">
                 <input type="submit" th:id="#{bookshelf.searchButton.id}" th:value="#{bookshelf.searchButton.caption}">
-            </form>
+            </form> -->
             <div th:id="#{bookshelf.list.container.id}">
                 <a th:each="bookshelf:${bookshelfs}" th:href="@{/bookshelf/detail(id=${bookshelf.id}, page=0)}" class="bookshelfListAnchor">
                     <div th:id="'bookshelf'+${bookshelf.id}" class="bookshelfList">
