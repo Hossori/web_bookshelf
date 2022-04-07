@@ -97,7 +97,8 @@
             </div>
             <!-- bookshelf edit -->
             <div th:id="#{bookshelf.edit.container.id}" style="display:none;">
-                <form th:id="#{bookshelf.edit.form.id}" th:object="${bookshelf}" th:action method="post" autocomplete="off">
+                <form th:id="#{bookshelf.edit.form.id}" th:object="${bookshelf}" th:action method="post"
+                        autocomplete="off" onSubmit="return false;">
                     <input type="hidden" th:id="#{bookshelf.edit.id.id}" th:field="*{id}">
                     <div th:id="#{bookshelf.edit.name.id}">
                         <p class="caption" th:text="#{bookshelf.detail.name.caption}"></p>
@@ -124,7 +125,8 @@
             <div id="overlay"></div>
             <div th:id="#{book.create.dialog.id}" class="dialog">
                 <div class="dialogContent">
-                    <form th:id="#{book.create.form.id}" th:object="${book}" th:action method="post" autocomplete="off">
+                    <form th:id="#{book.create.form.id}" th:object="${book}" th:action method="post"
+                            autocomplete="off" onSubmit="return false;">
                         <input type="hidden" th:field="*{bookshelf}">
                         <table class="bookCreate">
                             <tr th:id="#{book.create.name.id}">

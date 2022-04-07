@@ -11,9 +11,9 @@ RESTにするかどうか、ブラウザバックを考慮しよく考える。
 ●認証
 ・editは作成者しか表示できないように。update, deleteも作成者しかできないように。
 
-▼どっかでエンター押したら普通のpost送信しちゃうとこあったからなんとかする。
-
 ●ヘッターフッター作る。
+
+●エラーページ作る。
 
 ■本棚詳細から本棚一覧に戻るボタン
 本棚詳細でページネーションあるためブラウザバックではダメ。
@@ -53,3 +53,7 @@ bookshelf.detail.button.backToList.caption[tooltip]かな。
 
 ■REST
 RESTは詳細⇔編集の行き来や登録・更新のみにする。
+
+■どっかでエンター押したら普通のpost送信しちゃうとこあったからなんとかする。
+bookshelfのedit、bookのcreate,editでinput要素でエンター押すとpost送信&それは用意してないからエラーになる。
+→formのonSubmit属性にreturn false;を設定して対策。

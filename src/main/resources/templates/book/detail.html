@@ -97,7 +97,8 @@
 
             <!-- edit -->
             <div th:id="#{book.edit.container.id}" style="display:none;">
-                <form th:id="#{book.edit.form.id}" th:object="${book}" th:action method="post" autocomplete="off">
+                <form th:id="#{book.edit.form.id}" th:object="${book}" th:action method="post"
+                        autocomplete="off" onSubmit="return false;">
                     <input type="hidden" th:id="#{book.edit.id.id}" th:field="*{id}">
                     <table class="bookEdit">
                         <tr th:id="#{book.edit.name.id}">
