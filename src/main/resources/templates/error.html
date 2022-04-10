@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    layout:decorate="~{part/layout}">
+    <head>
+        <title th:text="#{title.error}+#{title.postfix}"></title>
+        <link rel="stylesheet" th:href="@{/css/error.css}">
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <h1 th:text="#{error.h1}">Error Page</h1>
+            <table>
+                <tr id="errorStatus">
+                    <th th:text="#{error.status.caption}"></th>
+                    <td th:text="${status}"></td>
+                </tr>
+                <tr id="errorName">
+                    <th th:text="#{error.name.caption}"></th>
+                    <td th:text="${error}"></td>
+                </tr>
+                <tr id="errorPath">
+                    <th th:text="#{error.path.caption}"></th>
+                    <td th:text="${path}"></td>
+                </tr>
+          </table>
+       </div>
+    </body>
+</html>
