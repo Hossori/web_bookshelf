@@ -10,6 +10,8 @@
         <script th:src="@{/js/util/common.js}" defer></script>
     </head>
     <body>
+        <div layout:replace="~{part/header::header}"></div>
         <div layout:fragment="content"></div>
+        <div layout:replace="~{part/footer::footer}"></div>
     </body>
 </html>
