@@ -6,12 +6,13 @@
         <link rel="stylesheet" th:href="@{/css/HTML5DoctorCSSReset.css}">
         <link rel="stylesheet" th:href="@{/css/formReset.css}">
         <link rel="stylesheet" th:href="@{/css/common.css}">
+        <link rel="stylesheet" th:href="@{/css/layout.css}">
         <script th:src="@{/lib/jquery-3.6.0.min.js}"></script>
         <script th:src="@{/js/util/common.js}" defer></script>
     </head>
     <body>
         <div layout:replace="~{part/header::header}"></div>
-        <div layout:fragment="content"></div>
+        <div layout:fragment="content" id="main"></div>
         <div layout:replace="~{part/footer::footer}"></div>
     </body>
 </html>

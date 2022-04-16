@@ -2,12 +2,18 @@
 <html xmlns:th="http://www.thymeleaf.org"
         xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
         layout:decorate="~{part/layout}">
-    <head>
-
-    </head>
     <body>
         <header layout:fragment="header">
-
+            <h1 th:text="#{header.h1}"></h1>
+            <nav id="headerNavLeft">
+                <a th:text="#{header.nav.bookshelfIndex}" th:href="@{/bookshelf/index(page=0)}"></a>
+                <a th:text="#{header.nav.bookIndex}"></a>
+            </nav>
+            <nav id="headerNavRight">
+                <a th:text="#{header.nav.login}"></a>
+                <a th:text="#{header.nav.signUp}"></a>
+                <a th:text="#{header.nav.logout}"></a>
+            </nav>
         </header>
     </body>
 </html>

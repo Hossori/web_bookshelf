@@ -1,6 +1,12 @@
 @charset "UTF-8";
 
 /* bookshelf index */
+#bookshelfListContainer {
+    margin: 12px 0;
+}
+h2#bookshelfIndexH2 {
+    color: white;
+}
 .bookshelfList {
     background-image: url("/image/bookshelf.jpg");
     background-repeat: no-repeat;
@@ -32,9 +38,14 @@
 }
 
 /* bookshelf show, bookshelf edit */
+h2#bookshelfDetailName {
+    color: white;
+    margin-bottom: 24px;
+}
 div#bookshelfShowContainer,
 div#bookshelfEditContainer {
     margin-bottom: 36px;
+    color: white;
 }
 div#bookshelfShowContainer div p,
 div#bookshelfEditContainer div p {
@@ -46,7 +57,9 @@ div#bookshelfEditDescription {
 }
 div#bookshelfShowDescription pre {
     font-family: meiryo;
-    font-size: 28px;
+    font-size: 20px;
+    padding: 10px 0 10px 18px;
+    border-left: double 4px white;
 }
 div#bookshelfShowCreatedAt p,
 div#bookshelfShowUpdatedAt p {
@@ -65,6 +78,7 @@ div#bookshelfEditName input,
 div#bookshelfEditDescription textarea {
     font-family: meiryo;
     font-size: 20px;
+    color: white;
 }
 div#bookshelfEditName input {
     border-bottom: solid 1px black;
