@@ -39,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl("/login")
                 .usernameParameter("name")
                 .passwordParameter("password")
-                .successForwardUrl("/bookshelf/index?page=0")
+                .defaultSuccessUrl("/bookshelf/index?page=0")
                 .failureUrl("/login?error")
                 .permitAll()
             .and()
@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         authMgBuilder
             .inMemoryAuthentication()
                 .withUser("user")
-                .password("pass")
+                .password(passwordEncoder().encode("pass"))
                 .roles("USER");
     }
 
