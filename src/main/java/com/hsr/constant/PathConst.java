@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum PathConst {
 
+    AUTH_LOGIN("auth/login"),
+    AUTH_SIGNUP("auth/signup"),
     BOOKSHELF_INDEX("bookshelf"+BasePathEnum.INDEX.getValue()),
     BOOKSHELF_DETAIL("bookshelf"+BasePathEnum.DETAIL.getValue()),
 

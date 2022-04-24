@@ -10,9 +10,15 @@
                 <a th:text="#{header.nav.bookIndex}"></a>
             </nav>
             <nav id="headerNavRight">
-                <a th:text="#{header.nav.login}"></a>
-                <a th:text="#{header.nav.signUp}"></a>
-                <a th:text="#{header.nav.logout}"></a>
+                <th:block th:if="${loginUser == null}">
+                    <a th:text="#{header.nav.login}" th:href="@{/login}"></a>
+                    <a th:text="#{header.nav.signUp}"></a>
+                </th:block>
+                <th:block th:if="${loginUser != null}">
+                    <a class="username" th:text="${loginUser.name}"></a>
+                    <a th:text="#{header.nav.logout}" onclick="forms['logoutForm'].submit();"></a>
+                    <form name="logoutForm" method="post" th:action="@{/logout}"></form>
+                </th:block>
             </nav>
         </header>
     </body>

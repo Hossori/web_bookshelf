@@ -33,6 +33,8 @@ public interface JpaConst {
     public static final String PARAM_BOOKSHELF = "bookshelf";
 
     // query
+    public static final String USER_GET_BY_EMAIL = "select u from " + ENTITY_USER + " as u" +
+                                                      " where u.email = :" + PARAM_EMAIL;
     public static final String BOOKSHELF_GETPAGES = "select bs from " + ENTITY_BOOKSHELF + " as bs" +
                                                         " where bs.deleteFlag = " + DELETE_FLAG_FALSE +
                                                         " order by bs.createdAt desc";

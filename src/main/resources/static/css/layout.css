@@ -16,7 +16,7 @@ header {
 }
 
 header h1 {
-    color: orange;
+    color: white;
 }
 
 #headerNavLeft {
@@ -39,7 +39,7 @@ header h1 {
 #headerNavLeft a:hover,
 #headerNavRight a:hover {
     transition: all 0.2s;
-    color: white;
+    color: orange;
 }
 
 /* footer */
