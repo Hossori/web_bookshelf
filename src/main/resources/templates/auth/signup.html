@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{part/layout}">
+    <head>
+        <title th:text="#{title.signup}+#{title.postfix}"></title>
+        <link rel="stylesheet" th:href="@{/css/auth.css}">
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <form method="post" th:action="@{/signup}">
+                <table>
+                    <tr>
+                        <th><label for="email" th:text="#{auth.email.caption}"></label></th>
+                        <td><input type="email" name="email" autocomplete="off"
+                                     th:placeholder="#{auth.email.placeholder}"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="password" th:text="#{auth.password.caption}"></label></th>
+                        <td><input type="password" name="password" th:placeholder="#{auth.password.placeholder}"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="rePassword" th:text="#{auth.rePassword.caption}"></label></th>
+                        <td><input type="password" name="rePassword" th:placeholder="#{auth.rePassword.placeholder}"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="name" th:text="#{auth.name.caption}"></label></th>
+                        <td><input type="text" name="name" th:placeholder="#{auth.name.placeholder}"></td>
+                    </tr>
+                </table>
+                <button type="submit"
+                        th:id="#{auth.signup.button.id}"
+                        th:text="#{auth.signup.button.caption}"></button>
+            </form>
+        </div>
+    </body>
+</html>

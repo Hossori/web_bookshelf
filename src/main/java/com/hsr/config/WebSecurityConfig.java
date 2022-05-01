@@ -29,7 +29,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/css/**",
             "/image/**",
             "/js/**",
-            "/lib/**"
+            "/lib/**",
+            "/signup",
+            "/rest/property/get"
         );
     }
 

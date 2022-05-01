@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import com.hsr.constant.PathConst;
 
 @Controller
-public class AuthControlelr {
+public class AuthController {
 
     @GetMapping("/login")
     public String login() {

@@ -52,12 +52,12 @@
                 <div class="dialogContent">
                     <pre class="confirmDialogMessage"></pre>
                     <div class="dialogButtonWrapper">
-                        <input type="button" class="dialogButton"
+                        <button class="dialogButton"
                                 th:id="#{confirm.dialog.buttons.cancel.id}"
-                                th:value="#{confirm.dialog.buttons.cancel.caption}">
-                        <input type="button" class="dialogButton"
+                                th:text="#{confirm.dialog.buttons.cancel.caption}"></button>
+                        <button class="dialogButton"
                                 th:id="#{confirm.dialog.buttons.ok.id}"
-                                th:value="#{confirm.dialog.buttons.ok.caption}">
+                                th:text="#{confirm.dialog.buttons.ok.caption}"></button>
                     </div>
                 </div>
             </div>
@@ -90,9 +90,9 @@
                         <td><pre th:text="${bookView.memo}"></pre></td>
                     </tr>
                 </table>
-                <input type="button" th:id="#{book.show.button.toEdit.id}"
-                        th:value="#{book.show.button.toEdit.caption}"
-                        th:title="#{book.show.button.toEdit.tooltip}">
+                <button th:id="#{book.show.button.toEdit.id}"
+                        th:text="#{book.show.button.toEdit.caption}"
+                        th:title="#{book.show.button.toEdit.tooltip}"></button>
             </div>
 
             <!-- edit -->
@@ -135,20 +135,20 @@
                         </tr>
                     </table>
                 </form>
-                <input type="button" th:id="#{book.edit.button.toShow.id}"
-                        th:value="#{book.edit.button.toShow.caption}"
-                        th:title="#{book.edit.button.toShow.tooltip}">
-                <input type="button" th:id="#{book.edit.button.update.id}"
-                        th:value="#{book.edit.button.update.caption}"
-                        th:title="#{book.edit.button.update.tooltip}">
-                <input type="button" th:id="#{book.edit.button.delete.id}"
-                        th:value="#{book.edit.button.delete.caption}"
+                <button th:id="#{book.edit.button.toShow.id}"
+                        th:text="#{book.edit.button.toShow.caption}"
+                        th:title="#{book.edit.button.toShow.tooltip}"></button>
+                <button th:id="#{book.edit.button.update.id}"
+                        th:text="#{book.edit.button.update.caption}"
+                        th:title="#{book.edit.button.update.tooltip}"></button>
+                <button th:id="#{book.edit.button.delete.id}"
+                        th:text="#{book.edit.button.delete.caption}"
                         th:title="#{book.edit.button.delete.tooltip}"
-                        class="buttonDanger">
+                        class="buttonDanger"></button>
             </div>
 
-            <input type="button" th:value="#{button.browserBack.caption}" th:title="#{button.browserBack.tooltip}"
-                    th:onclick="#{button.browserBack.script}">
+            <button th:text="#{button.browserBack.caption}" th:title="#{button.browserBack.tooltip}"
+                    th:onclick="#{button.browserBack.script}"></button>
         </div>
     </body>
 </html>

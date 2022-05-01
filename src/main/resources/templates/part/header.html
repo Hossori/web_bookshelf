@@ -12,7 +12,7 @@
             <nav id="headerNavRight">
                 <th:block th:if="${loginUser == null}">
                     <a th:text="#{header.nav.login}" th:href="@{/login}"></a>
-                    <a th:text="#{header.nav.signUp}"></a>
+                    <a th:text="#{header.nav.signUp}" th:href="@{/signup}"></a>
                 </th:block>
                 <th:block th:if="${loginUser != null}">
                     <a class="username" th:text="${loginUser.name}"></a>

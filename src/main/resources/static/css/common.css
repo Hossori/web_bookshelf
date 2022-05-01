@@ -12,7 +12,9 @@ h2 {
     font-size: 48px;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="email"],
+input[type="password"] {
     width: 350px;
 }
 
@@ -23,7 +25,7 @@ textarea {
     resize: none;
 }
 
-input[type="button"] {
+button {
     margin: 12px 12px 0 0;
     padding: 12px;
     background-color: green;
@@ -31,15 +33,15 @@ input[type="button"] {
     font-weight: bold;
     border-radius: 4px;
 }
-input[type="button"].buttonDanger {
+button.buttonDanger {
     background-color: red;
 }
-input[type="button"]:hover,
-input[type="button"]:focus {
+button:hover,
+button:focus {
     background-color: darkgreen;
 }
-input[type="button"].buttonDanger:hover,
-input[type="button"].buttonDanger:focus {
+button.buttonDanger:hover,
+button.buttonDanger:focus {
     background-color: darkred;
 }
 

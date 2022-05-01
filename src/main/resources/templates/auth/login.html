@@ -4,15 +4,26 @@
         layout:decorate="~{part/layout}">
     <head>
         <title th:text="#{title.login}+#{title.postfix}"></title>
+        <link rel="stylesheet" th:href="@{/css/auth.css}">
     </head>
     <body>
         <div layout:fragment="content">
             <form method="post" th:action="@{/login}">
-                <label for="email">email</label>
-                <input type="text" name="email">
-                <label for="password">password</label>
-                <input type="password" name="password">
-                <input type="submit" value="login">
+                <table>
+                    <tr>
+                        <th><label for="email" th:text="#{auth.email.caption}"></label></th>
+                        <td><input type="email" name="email" autocomplete="off"
+                                    th:placeholder="#{auth.email.placeholder}"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="password" th:text="#{auth.password.caption}"></label></th>
+                        <td><input type="password" name="password"
+                                    th:placeholder="#{auth.password.placeholder}"></td>
+                    </tr>
+                </table>
+                <button type="submit"
+                        th:id="#{auth.login.button.id}"
+                        th:text="#{auth.login.button.caption}"></button>
             </form>
         </div>
     </body>

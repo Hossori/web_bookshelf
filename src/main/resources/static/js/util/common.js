@@ -14,7 +14,6 @@ function getProperty(key) {
         dataType : 'json',
         async : false
     }).responseText;
-
     res = JSON.parse(res);
     return res.data.value;
 }

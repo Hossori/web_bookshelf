@@ -91,9 +91,9 @@
                     <p class="caption" th:text="#{bookshelf.show.updatedAt.caption}"></p>
                     <p th:text="${#temporals.format(bookshelf.updatedAt, 'yyyy/MM/dd HH:mm')}"></p>
                 </div>
-                <input type="button" th:id="#{bookshelf.show.button.toEdit.id}"
-                        th:value="#{bookshelf.show.button.toEdit.caption}"
-                        th:title="#{bookshelf.show.button.toEdit.tooltip}">
+                <button type="button" th:id="#{bookshelf.show.button.toEdit.id}"
+                        th:text="#{bookshelf.show.button.toEdit.caption}"
+                        th:title="#{bookshelf.show.button.toEdit.tooltip}"></button>
             </div>
             <!-- bookshelf edit -->
             <div th:id="#{bookshelf.edit.container.id}" style="display:none;">
@@ -109,16 +109,16 @@
                         <textarea th:field="*{description}"></textarea>
                     </div>
                 </form>
-                <input type="button" th:id="#{bookshelf.edit.button.toShow.id}"
-                        th:value="#{bookshelf.edit.button.toShow.caption}"
-                        th:title="#{bookshelf.edit.button.toShow.tooltip}">
-                <input type="button" th:id="#{bookshelf.edit.button.update.id}"
-                        th:value="#{bookshelf.edit.button.update.caption}"
-                        th:title="#{bookshelf.edit.button.update.tooltip}">
-                <input type="button" th:id="#{bookshelf.edit.button.delete.id}"
-                        th:value="#{bookshelf.edit.button.delete.caption}"
+                <button th:id="#{bookshelf.edit.button.toShow.id}"
+                        th:text="#{bookshelf.edit.button.toShow.caption}"
+                        th:title="#{bookshelf.edit.button.toShow.tooltip}"></button>
+                <button th:id="#{bookshelf.edit.button.update.id}"
+                        th:text="#{bookshelf.edit.button.update.caption}"
+                        th:title="#{bookshelf.edit.button.update.tooltip}"></button>
+                <button th:id="#{bookshelf.edit.button.delete.id}"
+                        th:text="#{bookshelf.edit.button.delete.caption}"
                         th:title="#{bookshelf.edit.button.delete.tooltip}"
-                        class="buttonDanger">
+                        class="buttonDanger"></button>
             </div>
 
             <!-- book create dialog -->
@@ -163,12 +163,12 @@
                             </tr>
                         </table>
                         <div class="dialogButtonWrapper">
-                            <input type="button" class="dialogButton"
+                            <button class="dialogButton"
                                     th:id="#{book.create.dialog.buttons.cancel.id}"
-                                    th:value="#{book.create.dialog.buttons.cancel.caption}">
-                            <input type="button" class="dialogButton"
+                                    th:text="#{book.create.dialog.buttons.cancel.caption}"></button>
+                            <button class="dialogButton"
                                     th:id="#{book.create.dialog.buttons.register.id}"
-                                    th:value="#{book.create.dialog.buttons.register.caption}">
+                                    th:text="#{book.create.dialog.buttons.register.caption}"></button>
                         </div>
                     </form>
                 </div>
@@ -180,19 +180,19 @@
                 <div class="dialogContent">
                     <pre class="confirmDialogMessage"></pre>
                     <div class="dialogButtonWrapper">
-                        <input type="button" class="dialogButton"
+                        <button class="dialogButton"
                                 th:id="#{confirm.dialog.buttons.cancel.id}"
-                                th:value="#{confirm.dialog.buttons.cancel.caption}">
-                        <input type="button" class="dialogButton"
+                                th:text="#{confirm.dialog.buttons.cancel.caption}"></button>
+                        <button class="dialogButton"
                                 th:id="#{confirm.dialog.buttons.ok.id}"
-                                th:value="#{confirm.dialog.buttons.ok.caption}">
+                                th:text="#{confirm.dialog.buttons.ok.caption}"></button>
                     </div>
                 </div>
             </div>
 
-            <input type="button" th:id="#{bookshelf.detail.button.bookCreate.id}"
-                    th:value="#{bookshelf.detail.button.bookCreate.caption}"
-                    th:title="#{bookshelf.detail.button.bookCreate.tooltip}">
+            <button th:id="#{bookshelf.detail.button.bookCreate.id}"
+                    th:text="#{bookshelf.detail.button.bookCreate.caption}"
+                    th:title="#{bookshelf.detail.button.bookCreate.tooltip}"></button>
             <div th:id="#{book.list.container.id}">
                 <a th:each="book:${books}" th:href="@{/book/detail(id=${book.id})}" class="bookListAnchor">
                     <div th:id="'book'+${book.id}" class="bookList">
@@ -239,10 +239,10 @@
                     </li>
                 </th:block>
             </ul>
-            <input type="button" th:id="#{bookshelf.detail.button.backToList.id}"
-                    th:value="#{bookshelf.detail.button.backToList.caption}"
+            <button th:id="#{bookshelf.detail.button.backToList.id}"
+                    th:text="#{bookshelf.detail.button.backToList.caption}"
                     th:title="#{bookshelf.detail.button.backToList.tooltip}"
-                    th:onclick="'location.href=\''+@{index(page=0)}+'\''">
+                    th:onclick="'location.href=\''+@{index(page=0)}+'\''"></button>
         </div>
     </body>
 </html>

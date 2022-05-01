@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,6 +35,8 @@ public class User implements UserDetails {
     private String email;
     private String name;
     private String password;
+    @Transient
+    private String rePassword;
     private Integer gender;
     private LocalDate birthday;
     private String introduction;
@@ -48,7 +51,6 @@ public class User implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
