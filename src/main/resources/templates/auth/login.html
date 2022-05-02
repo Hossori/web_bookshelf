@@ -8,6 +8,7 @@
     </head>
     <body>
         <div layout:fragment="content">
+            <h2 th:id="loginH2" th:text="#{auth.login.h2}"></h2>
             <form method="post" th:action="@{/login}">
                 <table>
                     <tr>

@@ -19,6 +19,15 @@ table tr td input::placeholder {
     color: white;
     opacity: 0.6;
 }
+input:-webkit-autofill {
+    box-shadow: 0 0 0 1000px tan inset;
+    -webkit-text-fill-color: white;
+}
 button#loginButton {
     margin-top: 20px;
+}
+
+h2#loginH2, h2#signupH2 {
+    color: white;
+    margin-bottom: 24px;
 }

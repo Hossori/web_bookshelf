@@ -81,10 +81,10 @@ div#bookshelfEditDescription textarea {
     color: white;
 }
 div#bookshelfEditName input {
-    border-bottom: solid 1px black;
+    border-bottom: solid 1px white;
 }
 div#bookshelfEditDescription textarea {
-    border: solid 1px black;
+    border: solid 1px white;
 }
 div#bookshelfEditName p.caption,
 div#bookshelfEditDescription p.caption {

@@ -1,11 +1,16 @@
 package com.hsr.domain.user.service.impl;
 
+import java.time.LocalDateTime;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.hsr.config.WebSecurityConfig;
+import com.hsr.constant.JpaConst;
 import com.hsr.domain.user.model.User;
 import com.hsr.domain.user.service.UserService;
 import com.hsr.repository.UserRepository;
@@ -15,6 +20,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserRepository userRepository;
+    private PasswordEncoder encoder = new WebSecurityConfig().passwordEncoder();
 
     @Override
     public User getById(Integer id) {
@@ -22,7 +28,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void insertOne(User user) {
+    public void signup(User user) {
+        String plainPass = user.getPassword();
+        user.setPassword(encoder.encode(plainPass));
+        user.setCreatedAt(LocalDateTime.now());
+        user.setDeleteFlag(JpaConst.DELETE_FLAG_FALSE);
         userRepository.save(user);
     }
 

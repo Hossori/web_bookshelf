@@ -8,6 +8,6 @@ import com.hsr.domain.user.model.User;
 public interface UserService {
 
     public User getById(Integer id);
-    public void insertOne(User user);
+    public void signup(User user);
 
 }
