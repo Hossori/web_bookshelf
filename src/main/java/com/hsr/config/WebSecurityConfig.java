@@ -30,6 +30,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/image/**",
             "/js/**",
             "/lib/**",
+            "/error",
             "/signup",
             "/rest/property/get"
         );

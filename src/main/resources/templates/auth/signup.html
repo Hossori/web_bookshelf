@@ -5,29 +5,28 @@
     <head>
         <title th:text="#{title.signup}+#{title.postfix}"></title>
         <link rel="stylesheet" th:href="@{/css/auth.css}">
+        <script th:src="@{/js/part/auth.js}" defer></script>
     </head>
     <body>
         <div layout:fragment="content">
             <h2 th:id="signupH2" th:text="#{auth.signup.h2}"></h2>
             <form method="post" th:action="@{/signup}">
                 <table>
-                    <tr>
+                    <tr th:id="#{auth.email.id}">
                         <th><label for="email" th:text="#{auth.email.caption}"></label></th>
-                        <td><input type="email" name="email" autocomplete="off"
-                                     th:placeholder="#{auth.email.placeholder}"></td>
+                        <td><input type="email" name="email" th:placeholder="#{auth.email.placeholder}"></td>
                     </tr>
-                    <tr>
+                    <tr th:id="#{auth.password.id}">
                         <th><label for="password" th:text="#{auth.password.caption}"></label></th>
                         <td><input type="password" name="password" th:placeholder="#{auth.password.placeholder}"></td>
                     </tr>
-                    <tr>
+                    <tr th:id="#{auth.rePassword.id}">
                         <th><label for="rePassword" th:text="#{auth.rePassword.caption}"></label></th>
                         <td><input type="password" name="rePassword" th:placeholder="#{auth.rePassword.placeholder}"></td>
                     </tr>
-                    <tr>
+                    <tr th:id="#{auth.name.id}">
                         <th><label for="name" th:text="#{auth.name.caption}"></label></th>
-                        <td><input type="text" name="name"  autocomplete="off"
-                                    th:placeholder="#{auth.name.placeholder}"></td>
+                        <td><input type="text" name="name" th:placeholder="#{auth.name.placeholder}"></td>
                     </tr>
                 </table>
                 <button type="submit"

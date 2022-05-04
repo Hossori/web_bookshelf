@@ -1,21 +1,20 @@
 @charset "UTF-8";
 
-table tr td ,
-table tr th {
+td, th {
     padding: 8px 36px 8px 0px;
 }
-table tr th {
+th {
     text-align: left;
 }
-table tr th label {
+label {
     color: white;
     font-size: 20px;
 }
-table tr td input {
+input {
     border-bottom: solid 1px white;
     color: white;
 }
-table tr td input::placeholder {
+input::placeholder {
     color: white;
     opacity: 0.6;
 }

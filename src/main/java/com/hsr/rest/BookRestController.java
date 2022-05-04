@@ -3,7 +3,6 @@ package com.hsr.rest;
 import java.util.Locale;
 import java.util.Map;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.validation.BindingResult;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hsr.constant.StatusCodeConst;
 import com.hsr.domain.book.model.Book;
-import com.hsr.domain.book.model.BookForm;
 import com.hsr.domain.book.model.validator.BookValidator;
 import com.hsr.domain.book.service.BookService;
 import com.hsr.domain.bookshelf.service.BookshelfService;
@@ -29,8 +27,6 @@ public class BookRestController {
     private BookService bookService;
     @Autowired
     private BookshelfService bookshelfService;
-    @Autowired
-    private ModelMapper modelMapper;
     @Autowired
     private MessageSource messageSource;
 
@@ -80,7 +76,7 @@ public class BookRestController {
 
     @PutMapping("/create")
     public Result create(
-            @ModelAttribute @Validated BookForm bookForm,
+            @ModelAttribute @Validated Book book,
             BindingResult bindingResult,
             Locale locale) {
 
@@ -92,7 +88,6 @@ public class BookRestController {
             return new Result(resultCode, errors);
         }
 
-        Book book = modelMapper.map(bookForm, Book.class);
         resultCode = bookService.create(book);
 
         return new Result(resultCode, null);
@@ -101,7 +96,7 @@ public class BookRestController {
 
     @PutMapping("/update")
     public Result update(
-            @ModelAttribute @Validated BookForm bookForm,
+            @ModelAttribute @Validated Book newBook,
             BindingResult bindingResult,
             Locale locale) {
 
@@ -113,8 +108,7 @@ public class BookRestController {
             return new Result(resultCode, errors);
         }
 
-        Book book = bookService.getById(bookForm.getId());
-        Book newBook = modelMapper.map(bookForm, Book.class);
+        Book book = bookService.getById(newBook.getId());
         resultCode = bookService.update(book, newBook);
 
         return new Result(resultCode, null);
