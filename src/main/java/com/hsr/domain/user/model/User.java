@@ -17,6 +17,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.hsr.annotation.SameString;
 import com.hsr.constant.JpaConst;
 
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name=JpaConst.TABLE_USER)
 @JsonIgnoreProperties({"hibernateLazyInitializer"})
+@SameString(field1="password", field2="rePassword")
 public class User implements UserDetails {
 
     @Id
