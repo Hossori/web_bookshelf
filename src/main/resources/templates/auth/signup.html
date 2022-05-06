@@ -6,11 +6,17 @@
         <title th:text="#{title.signup}+#{title.postfix}"></title>
         <link rel="stylesheet" th:href="@{/css/auth.css}">
         <script th:src="@{/js/part/auth.js}" defer></script>
+        <script type="text/javascript">
+            $(function() {
+                let signupButton = $('#'+getProperty('auth.signup.button.id'));
+                signupButton.on('click', signup);
+            });
+        </script>
     </head>
     <body>
         <div layout:fragment="content">
             <h2 th:id="signupH2" th:text="#{auth.signup.h2}"></h2>
-            <form method="post" th:action="@{/signup}">
+            <form th:id="#{auth.signup.form.id}" method="post" th:action onSubmit="return false;">
                 <table>
                     <tr th:id="#{auth.email.id}">
                         <th><label for="email" th:text="#{auth.email.caption}"></label></th>
@@ -29,9 +35,7 @@
                         <td><input type="text" name="name" th:placeholder="#{auth.name.placeholder}"></td>
                     </tr>
                 </table>
-                <button type="submit"
-                        th:id="#{auth.signup.button.id}"
-                        th:text="#{auth.signup.button.caption}"></button>
+                <button th:id="#{auth.signup.button.id}" th:text="#{auth.signup.button.caption}"></button>
             </form>
         </div>
     </body>

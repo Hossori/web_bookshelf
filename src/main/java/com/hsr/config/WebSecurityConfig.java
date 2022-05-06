@@ -32,6 +32,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             "/lib/**",
             "/error",
             "/signup",
+            "/rest/auth/signup",
             "/rest/property/get"
         );
     }
