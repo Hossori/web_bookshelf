@@ -84,6 +84,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             .logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
+                .addLogoutHandler((request, response, authentication) -> {
+                    request.getSession().removeAttribute("loginUser");
+                })
                 .permitAll()
             .and()
             .csrf()
@@ -112,6 +115,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
         response.getWriter().write(new ObjectMapper().writeValueAsString(new Result(StatusCodeConst.OK, null)));
         clearAuthenticationAttributes(request);
+
+        request.getSession().setAttribute("loginUser", authentication.getPrincipal());
 
     }
 

@@ -1,32 +1,31 @@
 package com.hsr.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.hsr.constant.PathConst;
-import com.hsr.domain.user.model.User;
-import com.hsr.util.StatusChecker;
+import com.hsr.util.AuthChecker;
 
 @Controller
 public class AuthController {
 
     @GetMapping("/login")
-    public String login(Model model, RedirectAttributes redirectAttributes) {
-        if(StatusChecker.isLogin(model)) {
+    public String login(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        if(AuthChecker.isLogin(request)) {
             redirectAttributes.addAttribute("page", 0);
-            return "redirect:/bookshelf/index";
+            return "redirect:" + PathConst.BOOKSHELF_INDEX.getValue();
         }
-        model.addAttribute("user", new User());
         return PathConst.AUTH_LOGIN.getValue();
     }
 
     @GetMapping("/signup")
-    public String signup(Model model, RedirectAttributes redirectAttributes) {
-        if(StatusChecker.isLogin(model)) {
+    public String signup(HttpServletRequest request, RedirectAttributes redirectAttributes) {
+        if(AuthChecker.isLogin(request)) {
             redirectAttributes.addAttribute("page", 0);
-            return "redirect:/bookshelf/index";
+            return "redirect:" + PathConst.BOOKSHELF_INDEX.getValue();
         }
         return PathConst.AUTH_SIGNUP.getValue();
     }
