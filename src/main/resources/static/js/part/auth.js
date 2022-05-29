@@ -1,5 +1,28 @@
 'use strict';
 
+function login() {
+    let formData = $('#'+getProperty('auth.login.form.id')).serializeArray();
+    $.ajax({
+        type : 'post',
+        url : '/login',
+        data : formData,
+        dataType : 'json'
+    }).done((result) => {
+        if(result.code === STATUS.OK) {
+            location.href = '/bookshelf/index?page=0'
+        } else if(result.code === STATUS.BAD_REQUEST) {
+            let errors = result.data;
+            applyLoginValidation(errors);
+        } else if(result.code === STATUS.FORBIDDEN) {
+            console.log(result.data);
+        }
+    }).fail((XMLHttpRequest, textStatus, errorThrown) => {
+        console.log(XMLHttpRequest);
+        console.log(textStatus);
+        console.log(errorThrown);
+    });
+}
+
 function signup() {
     let formData = $('#'+getProperty('auth.signup.form.id')).serializeArray();
     $.ajax({
@@ -23,6 +46,14 @@ function signup() {
     });
 }
 
+function applyLoginValidation(errors) {
+    let trs = {
+        email : $('#'+getProperty('auth.email.id')),
+        password : $('#'+getProperty('auth.password.id')),
+    };
+    applyAuthValidation(trs, errors);
+}
+
 function applySignupValidation(errors) {
     let trs = {
         email : $('#'+getProperty('auth.email.id')),
@@ -30,6 +61,10 @@ function applySignupValidation(errors) {
         rePassword : $('#'+getProperty('auth.rePassword.id')),
         name : $('#'+getProperty('auth.name.id'))
     };
+    applyAuthValidation(trs, errors);
+}
+
+function applyAuthValidation(trs, errors) {
     $('.errorMsg').remove();
     for(let trId in trs) {
         let label = trs[trId].find('label');

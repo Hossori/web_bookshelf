@@ -14,6 +14,8 @@ import javax.validation.Payload;
 import org.springframework.beans.BeanWrapper;
 import org.springframework.beans.BeanWrapperImpl;
 
+import com.hsr.annotation.SameString.SameStringValidator;
+
 @Documented
 @Constraint(validatedBy={SameStringValidator.class})
 @Retention(RetentionPolicy.RUNTIME)
@@ -22,7 +24,7 @@ public @interface SameString {
 
     String field1() default "";
     String field2() default "";
-    String message() default "";
+    String message() default "{com.hsr.annotation.SameString.message}";
 
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
@@ -34,34 +36,34 @@ public @interface SameString {
         SameString[] value();
     }
 
-}
+    public class SameStringValidator implements ConstraintValidator<SameString, Object> {
 
-class SameStringValidator implements ConstraintValidator<SameString, Object> {
+        private String field1;
+        private String field2;
+        private String message;
 
-    private String field1;
-    private String field2;
-    private String message;
+        @Override
+        public void initialize(SameString annotation) {
+            this.field1 = annotation.field1();
+            this.field2 = annotation.field2();
+            this.message = annotation.message();
+        }
 
-    @Override
-    public void initialize(SameString annotation) {
-        this.field1 = annotation.field1();
-        this.field2 = annotation.field2();
-        this.message = annotation.message();
-    }
+        @Override
+        public boolean isValid(Object target, ConstraintValidatorContext context) {
 
-    @Override
-    public boolean isValid(Object target, ConstraintValidatorContext context) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate(message)
+                    .addPropertyNode(field2)
+                    .addConstraintViolation();
 
-        context.disableDefaultConstraintViolation();
-        context.buildConstraintViolationWithTemplate(message)
-                .addPropertyNode(field2)
-                .addConstraintViolation();
+            BeanWrapper beanWrapper = new BeanWrapperImpl(target);
+            String value1 = (String) beanWrapper.getPropertyValue(field1);
+            String value2 = (String) beanWrapper.getPropertyValue(field2);
 
-        BeanWrapper beanWrapper = new BeanWrapperImpl(target);
-        String value1 = (String) beanWrapper.getPropertyValue(field1);
-        String value2 = (String) beanWrapper.getPropertyValue(field2);
+            return value1.equals(value2);
+        }
 
-        return value1.equals(value2);
     }
 
 }
