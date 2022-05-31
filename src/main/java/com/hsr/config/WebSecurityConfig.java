@@ -87,10 +87,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
                 .addLogoutHandler((request, response, authentication) -> {
                     request.getSession().removeAttribute("loginUser");
                 })
-                .permitAll()
-            .and()
-            .csrf()
-                .disable();
+                .permitAll();
     }
 
     @Override
