@@ -18,6 +18,14 @@
                 let bookEvaluationRadios = $('#'+getProperty('book.edit.evaluation.id')).find('input');
                 controlBookEvaluationRadioView(bookEvaluationRadios);
 
+                let userId = $('#'+getProperty('book.user.id')).val();
+                if(!isLoginUserId(userId)) {
+                    $('#'+getProperty('book.show.button.toEdit.id')).remove();
+                    $('#'+getProperty('book.edit.container.id')).remove();
+                }
+
+                showMain();
+
                 function initializeButtons() {
                     let toEditButton = $('#'+getProperty('book.show.button.toEdit.id'));
                     toEditButton.click(toEdit);
@@ -62,6 +70,9 @@
                 </div>
             </div>
 
+            <!-- book user -->
+            <input type="hidden" th:id="#{book.user.id}"
+                    th:value="${book.bookshelf.user.id}">
             <!-- show -->
             <div th:id="#{book.show.container.id}">
                 <table class="bookShow">

@@ -37,3 +37,19 @@ function formatDateTime(datetime, formatType) {
 
     return text;
 }
+
+
+function isLoginUserId(userId) {
+    let result = $.ajax({
+        url : '/rest/authChecker/getLoginUserId',
+        type : 'get',
+        dataType : 'json',
+        async : false
+    }).responseText;
+    let loginUserId = JSON.parse(result).data.loginUserId;
+    return userId === loginUserId;
+}
+
+function showMain() {
+    $('div#main').show();
+}

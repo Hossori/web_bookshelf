@@ -22,6 +22,15 @@
                 let bookEvaluationRadios = $('#'+getProperty('book.create.evaluation.id')).find('input');
                 controlBookEvaluationRadioView(bookEvaluationRadios);
 
+                let userId = $('#'+getProperty('bookshelf.user.id')).val();
+                if(!isLoginUserId(userId)) {
+                    $('#'+getProperty('bookshelf.show.button.toEdit.id')).remove();
+                    $('#'+getProperty('bookshelf.edit.container.id')).remove();
+                    $('#'+getProperty('book.create.dialog.id')).remove();
+                    $('#'+getProperty('bookshelf.detail.button.bookCreate.id')).remove();
+                }
+                showMain();
+
                 function initializeBookCreateDialog() {
                     let bookCreateDialogShowButton = {
                         element : $('#'+getProperty('bookshelf.detail.button.bookCreate.id')),
@@ -78,6 +87,9 @@
     <body>
         <div layout:fragment="content">
             <h2 th:id="#{bookshelf.detail.name.id}" th:text="${bookshelf.name}"></h2>
+            <!-- bookshelf user -->
+            <input type="hidden" th:id="#{bookshelf.user.id}"
+                    th:value="${bookshelf.user.id}">
             <!-- bookshelf show -->
             <div th:id="#{bookshelf.show.container.id}">
                 <div th:id="#{bookshelf.show.description.id}">

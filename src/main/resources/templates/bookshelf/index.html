@@ -6,6 +6,11 @@
         <title th:text="#{title.bookshelf.index}+#{title.postfix}"></title>
         <link rel="stylesheet" th:href="@{/css/bookshelf.css}">
         <link rel="stylesheet" th:href="@{/css/pagination.css}">
+        <script type="text/javascript">
+            $(function() {
+                showMain();
+            });
+        </script>
     </head>
     <body>
         <div layout:fragment="content">

@@ -5,6 +5,11 @@
     <head>
         <title th:text="#{title.error}+#{title.postfix}"></title>
         <link rel="stylesheet" th:href="@{/css/error.css}">
+        <script type="text/javascript">
+            $(function() {
+                showMain();
+            });
+        </script>
     </head>
     <body>
         <div layout:fragment="content">
