@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -18,6 +19,7 @@ import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.model.validator.BookValidator;
 import com.hsr.domain.book.service.BookService;
 import com.hsr.domain.bookshelf.service.BookshelfService;
+import com.hsr.domain.user.model.User;
 
 @RestController
 @RequestMapping("/rest/book")
@@ -80,7 +82,7 @@ public class BookRestController {
             BindingResult bindingResult,
             Locale locale) {
 
-        int resultCode;
+        Integer resultCode;
 
         Map<String, String> errors = BookValidator.validate(bindingResult, locale);
         if(errors != null) {
@@ -98,18 +100,22 @@ public class BookRestController {
     public Result update(
             @ModelAttribute @Validated Book newBook,
             BindingResult bindingResult,
-            Locale locale) {
+            Locale locale,
+            @AuthenticationPrincipal User loginUser) {
 
-        int resultCode;
+        Integer resultCode;
+        if(loginUser.equals(newBook.getBookshelf().getUser())) {
+            resultCode = StatusCodeConst.FORBIDDEN;
+        } else {
+            Map<String, String> errors = BookValidator.validate(bindingResult, locale);
+            if(errors != null) {
+                resultCode = StatusCodeConst.BAD_REQUEST;
+                return new Result(resultCode, errors);
+            }
 
-        Map<String, String> errors = BookValidator.validate(bindingResult, locale);
-        if(errors != null) {
-            resultCode = StatusCodeConst.BAD_REQUEST;
-            return new Result(resultCode, errors);
+            Book book = bookService.getById(newBook.getId());
+            resultCode = bookService.update(book, newBook);
         }
-
-        Book book = bookService.getById(newBook.getId());
-        resultCode = bookService.update(book, newBook);
 
         return new Result(resultCode, null);
 
@@ -117,11 +123,18 @@ public class BookRestController {
 
     @PutMapping("/delete")
     public Result delete(
-            @RequestParam("bookId") int bookId) {
+            @RequestParam("bookId") int bookId,
+            @AuthenticationPrincipal User loginUser) {
 
+        Integer resultCode;
         Book book = bookService.getById(bookId);
-        bookService.delete(book);
-        int resultCode = StatusCodeConst.OK;
+        if(!loginUser.equals(book.getBookshelf().getUser())) {
+            resultCode = StatusCodeConst.FORBIDDEN;
+            System.out.println("book delete failed.");
+        } else {
+            bookService.delete(book);
+            resultCode = StatusCodeConst.OK;
+        }
 
         return new Result(resultCode, null);
 

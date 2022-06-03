@@ -22,10 +22,6 @@ public class AuthChecker {
         return request.getSession().getAttribute("loginUser") != null;
     }
 
-    /*public static boolean isLoginUser(User user) {
-        AuthenticationPrincipal authenticationPrincipal;
-    }*/
-
     @GetMapping("/getLoginUserId")
     public Result getLoginUserId(@AuthenticationPrincipal User loginUser ) {
         Map<String, String> resultMap = new HashMap<>();

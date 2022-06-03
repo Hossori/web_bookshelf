@@ -2,6 +2,7 @@ package com.hsr.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hsr.constant.StatusCodeConst;
 import com.hsr.domain.bookshelf.model.Bookshelf;
 import com.hsr.domain.bookshelf.service.BookshelfService;
+import com.hsr.domain.user.model.User;
 
 @RestController
 @RequestMapping("/rest/bookshelf")
@@ -37,20 +39,32 @@ public class BookshelfRestController {
 
     @PutMapping("/update")
     public Result update(
-            @ModelAttribute Bookshelf newBookshelf) {
+            @ModelAttribute Bookshelf newBookshelf,
+            @AuthenticationPrincipal User loginUser) {
 
         Bookshelf bookshelf = bookshelfService.getById(newBookshelf.getId());
-        Integer resultCode = bookshelfService.update(bookshelf, newBookshelf);
+        Integer resultCode;
+        if(loginUser.equals(bookshelf.getUser())) {
+            resultCode = StatusCodeConst.FORBIDDEN;
+        } else {
+            resultCode = bookshelfService.update(bookshelf, newBookshelf);
+        }
         return new Result(resultCode, null);
 
     }
 
     @PutMapping("/delete")
     public Result delete(
-            @RequestParam("bookshelfId") int bookshelfId) {
+            @RequestParam("bookshelfId") int bookshelfId,
+            @AuthenticationPrincipal User loginUser) {
         Bookshelf bookshelf = bookshelfService.getById(bookshelfId);
-        bookshelfService.delete(bookshelf);
-        int resultCode = StatusCodeConst.OK;
+        Integer resultCode;
+        if(loginUser.equals(bookshelf.getUser())) {
+            resultCode = StatusCodeConst.FORBIDDEN;
+        } else {
+            bookshelfService.delete(bookshelf);
+            resultCode = StatusCodeConst.OK;
+        }
         return new Result(resultCode, null);
     }
 }

@@ -15,10 +15,6 @@
 
 ●本棚詳細ページのbookshelf listボタンやめてbackボタンにしようかな…
 
-▼認証
-・editは作成者しか表示できないように。update, deleteも作成者しかできないように。
-UI側では消えるようにした。あとはサーバー側でもはねるようにしたい。
-
 ●URLのクエリパラメータpageに変な数字いれてもエラーにならない不具合がある。bookのdetailとか他でも。
 
 ●curlアクセス時のエラーレスポンス作ってみる？
@@ -87,3 +83,6 @@ bookshelfのedit、bookのcreate,editでinput要素でエンター押すとpost�
 ・サインアップにならってログインをなんとかRESTにする。RESTにできたらバリデーションする。
 バリデーションエラー時にajaxがfailになる。(追記：AuthenticationFailureHandlerでsendErrorしてたせいだった。)
 FailureHandlerで任意タイミングのバリデーションに成功！次、結果をerrorsとして返してjsで処理するように。
+
+■認証
+・editは作成者しか表示できないように。update, deleteも作成者しかできないように。

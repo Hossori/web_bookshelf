@@ -77,4 +77,21 @@ public class User implements UserDetails {
         return true;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if(this == obj) { return true; }
+        if(obj == null) { return false; }
+
+        if(obj instanceof User) {
+            return this.id == ((User) obj).getId();
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        return this.id;
+    }
+
 }
