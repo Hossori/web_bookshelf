@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hsr.constant.StatusCodeConst;
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.model.validator.BookValidator;
 import com.hsr.domain.book.service.BookService;
@@ -86,7 +86,7 @@ public class BookRestController {
 
         Map<String, String> errors = BookValidator.validate(bindingResult, locale);
         if(errors != null) {
-            resultCode = StatusCodeConst.BAD_REQUEST;
+            resultCode = HttpStatus.BAD_REQUEST.value();
             return new Result(resultCode, errors);
         }
 
@@ -105,11 +105,11 @@ public class BookRestController {
 
         Integer resultCode;
         if(loginUser.equals(newBook.getBookshelf().getUser())) {
-            resultCode = StatusCodeConst.FORBIDDEN;
+            resultCode = HttpStatus.FORBIDDEN.value();
         } else {
             Map<String, String> errors = BookValidator.validate(bindingResult, locale);
             if(errors != null) {
-                resultCode = StatusCodeConst.BAD_REQUEST;
+                resultCode = HttpStatus.BAD_REQUEST.value();
                 return new Result(resultCode, errors);
             }
 
@@ -129,11 +129,11 @@ public class BookRestController {
         Integer resultCode;
         Book book = bookService.getById(bookId);
         if(!loginUser.equals(book.getBookshelf().getUser())) {
-            resultCode = StatusCodeConst.FORBIDDEN;
+            resultCode = HttpStatus.FORBIDDEN.value();
             System.out.println("book delete failed.");
         } else {
             bookService.delete(book);
-            resultCode = StatusCodeConst.OK;
+            resultCode = HttpStatus.OK.value();
         }
 
         return new Result(resultCode, null);

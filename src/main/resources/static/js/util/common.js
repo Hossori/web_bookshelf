@@ -1,9 +1,9 @@
 'use strict';
 
 var STATUS = {
-    OK : Number(getProperty('statusCode.ok')),
-    BAD_REQUEST : Number(getProperty('statusCode.badRequest')),
-    FORBIDDEN : Number(getProperty('statusCode.forbidden'))
+    OK : getStatusCode('OK'),
+    BAD_REQUEST : getStatusCode('BAD_REQUEST'),
+    FORBIDDEN : getStatusCode('FORBIDDEN')
 };
 
 function getProperty(key) {
@@ -16,6 +16,18 @@ function getProperty(key) {
     }).responseText;
     res = JSON.parse(res);
     return res.data.value;
+}
+
+function getStatusCode(status) {
+    let res = $.ajax({
+        url : '/rest/property/get/statusCode',
+        type : 'get',
+        data : {key : status},
+        dataType : 'json',
+        async : false
+    }).responseText;
+    res = JSON.parse(res);
+    return Number(res);
 }
 
 // Date datetime, String formatType

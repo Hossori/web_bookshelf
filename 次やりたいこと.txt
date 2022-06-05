@@ -4,16 +4,16 @@
 ▼ → 作業中項目
 -------------------
 
+●ユーザーページ作る
+
 ●Auth系保留案件
 ・inputタグautocomplete時のcssの変え方がわからん…色変えるのはできるけど背景が画像だから透明にできないと困る。
 ・ログイン中に重ねてログインしたらエラーになるように。
 
-●エラー時にGlobalControllerによるloginUserのセットが出来ていない。
-動いてはいるが他の処理を挟んでページ表示するためリクエストパラメータのloginUserが消えちゃってるっぽい。
-
 ●ヘッダーと中身でフォント変えようかな。
 
-●本棚詳細ページのbookshelf listボタンやめてbackボタンにしようかな…
+▼本棚詳細ページのbookshelf listボタンやめてbackボタンにしようかな…
+bookshelfリストに戻るならヘッダのbookshelfsでいいんだからbackにするか。
 
 ●URLのクエリパラメータpageに変な数字いれてもエラーにならない不具合がある。bookのdetailとか他でも。
 
@@ -23,9 +23,6 @@
 ●bookshelf listの検索機能
 RESTにするかどうか、ブラウザバックを考慮しよく考える。
 ひとまず要らなそうだからHTMLコメントアウトした。
-
-●StatusCodeConstについて
-HttpStatus.XX.value()があったのでそちらに置き換えできるならしたい。
 
 ■本棚詳細から本棚一覧に戻るボタン
 本棚詳細でページネーションあるためブラウザバックではダメ。
@@ -86,3 +83,11 @@ FailureHandlerで任意タイミングのバリデーションに成功！次、
 
 ■認証
 ・editは作成者しか表示できないように。update, deleteも作成者しかできないように。
+
+■エラー時にGlobalControllerによるloginUserのセットが出来ていない。
+動いてはいるが他の処理を挟んでページ表示するためリクエストパラメータのloginUserが消えちゃってるっぽい。
+→loginUserの格納先をmodelからsessionに変えたので解決。
+
+■StatusCodeConstについて
+HttpStatus.XX.value()があったのでそちらに置き換えできるならしたい。
+→できた。

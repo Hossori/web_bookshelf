@@ -7,10 +7,10 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.hsr.constant.JpaConst;
-import com.hsr.constant.StatusCodeConst;
 import com.hsr.domain.bookshelf.model.Bookshelf;
 import com.hsr.domain.bookshelf.service.BookshelfService;
 import com.hsr.repository.BookshelfRepository;
@@ -46,8 +46,8 @@ public class BookshelfServiceImpl implements BookshelfService {
         bookshelf.setUpdatedAt(LocalDateTime.now());
         Integer resultCode =
                 repository.save(bookshelf) != null
-                    ? StatusCodeConst.OK
-                    : StatusCodeConst.FORBIDDEN;
+                    ? HttpStatus.OK.value()
+                    : HttpStatus.FORBIDDEN.value();
         return resultCode;
     }
 

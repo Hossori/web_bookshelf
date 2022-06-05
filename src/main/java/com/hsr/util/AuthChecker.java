@@ -5,12 +5,12 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hsr.constant.StatusCodeConst;
 import com.hsr.domain.user.model.User;
 import com.hsr.rest.Result;
 
@@ -29,7 +29,7 @@ public class AuthChecker {
             resultMap.put("loginUserId", loginUser.getId().toString());
         }
 
-        return new Result(StatusCodeConst.OK, resultMap);
+        return new Result(HttpStatus.OK.value(), resultMap);
     }
 
 }

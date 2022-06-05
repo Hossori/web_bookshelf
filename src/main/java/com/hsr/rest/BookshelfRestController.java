@@ -2,6 +2,7 @@ package com.hsr.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hsr.constant.StatusCodeConst;
 import com.hsr.domain.bookshelf.model.Bookshelf;
 import com.hsr.domain.bookshelf.service.BookshelfService;
 import com.hsr.domain.user.model.User;
@@ -45,7 +45,7 @@ public class BookshelfRestController {
         Bookshelf bookshelf = bookshelfService.getById(newBookshelf.getId());
         Integer resultCode;
         if(loginUser.equals(bookshelf.getUser())) {
-            resultCode = StatusCodeConst.FORBIDDEN;
+            resultCode = HttpStatus.FORBIDDEN.value();
         } else {
             resultCode = bookshelfService.update(bookshelf, newBookshelf);
         }
@@ -60,10 +60,10 @@ public class BookshelfRestController {
         Bookshelf bookshelf = bookshelfService.getById(bookshelfId);
         Integer resultCode;
         if(loginUser.equals(bookshelf.getUser())) {
-            resultCode = StatusCodeConst.FORBIDDEN;
+            resultCode = HttpStatus.FORBIDDEN.value();
         } else {
             bookshelfService.delete(bookshelf);
-            resultCode = StatusCodeConst.OK;
+            resultCode = HttpStatus.OK.value();
         }
         return new Result(resultCode, null);
     }

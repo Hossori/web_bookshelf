@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -33,7 +34,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hsr.constant.StatusCodeConst;
 import com.hsr.domain.user.model.User;
 import com.hsr.rest.Result;
 
@@ -110,7 +110,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         }
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().write(new ObjectMapper().writeValueAsString(new Result(StatusCodeConst.OK, null)));
+        response.getWriter().write(new ObjectMapper().writeValueAsString(new Result(HttpStatus.OK.value(), null)));
         clearAuthenticationAttributes(request);
 
         request.getSession().setAttribute("loginUser", authentication.getPrincipal());
@@ -146,7 +146,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         );
 
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().write(new ObjectMapper().writeValueAsString(new Result(StatusCodeConst.BAD_REQUEST, errors)));
+        response.getWriter().write(new ObjectMapper().writeValueAsString(new Result(HttpStatus.BAD_REQUEST.value(), errors)));
 
     }
 

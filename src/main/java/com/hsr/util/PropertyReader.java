@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,8 +37,9 @@ public class PropertyReader {
         return new Result(0, resultMap);
     }
 
-    public static Integer getStatusCode(String key) {
-        return Integer.parseInt(messageSource.getMessage(key, null, Locale.getDefault()));
+    @GetMapping("/get/statusCode")
+    public Integer getStatusCode(String key) {
+        return HttpStatus.valueOf(key).value();
     }
 
 }
