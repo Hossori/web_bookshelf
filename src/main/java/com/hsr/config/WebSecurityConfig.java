@@ -63,7 +63,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             "/error",
             "/signup",
             "/rest/auth/signup",
-            "/rest/property/get"
+            "/rest/property/get",
+            "/rest/property/get/statusCode"
         );
     }
 

@@ -38,7 +38,7 @@ public class PropertyReader {
     }
 
     @GetMapping("/get/statusCode")
-    public Integer getStatusCode(String key) {
+    public Integer getStatusCode(@RequestParam("key") String key) {
         return HttpStatus.valueOf(key).value();
     }
 
