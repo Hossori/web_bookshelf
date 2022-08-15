@@ -46,6 +46,10 @@ public class BookshelfController {
         int pageCount =
                 bookshelfPages.getTotalPages() == 0 ? 1 : bookshelfPages.getTotalPages();
 
+        if(pageCount-1 < page) {
+            throw new IllegalArgumentException();
+        }
+
         model.addAttribute("bookshelfPages", bookshelfPages);
         model.addAttribute("bookshelfs", bookshelfViewList);
         model.addAttribute("pageCount", pageCount);
@@ -70,6 +74,10 @@ public class BookshelfController {
         List<BookView> bookViewList = BookConverter.toViewList(bookList);
         int pageCount =
                 bookPages.getTotalPages() == 0 ? 1 : bookPages.getTotalPages();
+
+        if(pageCount-1 < page) {
+            throw new IllegalArgumentException();
+        }
 
         model.addAttribute(bookshelf);
         model.addAttribute(book);
