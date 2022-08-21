@@ -6,7 +6,8 @@
 
 ●db作成できるやつ作る。sqldumpとか？
 
-●ユーザーページ作る
+▼ユーザーページ作る
+ thymeleafのフラグメントを使ってbookshelf\index.htmlの内容をパーツ化する。
 
 ●bookshelf listの検索機能
 RESTにするかどうか、ブラウザバックを考慮しよく考える。
