@@ -8,26 +8,24 @@
 
 ●ユーザーページ作る
 
-●Auth系保留案件
-・inputタグautocomplete時のcssの変え方がわからん…色変えるのはできるけど背景が画像だから透明にできないと困る。
-・ログイン中に重ねてログインしたらエラーになるように。
-
-●ヘッダーと中身でフォント変えようかな。
-
-●本棚詳細ページのbookshelf listボタン
-bookshelfリストに戻るならヘッダのbookshelfsでいいよな…。
-消そうかな。
-
-●curlアクセス時のエラーレスポンス作ってみる？
-インターフェースErrorControllerの実装クラス作ってjson返す形になるかな。
-
 ●bookshelf listの検索機能
 RESTにするかどうか、ブラウザバックを考慮しよく考える。
 ひとまず要らなそうだからHTMLコメントアウトした。
 
+●ヘッダーと中身でフォント変えようかな。
+
+●Auth系保留案件
+・inputタグautocomplete時のcssの変え方がわからん…色変えるのはできるけど背景が画像だから透明にできないと困る。
+・ログイン中に重ねてログインしたらエラーになるように。
+
+●curlアクセス時のエラーレスポンス作ってみる？
+インターフェースErrorControllerの実装クラス作ってjson返す形になるかな。
+
 ■本棚詳細から本棚一覧に戻るボタン
 本棚詳細でページネーションあるためブラウザバックではダメ。
 bookshelf.detail.button.backToList.caption[tooltip]かな。
+ ■bookshelfリストに戻るならヘッダのbookshelfsでいいよな…。
+ 消そうかな。→消した
 
 ■bookshelf/show.htmlをdetail.htmlに名称変更
 
