@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <div th:fragment="content" th:remove="tag">
+            <!-- <form>
+                <input type="text" th:id="#{bookshelf.searchBox.id}">
+                <input type="submit" th:id="#{bookshelf.searchButton.id}" th:value="#{bookshelf.searchButton.caption}">
+            </form> -->
+            <div th:id="#{bookshelf.list.container.id}">
+                <a th:each="bookshelf:${bookshelfs}" th:href="@{/bookshelf/detail(id=${bookshelf.id}, page=0)}" class="bookshelfListAnchor">
+                    <div th:id="'bookshelf'+${bookshelf.id}" class="bookshelfList">
+                        <table class="bookshelfListInfo">
+                            <tr th:title="#{bookshelf.list.userName.caption}">
+                                <td th:text="${bookshelf.user.name}"></td>
+                            </tr>
+                            <tr th:title="#{bookshelf.list.name.caption}">
+                                <td th:text="${bookshelf.name}"></td>
+                            </tr>
+                            <tr th:title="#{bookshelf.list.createdAt.caption}">
+                                <td th:text="${bookshelf.createdAt}"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </a>
+            </div>
+            <ul th:id="#{pagination.container.id}" class="pagination">
+                <th:block th:switch="${bookshelfPages.first}">
+                    <li th:case=true>
+                        <span>前</span>
+                    </li>
+                    <li th:case=false>
+                        <a th:href="@{index(page=${bookshelfPages.number}-1)}">前</a>
+                    </li>
+                </th:block>
+
+                <li th:each="i:${#numbers.sequence(0, pageCount-1)}">
+                    <th:block th:switch="${i}">
+                        <span th:case="${bookshelfPages.number}" th:text="${i+1}"></span>
+                        <a th:case=* th:href="@{index(page=${i})}" th:text="${i+1}"></a>
+                    </th:block>
+                </li>
+
+                <th:block th:switch="${bookshelfPages.last}">
+                    <li th:case=true>
+                        <span>次</span>
+                    </li>
+                    <li th:case=false>
+                        <a th:href="@{index(page=${bookshelfPages.number}+1)}">次</a>
+                    </li>
+                </th:block>
+            </ul>
+        </div>
+    </body>
+</html>

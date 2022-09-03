@@ -8,6 +8,7 @@
 
 ▼ユーザーページ作る
  thymeleafのフラグメントを使ってbookshelf\index.htmlの内容をパーツ化する。
+参考：https://miruraku.com/java/thymeleaf/fragment/
 
 ●bookshelf listの検索機能
 RESTにするかどうか、ブラウザバックを考慮しよく考える。
