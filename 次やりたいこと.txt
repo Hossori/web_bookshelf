@@ -6,9 +6,8 @@
 
 ●db作成できるやつ作る。sqldumpとか？
 
-▼ユーザーページ作る
- thymeleafのフラグメントを使ってbookshelf\index.htmlの内容をパーツ化する。
-参考：https://miruraku.com/java/thymeleaf/fragment/
+▼ユーザーページ作る(2)
+
 
 ●bookshelf listの検索機能
 RESTにするかどうか、ブラウザバックを考慮しよく考える。
@@ -22,6 +21,12 @@ RESTにするかどうか、ブラウザバックを考慮しよく考える。
 
 ●curlアクセス時のエラーレスポンス作ってみる？
 インターフェースErrorControllerの実装クラス作ってjson返す形になるかな。
+
+■ユーザーページ作る(1)
+ thymeleafのフラグメントを使って以下の内容をパーツ化する。
+ ・bookshelfList
+ ・pagination
+参考：https://miruraku.com/java/thymeleaf/fragment/
 
 ■本棚詳細から本棚一覧に戻るボタン
 本棚詳細でページネーションあるためブラウザバックではダメ。

@@ -8,7 +8,7 @@
         <meta th:id="#{meta.csrf.header.id}" th:content="${_csrf.headerName}">
         <link rel="stylesheet" th:href="@{/css/bookshelf.css}">
         <link rel="stylesheet" th:href="@{/css/book.css}">
-        <link rel="stylesheet" th:href="@{/css/pagination.css}">
+        <link th:replace="part/pagination::paginationCss">
         <script th:src="@{/js/util/dialog.js}" defer></script>
         <script th:src="@{/js/part/bookshelf.js}" defer></script>
         <script th:src="@{/js/part/book.js}" defer></script>
@@ -225,32 +225,7 @@
                     </div>
                 </a>
             </div>
-            <ul th:id="#{pagination.container.id}" class="pagination">
-                <th:block th:switch="${bookPages.first}">
-                    <li th:case=true>
-                        <span>前</span>
-                    </li>
-                    <li th:case=false>
-                        <a th:href="@{detail(id=${bookshelf.id}, page=${bookPages.number}-1)}">前</a>
-                    </li>
-                </th:block>
-
-                <li th:each="i:${#numbers.sequence(0, pageCount-1)}">
-                    <th:block th:switch="${i}">
-                        <span th:case="${bookPages.number}" th:text="${i+1}"></span>
-                        <a th:case=* th:href="@{detail(id=${bookshelf.id},page=${i})}" th:text="${i+1}"></a>
-                    </th:block>
-                </li>
-
-                <th:block th:switch="${bookPages.last}">
-                    <li th:case=true>
-                        <span>次</span>
-                    </li>
-                    <li th:case=false>
-                        <a th:href="@{detail(id=${bookshelf.id}, page=${bookPages.number}+1)}">次</a>
-                    </li>
-                </th:block>
-            </ul>
+            <div th:replace="part/pagination::content(pages=${bookPages}, paginationUrl=detail, queryParam1='id='+${bookshelf.id})"></div>
         </div>
     </body>
 </html>

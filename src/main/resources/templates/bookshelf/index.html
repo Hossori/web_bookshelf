@@ -5,7 +5,8 @@
     <head>
         <title th:text="#{title.bookshelf.index}+#{title.postfix}"></title>
         <link rel="stylesheet" th:href="@{/css/bookshelf.css}">
-        <link rel="stylesheet" th:href="@{/css/pagination.css}">
+        <link th:replace="part/bookshelfParts::bookshelfPartsCss">
+        <link th:replace="part/pagination::paginationCss">
         <script type="text/javascript">
             $(function() {
                 showMain();
@@ -15,7 +16,8 @@
     <body>
         <div layout:fragment="content">
             <h2 id="bookshelfIndexH2" th:text="#{bookshelf.index.h2}"></h2>
-            <div th:replace="part/bookshelfList::content"></div>
+            <div th:replace="part/bookshelfParts::list(${bookshelfs}, ${bookshelfPages})"></div>
+            <div th:replace="part/pagination::content(pages=${bookshelfPages}, paginationUrl=index)"></div>
         </div>
     </body>
 </html>

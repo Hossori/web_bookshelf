@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link th:fragment="bookshelfPartsCss" rel="stylesheet" th:href="@{/css/part/bookshelfParts.css}">
+    </head>
     <body>
-        <div th:fragment="content" th:remove="tag">
+        <div th:fragment="list(bookshelfs, bookshelfPages)" th:remove="tag">
             <!-- <form>
                 <input type="text" th:id="#{bookshelf.searchBox.id}">
                 <input type="submit" th:id="#{bookshelf.searchButton.id}" th:value="#{bookshelf.searchButton.caption}">
@@ -23,32 +26,6 @@
                     </div>
                 </a>
             </div>
-            <ul th:id="#{pagination.container.id}" class="pagination">
-                <th:block th:switch="${bookshelfPages.first}">
-                    <li th:case=true>
-                        <span>前</span>
-                    </li>
-                    <li th:case=false>
-                        <a th:href="@{index(page=${bookshelfPages.number}-1)}">前</a>
-                    </li>
-                </th:block>
-
-                <li th:each="i:${#numbers.sequence(0, pageCount-1)}">
-                    <th:block th:switch="${i}">
-                        <span th:case="${bookshelfPages.number}" th:text="${i+1}"></span>
-                        <a th:case=* th:href="@{index(page=${i})}" th:text="${i+1}"></a>
-                    </th:block>
-                </li>
-
-                <th:block th:switch="${bookshelfPages.last}">
-                    <li th:case=true>
-                        <span>次</span>
-                    </li>
-                    <li th:case=false>
-                        <a th:href="@{index(page=${bookshelfPages.number}+1)}">次</a>
-                    </li>
-                </th:block>
-            </ul>
         </div>
     </body>
 </html>

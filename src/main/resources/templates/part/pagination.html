@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link th:fragment="paginationCss" rel="stylesheet" th:href="@{/css/part/pagination.css}">
+    </head>
+    <body>
+        <!-- @{}は変数内の「=」をクエリパラメータとして扱おうとして自動でエンコードしてしまうため使えない -->
+        <div th:fragment="content(pages, paginationUrl)"
+             th:with="queryParam1 = ${queryParam1} ? ${'&'+#strings.replace(queryParam1, ':', '=')} : ''">
+            <ul th:id="#{pagination.container.id}" class="pagination">
+                <th:block th:switch="${pages.first}">
+                    <li th:case=true>
+                        <span>前</span>
+                    </li>
+                    <li th:case=false>
+                        <a th:href="${paginationUrl}+'?page='+${pages.number - 1}+${queryParam1}">前</a>
+                    </li>
+                </th:block>
+
+                <li th:each="i:${#numbers.sequence(0, pageCount-1)}">
+                    <th:block th:switch="${i}">
+                        <span th:case="${pages.number}" th:text="${i+1}"></span>
+                        <a th:case=* th:href="${paginationUrl}+'?page='+${i}+${queryParam1}" th:text="${i+1}"></a>
+                    </th:block>
+                </li>
+
+                <th:block th:switch="${pages.last}">
+                    <li th:case=true>
+                        <span>次</span>
+                    </li>
+                    <li th:case=false>
+                        <a th:href="${paginationUrl}+'?page='+${pages.number + 1}+${queryParam1}">次</a>
+                    </li>
+                </th:block>
+            </ul>
+        </div>
+    </body>
+</html>
