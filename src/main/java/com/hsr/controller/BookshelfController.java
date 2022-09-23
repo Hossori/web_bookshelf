@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.hsr.constant.GlobalConst;
 import com.hsr.constant.PathConst;
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.model.BookView;
@@ -22,6 +23,8 @@ import com.hsr.domain.bookshelf.model.Bookshelf;
 import com.hsr.domain.bookshelf.model.BookshelfView;
 import com.hsr.domain.bookshelf.model.converter.BookshelfConverter;
 import com.hsr.domain.bookshelf.service.BookshelfService;
+import com.hsr.domain.user.model.User;
+import com.hsr.domain.user.service.UserService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,6 +33,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/bookshelf")
 public class BookshelfController {
 
+    private final UserService userService;
     private final BookshelfService bookshelfService;
     private final BookService bookService;
     private final MessageSource messageSource;
@@ -38,9 +42,20 @@ public class BookshelfController {
     public String index(
             Model model,
             @PageableDefault(size=10) Pageable pageable,
-            @RequestParam("page") int page) {
+            @RequestParam("page") int page,
+            @RequestParam("userId") int userId) {
 
-        Page<Bookshelf> bookshelfPages = bookshelfService.getPages(pageable);
+        Page<Bookshelf> bookshelfPages;
+        if(userId == GlobalConst.INVALID_ID) {
+            bookshelfPages = bookshelfService.getPages(pageable);
+        } else {
+            User user = userService.getById(userId);
+            if(user == null) {
+                throw new IllegalArgumentException();
+            }
+            bookshelfPages = bookshelfService.getPagesSpecifiedUser(pageable, user);
+        }
+
         List<Bookshelf> bookshelfList = bookshelfPages.getContent();
         List<BookshelfView> bookshelfViewList = BookshelfConverter.toViewList(bookshelfList);
         int pageCount =

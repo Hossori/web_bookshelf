@@ -31,6 +31,7 @@ public interface JpaConst {
     public static final String PARAM_EMAIL = "email";
     public static final String PARAM_PASS = "password";
     public static final String PARAM_BOOKSHELF = "bookshelf";
+    public static final String PARAM_USER = "user";
 
     // query
     public static final String USER_GET_BY_EMAIL = "select u from " + ENTITY_USER + " as u" +
@@ -38,11 +39,14 @@ public interface JpaConst {
     public static final String BOOKSHELF_GETPAGES = "select bs from " + ENTITY_BOOKSHELF + " as bs" +
                                                         " where bs.deleteFlag = " + DELETE_FLAG_FALSE +
                                                         " order by bs.createdAt desc";
+    public static final String BOOKSHELF_GETPAGES_SPECIFIED_USER = "select bs from " + ENTITY_BOOKSHELF + " as bs" +
+                                                        " where bs.deleteFlag = " + DELETE_FLAG_FALSE +
+                                                        " and bs.user = " + PARAM_USER +
+                                                        " order by bs.createdAt desc";
     public static final String BOOK_GETPAGES = "select b from " + ENTITY_BOOK + " as b" +
                                                         " order by b.createdAt desc";
     public static final String BOOK_GETPAGES_IN_BOOKSHELF = "select b from " + ENTITY_BOOK + " as b" +
                                                         " where b.bookshelf = :" + PARAM_BOOKSHELF +
                                                         " and b.deleteFlag = " + DELETE_FLAG_FALSE +
                                                         " order by b.createdAt desc";
-
 }

@@ -9,7 +9,7 @@ function login() {
         dataType : 'json'
     }).done((result) => {
         if(result.code === STATUS.OK) {
-            location.href = '/bookshelf/index?page=0';
+            location.href = '/bookshelf/index?page=0&user=-1';
         } else if(result.code === STATUS.BAD_REQUEST) {
             let errors = result.data;
             applyLoginValidation(errors);

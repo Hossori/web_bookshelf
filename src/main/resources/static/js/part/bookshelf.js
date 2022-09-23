@@ -45,7 +45,7 @@ async function deleteBookshelf() {
         dataType : 'json'
     }).done(function(result) {
         if(result.code === STATUS.OK) {
-            location.href = '/bookshelf/index?page=0';
+            location.href = '/bookshelf/index?page=0&user=-1';
         }
     });
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.hsr.constant.JpaConst;
 import com.hsr.domain.bookshelf.model.Bookshelf;
 import com.hsr.domain.bookshelf.service.BookshelfService;
+import com.hsr.domain.user.model.User;
 import com.hsr.repository.BookshelfRepository;
 
 @Service
@@ -29,6 +30,11 @@ public class BookshelfServiceImpl implements BookshelfService {
     @Override
     public Page<Bookshelf> getPages(Pageable pageable) {
         return repository.getPages(pageable);
+    }
+
+    @Override
+    public Page<Bookshelf> getPagesSpecifiedUser(Pageable pageable, User user) {
+        return repository.getPagesSpecifiedUser(pageable, user);
     }
 
     @Override

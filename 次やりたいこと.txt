@@ -7,7 +7,7 @@
 ●db作成できるやつ作る。sqldumpとか？
 
 ▼ユーザーページ作る(2)
-
+UserController作成進める、userのdetail.html新規作成する。
 
 ●bookshelf listの検索機能
 RESTにするかどうか、ブラウザバックを考慮しよく考える。

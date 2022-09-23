@@ -11,7 +11,11 @@ public enum PathConst {
     BOOKSHELF_INDEX("bookshelf"+BasePathEnum.INDEX.getValue()),
     BOOKSHELF_DETAIL("bookshelf"+BasePathEnum.DETAIL.getValue()),
 
-    BOOK_DETAIL("book"+BasePathEnum.DETAIL.getValue());
+    BOOK_DETAIL("book"+BasePathEnum.DETAIL.getValue()),
+
+    USER_DETAIL("user"+BasePathEnum.DETAIL.getValue()),
+
+    ERROR("error");
 
     @Getter
     private final String value;
