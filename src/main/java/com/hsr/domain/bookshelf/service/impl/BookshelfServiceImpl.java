@@ -39,22 +39,26 @@ public class BookshelfServiceImpl implements BookshelfService {
 
     @Override
     @Transactional
-    public void create(Bookshelf bookshelf) {
+    public HttpStatus create(Bookshelf bookshelf) {
         bookshelf.setDeleteFlag(JpaConst.DELETE_FLAG_FALSE);
-        repository.save(bookshelf);
+        HttpStatus httpStatus =
+                repository.save(bookshelf) != null
+                    ? HttpStatus.OK
+                    : HttpStatus.FORBIDDEN;
+        return httpStatus;
     }
 
     @Override
     @Transactional
-    public Integer update(Bookshelf bookshelf, Bookshelf newBookshelf) {
+    public HttpStatus update(Bookshelf bookshelf, Bookshelf newBookshelf) {
         bookshelf.setName(newBookshelf.getName());
         bookshelf.setDescription(newBookshelf.getDescription());
         bookshelf.setUpdatedAt(LocalDateTime.now());
-        Integer resultCode =
+        HttpStatus httpStatus =
                 repository.save(bookshelf) != null
-                    ? HttpStatus.OK.value()
-                    : HttpStatus.FORBIDDEN.value();
-        return resultCode;
+                    ? HttpStatus.OK
+                    : HttpStatus.FORBIDDEN;
+        return httpStatus;
     }
 
     @Override

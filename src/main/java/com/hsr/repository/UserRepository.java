@@ -10,6 +10,11 @@ import com.hsr.domain.user.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
+	/**
+	 * get user specified by email. 
+	 * @param email
+	 * @return user
+	 */
     @Query(JpaConst.USER_GET_BY_EMAIL)
     public User getByEmail(String email);
 

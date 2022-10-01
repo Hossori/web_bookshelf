@@ -82,17 +82,17 @@ public class BookRestController {
             BindingResult bindingResult,
             Locale locale) {
 
-        Integer resultCode;
+        HttpStatus httpStatus;
 
         Map<String, String> errors = BookValidator.validate(bindingResult, locale);
         if(errors != null) {
-            resultCode = HttpStatus.BAD_REQUEST.value();
-            return new Result(resultCode, errors);
+            httpStatus = HttpStatus.BAD_REQUEST;
+            return new Result(httpStatus.value(), errors);
         }
 
-        resultCode = bookService.create(book);
+        httpStatus = bookService.create(book);
 
-        return new Result(resultCode, null);
+        return new Result(httpStatus.value(), null);
 
     }
 
@@ -103,21 +103,21 @@ public class BookRestController {
             Locale locale,
             @AuthenticationPrincipal User loginUser) {
 
-        Integer resultCode;
+    	HttpStatus httpStatus;
         if(loginUser.equals(newBook.getBookshelf().getUser())) {
-            resultCode = HttpStatus.FORBIDDEN.value();
+            httpStatus = HttpStatus.FORBIDDEN;
         } else {
             Map<String, String> errors = BookValidator.validate(bindingResult, locale);
             if(errors != null) {
-                resultCode = HttpStatus.BAD_REQUEST.value();
-                return new Result(resultCode, errors);
+            	httpStatus = HttpStatus.BAD_REQUEST;
+                return new Result(httpStatus.value(), errors);
             }
 
             Book book = bookService.getById(newBook.getId());
-            resultCode = bookService.update(book, newBook);
+            httpStatus = bookService.update(book, newBook);
         }
 
-        return new Result(resultCode, null);
+        return new Result(httpStatus.value(), null);
 
     }
 

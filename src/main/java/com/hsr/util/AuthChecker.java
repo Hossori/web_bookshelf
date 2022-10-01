@@ -18,6 +18,11 @@ import com.hsr.rest.Result;
 @RequestMapping("/rest/authChecker")
 public class AuthChecker {
 
+	/**
+	 * check logged in or don't.
+	 * @param request
+	 * @return login:true, not login:flase
+	 */
     public static boolean isLogin(HttpServletRequest request) {
         return request.getSession().getAttribute("loginUser") != null;
     }

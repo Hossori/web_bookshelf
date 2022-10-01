@@ -39,33 +39,33 @@ public class BookServiceImpl implements BookService {
 
     @Override
     @Transactional
-    public Integer create(Book book) {
+    public HttpStatus create(Book book) {
 
         book.setCreatedAt(LocalDateTime.now());
         book.setUpdatedAt(LocalDateTime.now());
         book.setDeleteFlag(JpaConst.DELETE_FLAG_FALSE);
-        Integer resultCode =
+        HttpStatus httpStatus =
                 repository.save(book) != null
-                    ? HttpStatus.OK.value()
-                    : HttpStatus.FORBIDDEN.value();
-        return resultCode;
+                    ? HttpStatus.OK
+                    : HttpStatus.FORBIDDEN;
+        return httpStatus;
 
     }
 
     @Override
     @Transactional
-    public Integer update(Book book, Book newBook) {
+    public HttpStatus update(Book book, Book newBook) {
 
         book.setName(newBook.getName());
         book.setState(newBook.getState());
         book.setEvaluation(newBook.getEvaluation());
         book.setMemo(newBook.getMemo());
         book.setUpdatedAt(LocalDateTime.now());
-        Integer resultCode =
-                repository.save(book)!= null
-                    ? HttpStatus.OK.value()
-                    : HttpStatus.FORBIDDEN.value();
-        return resultCode;
+        HttpStatus httpStatus =
+                repository.save(book) != null
+                    ? HttpStatus.OK
+                    : HttpStatus.FORBIDDEN;
+        return httpStatus;
 
     }
 

@@ -16,14 +16,19 @@ import org.springframework.beans.BeanWrapperImpl;
 
 import com.hsr.annotation.SameString.SameStringValidator;
 
+/**
+ * field1 and field2 must have equal value.
+ * @param field1
+ * @param field2
+ */
 @Documented
 @Constraint(validatedBy={SameStringValidator.class})
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface SameString {
 
-    String field1() default "";
-    String field2() default "";
+    String field1();
+    String field2();
     String message() default "{com.hsr.annotation.SameString.message}";
 
     Class<?>[] groups() default {};

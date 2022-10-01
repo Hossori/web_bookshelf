@@ -13,9 +13,20 @@ import com.hsr.domain.user.model.User;
 @Repository
 public interface BookshelfRepository extends JpaRepository<Bookshelf, Integer> {
 
+	/**
+	 * get page of all bookshelfs
+	 * @param pageable
+	 * @return page of bookshelf
+	 */
     @Query(JpaConst.BOOKSHELF_GETPAGES)
     public Page<Bookshelf> getPages(Pageable pageable);
 
+	/**
+	 * get page of bookshelfs specified by user. 
+	 * @param pageable
+	 * @param bookshelf
+	 * @return page of bookshelf
+	 */
     @Query(JpaConst.BOOKSHELF_GETPAGES_SPECIFIED_USER)
     public Page<Bookshelf> getPagesSpecifiedUser(Pageable pageable, User user);
 }

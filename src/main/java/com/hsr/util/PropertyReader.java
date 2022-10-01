@@ -37,9 +37,14 @@ public class PropertyReader {
         return new Result(0, resultMap);
     }
 
+    /**
+     * get http status code.
+     * @param enumerator name
+     * @return status code
+     */
     @GetMapping("/get/statusCode")
-    public Integer getStatusCode(@RequestParam("key") String key) {
-        return HttpStatus.valueOf(key).value();
+    public Integer getStatusCode(@RequestParam("key") String enumeratorName) {
+        return HttpStatus.valueOf(enumeratorName).value();
     }
 
 }

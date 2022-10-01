@@ -6,7 +6,7 @@
         <header layout:fragment="header">
             <h1 th:text="#{header.h1}"></h1>
             <nav id="headerNavLeft">
-                <a th:text="#{header.nav.bookshelfIndex}" th:href="@{/bookshelf/index(page=0, user=-1)}"></a>
+                <a th:text="#{header.nav.bookshelfIndex}" th:href="@{/bookshelf/index(page=0, userId=-1)}"></a>
                 <a th:text="#{header.nav.bookIndex}"></a>
             </nav>
             <nav id="headerNavRight">

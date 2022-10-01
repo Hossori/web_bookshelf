@@ -35,8 +35,8 @@ public class AuthRestController {
             return new Result(HttpStatus.BAD_REQUEST.value(), errors);
         }
 
-        userService.signup(user);
-        return new Result(HttpStatus.OK.value(), null);
+        HttpStatus httpStatus = userService.signup(user);
+        return new Result(httpStatus.value(), null);
     }
 
 }

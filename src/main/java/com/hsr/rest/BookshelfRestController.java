@@ -43,13 +43,13 @@ public class BookshelfRestController {
             @AuthenticationPrincipal User loginUser) {
 
         Bookshelf bookshelf = bookshelfService.getById(newBookshelf.getId());
-        Integer resultCode;
+        HttpStatus httpStatus;
         if(loginUser.equals(bookshelf.getUser())) {
-            resultCode = HttpStatus.FORBIDDEN.value();
+            httpStatus = HttpStatus.FORBIDDEN;
         } else {
-            resultCode = bookshelfService.update(bookshelf, newBookshelf);
+            httpStatus = bookshelfService.update(bookshelf, newBookshelf);
         }
-        return new Result(resultCode, null);
+        return new Result(httpStatus.value(), null);
 
     }
 

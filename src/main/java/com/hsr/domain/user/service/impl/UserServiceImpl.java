@@ -3,6 +3,7 @@ package com.hsr.domain.user.service.impl;
 import java.time.LocalDateTime;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -28,12 +29,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void signup(User user) {
+    public HttpStatus signup(User user) {
         String plainPass = user.getPassword();
         user.setPassword(encoder.encode(plainPass));
         user.setCreatedAt(LocalDateTime.now());
         user.setDeleteFlag(JpaConst.DELETE_FLAG_FALSE);
-        userRepository.save(user);
+        HttpStatus httpStatus = 
+        		userRepository.save(user) != null
+        			? HttpStatus.OK
+        			: HttpStatus.FORBIDDEN;
+        return httpStatus;
     }
 
     @Override

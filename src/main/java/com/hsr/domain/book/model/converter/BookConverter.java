@@ -22,6 +22,11 @@ public class BookConverter {
         BookConverter.messageSource = messageSource;
     }
 
+    /**
+     * convert book to book view.
+     * @param book
+     * @return book view
+     */
     public static BookView toView(Book book) {
 
         BookView bookView =
@@ -40,6 +45,11 @@ public class BookConverter {
 
     }
 
+    /**
+     * convert book list to book view list.
+     * @param book list
+     * @return book view list
+     */
     public static List<BookView> toViewList(List<Book> bookList) {
 
         return bookList.stream()

@@ -10,6 +10,11 @@ import com.hsr.domain.bookshelf.model.BookshelfView;
 
 public class BookshelfConverter {
 
+    /**
+     * convert bookshelf to bookshelf view.
+     * @param bookshelf
+     * @return bookshelf view
+     */
     public static BookshelfView toView(Bookshelf bookshelf) {
 
         BookshelfView bookshelfView =
@@ -25,6 +30,12 @@ public class BookshelfConverter {
         return bookshelfView;
 
     }
+
+    /**
+     * convert bookshelf list to bookshelf view list.
+     * @param bookshelf list
+     * @return bookshelf view list
+     */
 
     public static List<BookshelfView> toViewList(List<Bookshelf> bookshelf) {
 
