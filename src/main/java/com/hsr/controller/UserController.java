@@ -31,8 +31,8 @@ public class UserController {
     public String detail(
             Model model,
             @PageableDefault(size=10) Pageable pageable,
-            @RequestParam("page") int page,
-            @RequestParam("userId") int userId) {
+            @RequestParam int page,
+            @RequestParam int userId) {
 
         User user = userService.getById(userId);
         if(user == null) {

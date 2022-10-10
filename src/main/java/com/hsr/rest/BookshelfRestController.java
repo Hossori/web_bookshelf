@@ -55,7 +55,7 @@ public class BookshelfRestController {
 
     @PutMapping("/delete")
     public Result delete(
-            @RequestParam("bookshelfId") int bookshelfId,
+            @RequestParam int bookshelfId,
             @AuthenticationPrincipal User loginUser) {
         Bookshelf bookshelf = bookshelfService.getById(bookshelfId);
         Integer resultCode;

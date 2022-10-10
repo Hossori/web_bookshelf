@@ -156,14 +156,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         User user = new User();
         user.setEmail(email);
         user.setPassword(password);
-        Consumer<ConstraintViolation<User>> ErrorsPutFunc = (cv) -> {
+        Consumer<ConstraintViolation<User>> errorsPutFunc = (cv) -> {
             String message = messageSource.getMessage(
                     cv.getMessageTemplate().replaceAll("[{}]", ""), null, locale
             );
             errors.put(cv.getPropertyPath().toString(), message);
         };
         List.of("email", "password").forEach((property) -> {
-            validator.validateProperty(user, property).stream().findFirst().ifPresent(ErrorsPutFunc);
+            validator.validateProperty(user, property).stream().findFirst().ifPresent(errorsPutFunc);
         });
         return errors;
     }

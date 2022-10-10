@@ -29,7 +29,7 @@ public class BookController {
     @GetMapping("/detail")
     public String detail(
             Model model,
-            @RequestParam("id") int id) {
+            @RequestParam int id) {
 
         Book book = bookService.getById(id);
         BookView bookView = BookConverter.toView(book);

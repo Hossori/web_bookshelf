@@ -103,13 +103,13 @@ public class BookRestController {
             Locale locale,
             @AuthenticationPrincipal User loginUser) {
 
-    	HttpStatus httpStatus;
+        HttpStatus httpStatus;
         if(loginUser.equals(newBook.getBookshelf().getUser())) {
             httpStatus = HttpStatus.FORBIDDEN;
         } else {
             Map<String, String> errors = BookValidator.validate(bindingResult, locale);
             if(errors != null) {
-            	httpStatus = HttpStatus.BAD_REQUEST;
+                httpStatus = HttpStatus.BAD_REQUEST;
                 return new Result(httpStatus.value(), errors);
             }
 
@@ -123,7 +123,7 @@ public class BookRestController {
 
     @PutMapping("/delete")
     public Result delete(
-            @RequestParam("bookId") int bookId,
+            @RequestParam int bookId,
             @AuthenticationPrincipal User loginUser) {
 
         Integer resultCode;

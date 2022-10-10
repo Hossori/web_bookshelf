@@ -42,8 +42,8 @@ public class BookshelfController {
     public String index(
             Model model,
             @PageableDefault(size=10) Pageable pageable,
-            @RequestParam("page") int page,
-            @RequestParam("userId") int userId) {
+            @RequestParam int page,
+            @RequestParam(defaultValue="-1") int userId) {
 
         Page<Bookshelf> bookshelfPages;
         if(userId == GlobalConst.INVALID_ID) {
@@ -77,8 +77,8 @@ public class BookshelfController {
     public String detail(
             Model model,
             @PageableDefault(size=10) Pageable pageable,
-            @RequestParam("id") int id,
-            @RequestParam("page") int page) {
+            @RequestParam int id,
+            @RequestParam int page) {
 
         Bookshelf bookshelf = bookshelfService.getById(id);
         Book book = new Book(); // for register book

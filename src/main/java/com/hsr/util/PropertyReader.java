@@ -27,7 +27,7 @@ public class PropertyReader {
 
     @GetMapping("/get")
     public Result getProperty(
-            @RequestParam("key") String key,
+            @RequestParam String key,
             Locale locale) {
 
         String prop = messageSource.getMessage(key, null, locale);
