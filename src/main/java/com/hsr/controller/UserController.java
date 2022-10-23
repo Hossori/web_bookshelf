@@ -13,6 +13,8 @@ import com.hsr.constant.PathConst;
 import com.hsr.domain.book.service.BookService;
 import com.hsr.domain.bookshelf.service.BookshelfService;
 import com.hsr.domain.user.model.User;
+import com.hsr.domain.user.model.UserView;
+import com.hsr.domain.user.model.converter.UserConverter;
 import com.hsr.domain.user.service.UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -39,8 +41,12 @@ public class UserController {
             throw new IllegalArgumentException();
         }
 
-        // このuserのbookshelf一覧に飛ぶurl作る、これはhtmlで作れそう。
+        UserView userView = UserConverter.toView(user);
 
+        model.addAttribute("user", user);
+        model.addAttribute("userView", userView);
+
+        // このuserのbookshelf一覧に飛ぶurl作る、これはhtmlで作れそう。
         return PathConst.USER_DETAIL.getValue();
 
     }

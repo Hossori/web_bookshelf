@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{part/layout}">
+    <head>
+        <title th:text="${userView.name}+#{title.postfix}"></title>
+        <meta th:id="#{meta.csrf.token.id}" th:content="${_csrf.token}">
+        <meta th:id="#{meta.csrf.header.id}" th:content="${_csrf.headerName}">
+        <link rel="stylesheet" th:href="@{/css/user.css}">
+        <script th:src="@{/js/part/user.js}" defer></script>
+        <script type="text/javascript">
+            $(function() {
+                initializeButtons();
+
+                /* let bookStateRadios = $('#'+getProperty('book.create.state.id')+' td ol').find('input');
+                controlBookStateRadioView(bookStateRadios);
+                let bookEvaluationRadios = $('#'+getProperty('book.create.evaluation.id')).find('input');
+                controlBookEvaluationRadioView(bookEvaluationRadios); */
+
+                let userId = $('#'+getProperty('user.id')).val();
+                if(!isLoginUserId(userId)) {
+                    $('#'+getProperty('user.show.button.toEdit.id')).remove();
+                    $('#'+getProperty('user.edit.container.id')).remove();
+                }
+
+                showMain();
+
+                function initializeButtons() {
+                    let toEditButton = $('#'+getProperty('user.show.button.toEdit.id'));
+                    toEditButton.click(toEdit);
+                    let toShowButton = $('#'+getProperty('user.edit.button.toShow.id'));
+                    toShowButton.click(toShow);
+                    let updateButton = $('#'+getProperty('user.edit.button.update.id'));
+                    //updateButton.click(updateBookshelf);
+                    let deleteButton = $('#'+getProperty('user.edit.button.delete.id'));
+                    //deleteButton.click(deleteBookshelf);
+
+                    function toEdit() {
+                        let editContainer = $('#'+getProperty('user.edit.container.id'));
+                        let showContainer = $('#'+getProperty('user.show.container.id'));
+                        editContainer.show();
+                        showContainer.hide();
+                    }
+                    function toShow() {
+                        let editContainer = $('#'+getProperty('user.edit.container.id'));
+                        let showContainer = $('#'+getProperty('user.show.container.id'));
+                        editContainer.hide();
+                        showContainer.show();
+                    }
+
+                }
+            });
+        </script>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <h2 th:id="#{user.detail.name.id}" th:text="${userView.name}"></h2>
+            <!-- user id -->
+            <input type="hidden" th:id="#{user.id}" th:value="${user.id}">
+            <!-- user show -->
+            <div th:id="#{user.show.container.id}">
+                <div th:id="#{user.show.introduction.id}">
+                    <p class="caption" th:text="#{user.detail.introduction.caption}"></p>
+                    <pre th:text="${userView.introduction}"></pre>
+                </div>
+                <div th:id="#{user.show.gender.id}">
+                    <p class="caption" th:text="#{user.detail.gender.caption}"></p>
+                    <p th:text="${userView.gender}"></p>
+                </div>
+                <div th:id="#{user.show.birthday.id}">
+                    <p class="caption" th:text="#{user.detail.birthday.caption}"></p>
+                    <p th:text="${userView.birthday}"></p>
+                </div>
+                <div th:id="#{user.show.createdAt.id}">
+                    <p class="caption" th:text="#{user.show.createdAt.caption}"></p>
+                    <p th:text="${userView.createdAt}"></p>
+                </div>
+                <button type="button" th:id="#{user.show.button.toEdit.id}"
+                        th:text="#{user.show.button.toEdit.caption}"
+                        th:title="#{user.show.button.toEdit.tooltip}"></button>
+            </div>
+            <!-- user edit -->
+            <div th:id="#{user.edit.container.id}" style="display:none;">
+                <form th:id="#{user.edit.form.id}" th:object="${user}" th:action method="post"
+                        autocomplete="off" onSubmit="return false;">
+                    <input type="hidden" th:id="#{user.edit.id.id}" th:field="*{id}">
+                    <div th:id="#{user.edit.name.id}">
+                        <p class="caption" th:text="#{user.detail.name.caption}"></p>
+                        <input type="text" th:field="*{name}">
+                    </div>
+                    <div th:id="#{user.edit.gender.id}">
+                        <p class="caption" th:text="#{user.detail.gender.caption}"></p>
+                        <input type="radio" th:field="*{gender}" value="1">
+                    </div>
+                    <div th:id="#{user.edit.birthday.id}">
+                        <p class="caption" th:text="#{user.detail.birthday.caption}"></p>
+                        <input type="date" th:field="*{birthday}">
+                    </div>
+                    <div th:id="#{user.edit.introduction.id}">
+                        <p class="caption" th:text="#{user.detail.introduction.caption}"></p>
+                        <textarea th:field="*{introduction}"></textarea>
+                    </div>
+                </form>
+                <button th:id="#{user.edit.button.toShow.id}"
+                        th:text="#{user.edit.button.toShow.caption}"
+                        th:title="#{user.edit.button.toShow.tooltip}"></button>
+                <button th:id="#{user.edit.button.update.id}"
+                        th:text="#{user.edit.button.update.caption}"
+                        th:title="#{user.edit.button.update.tooltip}"></button>
+                <button th:id="#{user.edit.button.delete.id}"
+                        th:text="#{user.edit.button.delete.caption}"
+                        th:title="#{user.edit.button.delete.tooltip}"
+                        class="buttonDanger"></button>
+            </div>
+
+        </div>
+    </body>
+</html>
