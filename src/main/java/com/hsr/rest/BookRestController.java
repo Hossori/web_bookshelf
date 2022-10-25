@@ -103,8 +103,10 @@ public class BookRestController {
             Locale locale,
             @AuthenticationPrincipal User loginUser) {
 
+        Book book = bookService.getById(newBook.getId());
+
         HttpStatus httpStatus;
-        if(loginUser.equals(newBook.getBookshelf().getUser())) {
+        if(loginUser.equals(book.getBookshelf().getUser())) {
             httpStatus = HttpStatus.FORBIDDEN;
         } else {
             Map<String, String> errors = BookValidator.validate(bindingResult, locale);
@@ -113,7 +115,6 @@ public class BookRestController {
                 return new Result(httpStatus.value(), errors);
             }
 
-            Book book = bookService.getById(newBook.getId());
             httpStatus = bookService.update(book, newBook);
         }
 
