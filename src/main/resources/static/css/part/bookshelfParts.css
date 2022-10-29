@@ -5,7 +5,7 @@
     margin: 12px 0;
 }
 .bookshelfList {
-    background-image: url("/image/bookshelf.jpg");
+    background-image: url("/image/bookshelf.png");
     background-repeat: no-repeat;
     color: white;
     font-weight: bold;
@@ -15,7 +15,7 @@
 
     margin: 6px 12px 6px 0px;
     width: 200px;
-    height: 250px;
+    height: 246px;
     display: inline-block;
 }
 
@@ -24,7 +24,9 @@
 }
 
 .bookshelfList:hover {
-    opacity: 0.8;
+    transition: all 0.2s;
+    color: orange;
+
 }
 
 .bookshelfListInfo {
