@@ -30,14 +30,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public HttpStatus signup(User user) {
-        String plainPass = user.getPassword();
-        user.setPassword(encoder.encode(plainPass));
+        String password = encoder.encode(user.getPassword());
+        user.setPassword(password);
+        user.setRePassword(password); // for annotation of SameString.
         user.setCreatedAt(LocalDateTime.now());
         user.setDeleteFlag(JpaConst.DELETE_FLAG_FALSE);
-        HttpStatus httpStatus = 
-        		userRepository.save(user) != null
-        			? HttpStatus.OK
-        			: HttpStatus.FORBIDDEN;
+        HttpStatus httpStatus =
+                userRepository.save(user) != null
+                    ? HttpStatus.OK
+                    : HttpStatus.FORBIDDEN;
         return httpStatus;
     }
 
