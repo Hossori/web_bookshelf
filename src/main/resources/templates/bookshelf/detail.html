@@ -206,20 +206,24 @@
                     th:text="#{bookshelf.detail.button.bookCreate.caption}"
                     th:title="#{bookshelf.detail.button.bookCreate.tooltip}"></button>
             <div th:id="#{book.list.container.id}">
-                <a th:each="book:${books}" th:href="@{/book/detail(id=${book.id})}" class="bookListAnchor">
-                    <div th:id="'book'+${book.id}" class="bookList">
+                <a th:each="bookView:${bookViews}" th:href="@{/book/detail(id=${bookView.id})}" class="bookListAnchor">
+                    <div th:id="'book'+${bookView.id}" class="bookList">
                         <table class="bookListInfo">
                             <tr th:title="#{book.list.name.caption}">
-                                <td th:text="${book.name}"></td>
+                                <td th:text="${bookView.name}"></td>
                             </tr>
                             <tr th:title="#{book.list.state.caption}">
-                                <td th:text="${book.state}"></td>
+                                <td th:text="${bookView.state}"></td>
                             </tr>
                             <tr th:title="#{book.list.evaluation.caption}">
-                                <td th:text="${book.evaluation}"></td>
+                                <td th:text="${bookView.evaluation}"></td>
                             </tr>
                             <tr th:title="#{book.list.createdAt.caption}">
-                                <td th:text="${book.createdAt}"></td>
+                                <td>
+                                    <span th:text="#{book.list.createdAt.prefix}"></span>
+                                    <br>
+                                    <span th:text="${bookView.createdDate}"></span>
+                                </td>
                             </tr>
                         </table>
                     </div>

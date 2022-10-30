@@ -98,7 +98,7 @@ public class BookshelfController {
         model.addAttribute(book);
         model.addAttribute("states", states);
         model.addAttribute("bookPages", bookPages);
-        model.addAttribute("books", bookViewList);
+        model.addAttribute("bookViews", bookViewList);
         model.addAttribute("pageCount", pageCount);
 
         return PathConst.BOOKSHELF_DETAIL.getValue();

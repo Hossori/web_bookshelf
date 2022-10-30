@@ -8,16 +8,21 @@ div#bookListContainer {
 a.bookListAnchor {
     text-decoration: none;
 }
-a.bookListAnchor:hover,
+
 a.bookListAnchor:focus {
     outline:none;
-    opacity: 0.8;
+}
+
+a.bookListAnchor:focus div,
+div.bookList:hover {
+    transition: all 0.2s;
+    color: orange;
 }
 
 div.bookList {
     background-image: url("/image/book.png");
     background-repeat: no-repeat;
-    color: black;
+    color: white;
     font-weight: bold;
     font-size: 20px;
 
@@ -30,8 +35,14 @@ div.bookList {
 }
 
 table.bookListInfo {
-    margin: 25% 5%;
+    margin: 10%;
+    width: 80%;
+    height: 80%;
     display: inline-block;
+
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0 8px;
 }
 
 /* book create, book detail */

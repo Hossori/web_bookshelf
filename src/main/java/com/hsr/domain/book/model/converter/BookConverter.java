@@ -1,5 +1,6 @@
 package com.hsr.domain.book.model.converter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -38,6 +39,7 @@ public class BookConverter {
                     formatEvaluation(book.getEvaluation()),
                     book.getMemo(),
                     formatDateTime(book.getCreatedAt()),
+                    formatDate(book.getCreatedAt().toLocalDate()),
                     formatDateTime(book.getUpdatedAt())
                 );
 
@@ -83,6 +85,11 @@ public class BookConverter {
             }
         }
         return evaluationString;
+    }
+
+    private static String formatDate(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        return date.format(formatter);
     }
 
     private static String formatDateTime(LocalDateTime dateTime) {

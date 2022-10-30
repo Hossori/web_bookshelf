@@ -20,6 +20,7 @@ public class BookView {
     private String evaluation;
     private String memo;
     private String createdAt;
+    private String createdDate;
     private String updatedAt;
 
 }
