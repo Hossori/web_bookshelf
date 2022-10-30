@@ -2,7 +2,7 @@
 
 /* bookshelf list */
 #bookshelfListContainer {
-    margin: 12px 0;
+    margin: 24px 0;
 }
 .bookshelfList {
     background-image: url("/image/bookshelf.png");
@@ -19,19 +19,27 @@
     display: inline-block;
 }
 
-.bookshelfListAnchor {
-    text-decoration: none;
+a.bookshelfListAnchor:focus {
+    outline: none;
 }
 
-.bookshelfList:hover {
+a.bookshelfListAnchor:focus div,
+div.bookshelfList:hover {
     transition: all 0.2s;
     color: orange;
-
 }
 
-.bookshelfListInfo {
+table.bookshelfListInfo {
     width: 80%;
     height: 80%;
     margin: 10%;
     display: inline-block;
+
+    table-layout: fixed;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+table.bookshelfListInfo td {
+    word-break: break-all;
 }

@@ -3,11 +3,19 @@
 .pagination li {
     list-style-type: none;
     font-size: 20px;
+    color: white;
     padding: 6px;
     display: inline-block;
 }
 
 .pagination li a {
     text-decoration: none;
-    color: blue;
+    font-weight: bold;
+    color: tan;
+}
+
+.pagination li a:focus,
+.pagination li a:hover {
+    outline: none;
+    color: orange;
 }

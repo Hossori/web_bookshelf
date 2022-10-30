@@ -1,5 +1,6 @@
 package com.hsr.domain.bookshelf.model.converter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -24,7 +25,8 @@ public class BookshelfConverter {
                     bookshelf.getName(),
                     bookshelf.getDescription(),
                     formatDateTime(bookshelf.getCreatedAt()),
-                    formatDateTime(bookshelf.getUpdatedAt())
+                    formatDateTime(bookshelf.getUpdatedAt()),
+                    formatDate(bookshelf.getUpdatedAt().toLocalDate())
                 );
 
         return bookshelfView;
@@ -43,6 +45,11 @@ public class BookshelfConverter {
                     .map(BookshelfConverter::toView)
                     .collect(Collectors.toList());
 
+    }
+
+    private static String formatDate(LocalDate date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+        return date.format(formatter);
     }
 
     private static String formatDateTime(LocalDateTime dateTime) {

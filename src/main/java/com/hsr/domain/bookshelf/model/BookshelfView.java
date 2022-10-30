@@ -19,5 +19,6 @@ public class BookshelfView {
     private String description;
     private String createdAt;
     private String updatedAt;
+    private String updatedDate;
 
 }

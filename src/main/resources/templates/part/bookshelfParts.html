@@ -10,17 +10,21 @@
                 <input type="submit" th:id="#{bookshelf.searchButton.id}" th:value="#{bookshelf.searchButton.caption}">
             </form> -->
             <div th:id="#{bookshelf.list.container.id}">
-                <a th:each="bookshelf:${bookshelfs}" th:href="@{/bookshelf/detail(id=${bookshelf.id}, page=0)}" class="bookshelfListAnchor">
-                    <div th:id="'bookshelf'+${bookshelf.id}" class="bookshelfList">
+                <a th:each="bookshelfView:${bookshelfViews}" th:href="@{/bookshelf/detail(id=${bookshelfView.id}, page=0)}" class="bookshelfListAnchor">
+                    <div th:id="'bookshelf'+${bookshelfView.id}" class="bookshelfList">
                         <table class="bookshelfListInfo">
-                            <tr th:title="#{bookshelf.list.userName.caption}">
-                                <td th:text="${bookshelf.user.name}"></td>
-                            </tr>
                             <tr th:title="#{bookshelf.list.name.caption}">
-                                <td th:text="${bookshelf.name}"></td>
+                                <td th:text="${bookshelfView.name}"></td>
                             </tr>
-                            <tr th:title="#{bookshelf.list.createdAt.caption}">
-                                <td th:text="${bookshelf.createdAt}"></td>
+                            <tr th:title="#{bookshelf.list.userName.caption}">
+                                <td th:text="${bookshelfView.user.name}"></td>
+                            </tr>
+                            <tr th:title="#{bookshelf.list.updatedAt.caption}">
+                                <td>
+                                    <span th:text="#{bookshelf.list.updatedAt.prefix}"></span>
+                                    <br>
+                                    <span th:text="${bookshelfView.updatedDate}"></span>
+                                </td>
                             </tr>
                         </table>
                     </div>

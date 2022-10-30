@@ -16,7 +16,7 @@
     <body>
         <div layout:fragment="content">
             <h2 id="bookshelfIndexH2" th:text="#{bookshelf.index.h2}"></h2>
-            <div th:replace="part/bookshelfParts::list(${bookshelfs}, ${bookshelfPages})"></div>
+            <div th:replace="part/bookshelfParts::list(${bookshelfViews}, ${bookshelfPages})"></div>
             <div th:replace="part/pagination::content(pages=${bookshelfPages}, paginationUrl=index)"></div>
         </div>
     </body>

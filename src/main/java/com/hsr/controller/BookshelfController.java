@@ -66,7 +66,7 @@ public class BookshelfController {
         }
 
         model.addAttribute("bookshelfPages", bookshelfPages);
-        model.addAttribute("bookshelfs", bookshelfViewList);
+        model.addAttribute("bookshelfViews", bookshelfViewList);
         model.addAttribute("pageCount", pageCount);
 
         return PathConst.BOOKSHELF_INDEX.getValue();
