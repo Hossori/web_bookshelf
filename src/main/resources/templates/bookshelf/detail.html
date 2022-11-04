@@ -230,6 +230,8 @@
                 </a>
             </div>
             <div th:replace="part/pagination::content(pages=${bookPages}, paginationUrl=detail, queryParam1='id='+${bookshelf.id})"></div>
+            <button th:text="#{button.browserBack.caption}" th:title="#{button.browserBack.tooltip}"
+                    th:onclick="#{button.browserBack.script}"></button>
         </div>
     </body>
 </html>

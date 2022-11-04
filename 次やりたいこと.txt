@@ -11,6 +11,8 @@ UserController作成進める、userのdetail.html作成進める。
 ●本棚一覧で本棚名称やユーザー名が長い時、文字が下にはみ出てしまう場合がある。
 はみ出る場合はスクロールさせたい。
 
+●book listのパーツ化。bookshelf list同様にパーツ化する。
+
 ●bookshelf listの検索機能
 RESTにするかどうか、ブラウザバックを考慮しよく考える。
 ひとまず要らなそうだからHTMLコメントアウトした。
