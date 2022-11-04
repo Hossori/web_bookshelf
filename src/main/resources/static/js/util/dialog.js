@@ -101,7 +101,7 @@ class ConfirmDialog extends Dialog {
 
     insertMessage(message, isDanger) {
         let pre = $('pre.confirmDialogMessage');
-        let dialogTitle = $('h3.dialogTitle');
+        let dialogTitle = $('div.confirmDialog h3.dialogTitle');
         let style = isDanger ? 'color: yellow;' : 'color: white;';
         pre.text(message);
         pre.attr('style', style);
