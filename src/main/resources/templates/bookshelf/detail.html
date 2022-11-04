@@ -133,8 +133,10 @@
                         class="buttonDanger"></button>
             </div>
 
-            <!-- book create dialog -->
+            <!-- overlay -->
             <div id="overlay"></div>
+
+            <!-- book create dialog -->
             <div th:id="#{book.create.dialog.id}" class="dialog">
                 <div class="dialogContent">
                     <form th:id="#{book.create.form.id}" th:object="${book}" th:action method="post"
@@ -187,7 +189,6 @@
             </div>
 
             <!-- confirm dialog -->
-            <div id="overlay"></div>
             <div th:id="#{confirm.dialog.id}" class="dialog confirmDialog">
                 <div class="dialogContent">
                     <pre class="confirmDialogMessage"></pre>
