@@ -87,6 +87,10 @@ table.bookCreate tr td textarea  {
     white-space: pre-wrap;
     vertical-align: top;
 }
+table.bookShow tr td pre {
+    max-width: 500px;
+    line-height: 1.2;
+}
 #editBookState td ol,
 #editBookEvaluation td ol,
 #createBookState td ol,

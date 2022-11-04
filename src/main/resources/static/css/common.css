@@ -22,7 +22,8 @@ textarea {
     border: solid 1px white;
     min-width: 350px;
     min-height: 150px;
-    resize: none;
+    resize: both;
+    line-height: 1.2;
 }
 
 button {
