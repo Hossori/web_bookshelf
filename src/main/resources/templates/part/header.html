@@ -17,7 +17,9 @@
                 <th:block th:if="${session.loginUser != null}">
                     <a class="username" th:text="${session.loginUser.name}"
                         th:href="@{/user/detail(page=0, userId=${session.loginUser.id})}"></a>
-                    <a th:text="#{header.nav.logout}" onclick="forms['logoutForm'].submit();"></a>
+                    <a href="#" th:text="#{header.nav.logout}"
+                        onclick="forms['logoutForm'].submit();"
+                        onkeypress="forms['logoutForm'].submit();"></a>
                     <form name="logoutForm" method="post" th:action="@{/logout}"></form>
                 </th:block>
             </nav>

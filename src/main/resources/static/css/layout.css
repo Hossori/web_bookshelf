@@ -36,8 +36,14 @@ header h1 {
     color: tan;
     cursor: pointer;
 }
+#headerNavLeft a:focus,
+#headerNavRight a:focus {
+    outline: none;
+}
 #headerNavLeft a:hover,
-#headerNavRight a:hover {
+#headerNavRight a:hover,
+#headerNavLeft a:focus,
+#headerNavRight a:focus {
     transition: all 0.2s;
     color: orange;
 }
