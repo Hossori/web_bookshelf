@@ -45,9 +45,9 @@ public class BookshelfRestController {
         Bookshelf bookshelf = bookshelfService.getById(newBookshelf.getId());
         HttpStatus httpStatus;
         if(loginUser.equals(bookshelf.getUser())) {
-            httpStatus = HttpStatus.FORBIDDEN;
-        } else {
             httpStatus = bookshelfService.update(bookshelf, newBookshelf);
+        } else {
+            httpStatus = HttpStatus.FORBIDDEN;
         }
         return new Result(httpStatus.value(), null);
 
@@ -60,10 +60,10 @@ public class BookshelfRestController {
         Bookshelf bookshelf = bookshelfService.getById(bookshelfId);
         Integer resultCode;
         if(loginUser.equals(bookshelf.getUser())) {
-            resultCode = HttpStatus.FORBIDDEN.value();
-        } else {
             bookshelfService.delete(bookshelf);
             resultCode = HttpStatus.OK.value();
+        } else {
+            resultCode = HttpStatus.FORBIDDEN.value();
         }
         return new Result(resultCode, null);
     }

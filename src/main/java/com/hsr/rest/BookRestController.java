@@ -107,8 +107,6 @@ public class BookRestController {
 
         HttpStatus httpStatus;
         if(loginUser.equals(book.getBookshelf().getUser())) {
-            httpStatus = HttpStatus.FORBIDDEN;
-        } else {
             Map<String, String> errors = BookValidator.validate(bindingResult, locale);
             if(errors != null) {
                 httpStatus = HttpStatus.BAD_REQUEST;
@@ -116,6 +114,8 @@ public class BookRestController {
             }
 
             httpStatus = bookService.update(book, newBook);
+        } else {
+            httpStatus = HttpStatus.FORBIDDEN;
         }
 
         return new Result(httpStatus.value(), null);
@@ -129,12 +129,12 @@ public class BookRestController {
 
         Integer resultCode;
         Book book = bookService.getById(bookId);
-        if(!loginUser.equals(book.getBookshelf().getUser())) {
-            resultCode = HttpStatus.FORBIDDEN.value();
-            System.out.println("book delete failed.");
-        } else {
+        if(loginUser.equals(book.getBookshelf().getUser())) {
             bookService.delete(book);
             resultCode = HttpStatus.OK.value();
+        } else {
+            resultCode = HttpStatus.FORBIDDEN.value();
+            System.out.println("book delete failed.");
         }
 
         return new Result(resultCode, null);

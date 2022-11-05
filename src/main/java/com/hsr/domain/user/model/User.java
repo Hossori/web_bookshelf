@@ -83,7 +83,7 @@ public class User implements UserDetails {
         if(obj == null) { return false; }
 
         if(obj instanceof User) {
-            return this.id == ((User) obj).getId();
+            return ((User) obj).getId().equals(this.id);
         } else {
             return false;
         }
