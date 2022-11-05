@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hsr.domain.user.form.UserSignupForm;
 import com.hsr.domain.user.model.User;
+import com.hsr.domain.user.model.converter.UserConverter;
 import com.hsr.domain.user.model.validator.UserValidator;
 import com.hsr.domain.user.service.UserService;
 
@@ -27,9 +29,11 @@ public class AuthRestController {
     @PutMapping("/signup")
     public Result signup(
             Model model,
-            @ModelAttribute @Validated User user,
+            @ModelAttribute @Validated UserSignupForm userSignupForm,
             BindingResult bindingResult,
             Locale locale) {
+        User user = UserConverter.toModel(userSignupForm);
+
         Map<String, String> errors = UserValidator.validate(bindingResult, locale);
         if(errors != null) {
             return new Result(HttpStatus.BAD_REQUEST.value(), errors);

@@ -1,5 +1,7 @@
 package com.hsr.controller;
 
+import java.util.Locale;
+
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.hsr.constant.PathConst;
 import com.hsr.domain.book.service.BookService;
 import com.hsr.domain.bookshelf.service.BookshelfService;
+import com.hsr.domain.user.form.UserEditForm;
 import com.hsr.domain.user.model.User;
 import com.hsr.domain.user.model.UserView;
 import com.hsr.domain.user.model.converter.UserConverter;
@@ -32,6 +35,7 @@ public class UserController {
     @GetMapping("/detail")
     public String detail(
             Model model,
+            Locale locale,
             @PageableDefault(size=10) Pageable pageable,
             @RequestParam int page,
             @RequestParam int userId) {
@@ -41,10 +45,15 @@ public class UserController {
             throw new IllegalArgumentException();
         }
 
+        UserEditForm userEditForm = UserConverter.toEditForm(user);
         UserView userView = UserConverter.toView(user);
 
+        String[] genders = messageSource.getMessage("user.gender.array", null, locale).split(", ");
+
         model.addAttribute("user", user);
+        model.addAttribute("userEditForm", userEditForm);
         model.addAttribute("userView", userView);
+        model.addAttribute("genders", genders);
 
         // このuserのbookshelf一覧に飛ぶurl作る、これはhtmlで作れそう。
         return PathConst.USER_DETAIL.getValue();

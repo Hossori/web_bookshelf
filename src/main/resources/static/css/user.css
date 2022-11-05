@@ -15,7 +15,7 @@ div#userEditContainer div p {
     font-size: 20px;
 }
 div#userShowIntroduction,
-div#userEditIntroduction {
+tr#userEditIntroduction {
     margin: 20px 0;
 }
 div#userShowIntroduction pre {
@@ -35,37 +35,86 @@ div#userShowBirthday p.caption,
 div#userShowCreatedAt p.caption {
     width: 140px;
 }
-div#userEditName p,
-div#userEditGender p,
-div#userEditBirthday p,
-div#userEditIntroduction p {
-    margin-bottom: 10px;
+tr#userEditEmail th,
+tr#userEditName th,
+tr#userEditPassword th,
+tr#userEditRePassword th,
+tr#userEditGender th,
+tr#userEditBirthday th {
+    text-align: left;
+    vertical-align: center;
 }
-div#userEditName input,
-div#userEditGender input,
-div#userEditBirthday input,
-div#userEditIntroduction textarea {
+tr#userEditIntroduction th {
+    vertical-align: top;
+}
+tr#userEditEmail th label,
+tr#userEditName th label,
+tr#userEditPassword th label,
+tr#userEditRePassword th label,
+tr#userEditGender th label,
+tr#userEditBirthday th label,
+tr#userEditIntroduction th label {
+    font-weight: bold;
+    padding-right: 18px;
+}
+tr#userEditEmail td,
+tr#userEditName td,
+tr#userEditPassword td,
+tr#userEditRePassword td,
+tr#userEditGender td,
+tr#userEditBirthday td,
+tr#userEditIntroduction td {
+    padding-bottom: 10px;
+}
+tr#userEditEmail td input,
+tr#userEditName td input,
+tr#userEditPassword td input,
+tr#userEditRePassword td input,
+tr#userEditBirthday td input,
+tr#userEditIntroduction td textarea,
+tr#userEditEmail th label,
+tr#userEditName th label,
+tr#userEditGender th label,
+tr#userEditPassword th label,
+tr#userEditRePassword th label,
+tr#userEditBirthday th label,
+tr#userEditIntroduction th label {
     font-family: meiryo;
     font-size: 20px;
     color: white;
 }
-div#userEditName input,
-div#userEditGender input,
-div#userEditBirthday input {
-    margin-bottom: 30px;
+tr#userEditGender td ol li label span {
+    font-family: meiryo;
+    font-size: 16px;
+    color: white;
 }
-div#userEditName input,
-div#userEditGender input,
-div#userEditBirthday input {
+tr#userEditPassword td input::placeholder,
+tr#userEditRePassword td input::placeholder {
+    font-family: meiryo;
+    color: white;
+    opacity: 0.6;
+}
+tr#userEditEmail td input,
+tr#userEditName td input,
+tr#userEditBirthday td input,
+tr#userEditPassword td input,
+tr#userEditRePassword td input {
     border-bottom: solid 1px white;
 }
-div#userEditIntroduction textarea {
+td#userEditIntroduction textarea {
     border: solid 1px white;
 }
-div#userEditName p.caption,
-div#userEditGender p.caption,
-div#userEditBirthday p.caption,
-div#userEditIntroduction p.caption {
-    width: 170px;
-    font-weight: bold;
+tr#userEditGender td ol li {
+    display: inline-block;
+
+    margin-right: 12px;
+}
+tr#userEditGender td ol li label {
+    display: inline-block;
+    text-align: center;
+
+    width: 70px;
+    padding: 6px 3px;
+    background-color: sienna;
+    border-radius: 6px;
 }

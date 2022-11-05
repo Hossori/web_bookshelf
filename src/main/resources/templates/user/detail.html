@@ -7,15 +7,14 @@
         <meta th:id="#{meta.csrf.token.id}" th:content="${_csrf.token}">
         <meta th:id="#{meta.csrf.header.id}" th:content="${_csrf.headerName}">
         <link rel="stylesheet" th:href="@{/css/user.css}">
+        <script th:src="@{/js/util/dialog.js}" defer></script>
         <script th:src="@{/js/part/user.js}" defer></script>
         <script type="text/javascript">
             $(function() {
                 initializeButtons();
 
-                /* let bookStateRadios = $('#'+getProperty('book.create.state.id')+' td ol').find('input');
-                controlBookStateRadioView(bookStateRadios);
-                let bookEvaluationRadios = $('#'+getProperty('book.create.evaluation.id')).find('input');
-                controlBookEvaluationRadioView(bookEvaluationRadios); */
+                let genderRadios = $('#'+getProperty('user.edit.gender.id')).find('input');
+                controlGenderRadiosView(genderRadios);
 
                 let userId = $('#'+getProperty('user.id')).val();
                 if(!isLoginUserId(userId)) {
@@ -31,9 +30,7 @@
                     let toShowButton = $('#'+getProperty('user.edit.button.toShow.id'));
                     toShowButton.click(toShow);
                     let updateButton = $('#'+getProperty('user.edit.button.update.id'));
-                    //updateButton.click(updateBookshelf);
-                    let deleteButton = $('#'+getProperty('user.edit.button.delete.id'));
-                    //deleteButton.click(deleteBookshelf);
+                    updateButton.click(updateUser);
 
                     function toEdit() {
                         let editContainer = $('#'+getProperty('user.edit.container.id'));
@@ -54,9 +51,29 @@
     </head>
     <body>
         <div layout:fragment="content">
+            <!-- overlay -->
+            <div id="overlay"></div>
+
+            <!-- confirm dialog -->
+            <div th:id="#{confirm.dialog.id}" class="dialog confirmDialog">
+                <div class="dialogContent">
+                    <pre class="confirmDialogMessage"></pre>
+                    <div class="dialogButtonWrapper">
+                        <button class="dialogButton"
+                                th:id="#{confirm.dialog.buttons.cancel.id}"
+                                th:text="#{confirm.dialog.buttons.cancel.caption}"></button>
+                        <button class="dialogButton"
+                                th:id="#{confirm.dialog.buttons.ok.id}"
+                                th:text="#{confirm.dialog.buttons.ok.caption}"></button>
+                    </div>
+                </div>
+            </div>
+
             <h2 th:id="#{user.detail.name.id}" th:text="${userView.name}"></h2>
+
             <!-- user id -->
             <input type="hidden" th:id="#{user.id}" th:value="${user.id}">
+
             <!-- user show -->
             <div th:id="#{user.show.container.id}">
                 <div th:id="#{user.show.introduction.id}">
@@ -79,27 +96,48 @@
                         th:text="#{user.show.button.toEdit.caption}"
                         th:title="#{user.show.button.toEdit.tooltip}"></button>
             </div>
+
             <!-- user edit -->
             <div th:id="#{user.edit.container.id}" style="display:none;">
-                <form th:id="#{user.edit.form.id}" th:object="${user}" th:action method="post"
+                <form th:id="#{user.edit.form.id}" th:object="${userEditForm}" th:action method="post"
                         autocomplete="off" onSubmit="return false;">
                     <input type="hidden" th:id="#{user.edit.id.id}" th:field="*{id}">
-                    <div th:id="#{user.edit.name.id}">
-                        <p class="caption" th:text="#{user.detail.name.caption}"></p>
-                        <input type="text" th:field="*{name}">
-                    </div>
-                    <div th:id="#{user.edit.gender.id}">
-                        <p class="caption" th:text="#{user.detail.gender.caption}"></p>
-                        <input type="radio" th:field="*{gender}" value="1">
-                    </div>
-                    <div th:id="#{user.edit.birthday.id}">
-                        <p class="caption" th:text="#{user.detail.birthday.caption}"></p>
-                        <input type="date" th:field="*{birthday}">
-                    </div>
-                    <div th:id="#{user.edit.introduction.id}">
-                        <p class="caption" th:text="#{user.detail.introduction.caption}"></p>
-                        <textarea th:field="*{introduction}"></textarea>
-                    </div>
+                    <table>
+                        <tr th:id="#{user.edit.email.id}">
+                            <th><label for="email" th:text="#{user.edit.email.caption}"></label></th>
+                            <td><input type="email" th:field="*{email}"></td>
+                        </tr>
+                        <tr th:id="#{user.edit.name.id}">
+                            <th><label for="name" th:text="#{user.detail.name.caption}"></label></th>
+                            <td><input type="text" th:field="*{name}"></td>
+                        </tr>
+                        <tr th:id="#{user.edit.password.id}">
+                            <th><label for="password" th:text="#{user.edit.password.caption}"></label></th>
+                            <td><input type="password" name="password" th:placeholder="#{user.edit.password.placeholder}"></td>
+                        </tr>
+                        <tr th:id="#{user.edit.rePassword.id}">
+                            <th><label for="rePassword" th:text="#{user.edit.rePassword.caption}"></label></th>
+                            <td><input type="password" name="rePassword" th:placeholder="#{user.edit.rePassword.placeholder}"></td>
+                        </tr>
+                        <tr th:id="#{user.edit.gender.id}">
+                            <th><label for="gender" th:text="#{user.detail.gender.caption}"></label></th>
+                            <td><ol><li th:each="i:${#numbers.sequence(0, genders.length-1)}">
+                                <label th:for="'gender'+${i}">
+                                    <input type="radio" th:id="'gender'+${i}" name="gender"
+                                        th:value="${i}" th:checked="${userEditForm.gender eq i}">
+                                    <span th:text="${genders[i]}"></span>
+                                </label>
+                            </li></ol></td>
+                        </tr>
+                        <tr th:id="#{user.edit.birthday.id}">
+                            <th><label for="birthday" th:text="#{user.detail.birthday.caption}"></label></th>
+                            <td><input type="date" th:field="*{birthday}"></td>
+                        </tr>
+                        <tr th:id="#{user.edit.introduction.id}">
+                            <th><label for="introduction" th:text="#{user.detail.introduction.caption}"></label></th>
+                            <td><textarea th:field="*{introduction}"></textarea></td>
+                        </tr>
+                    </table>
                 </form>
                 <button th:id="#{user.edit.button.toShow.id}"
                         th:text="#{user.edit.button.toShow.caption}"
@@ -107,10 +145,6 @@
                 <button th:id="#{user.edit.button.update.id}"
                         th:text="#{user.edit.button.update.caption}"
                         th:title="#{user.edit.button.update.tooltip}"></button>
-                <button th:id="#{user.edit.button.delete.id}"
-                        th:text="#{user.edit.button.delete.caption}"
-                        th:title="#{user.edit.button.delete.tooltip}"
-                        class="buttonDanger"></button>
             </div>
 
         </div>

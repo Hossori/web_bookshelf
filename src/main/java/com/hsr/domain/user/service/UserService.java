@@ -8,13 +8,13 @@ import com.hsr.domain.user.model.User;
 @Service
 public interface UserService {
 
-	/**
-	 * get user specified by id.
-	 * @param user id
-	 * @return user
-	 */
+    /**
+     * get user specified by id.
+     * @param user id
+     * @return user
+     */
     public User getById(Integer id);
-    
+
     /**
      * register user.
      * @param user
@@ -22,4 +22,11 @@ public interface UserService {
      */
     public HttpStatus signup(User user);
 
+    /**
+     * update user.
+     * @param user
+     * @param newUser
+     * @return http status
+     */
+    public HttpStatus update(User user, User newUser);
 }

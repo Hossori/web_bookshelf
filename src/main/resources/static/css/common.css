@@ -14,8 +14,14 @@ h2 {
 
 input[type="text"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+input[type="date"] {
     width: 350px;
+}
+
+input[type=date]::-webkit-calendar-picker-indicator {
+    background-image: url("/image/icon/calender.png");
+    cursor: pointer;
 }
 
 textarea {

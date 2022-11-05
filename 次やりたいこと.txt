@@ -5,11 +5,21 @@
 -------------------
 
 ▼ユーザーページ作る(2)
-UserController作成進める、userのdetail.html作成進める。
-後者についてはbookshelf\detail.html等も参考にしつつ進めていく。
+user.jsのapplyUserValidationMessagesについて、name以外のバリデーションもするように変更したい。
+
+●リファクタリング_221105_1
+Form送信用オブジェクトを作る。Log in, Bookshelf edit, Book editかな。
+それぞれ用意しないとバリデーション等でめんどくさいことがわかった。
+Sign up, UserEditFormを参考にする。Userのコンストラクタも変更になるので注意。
+
+●リファクタリング_221105_2
+Bookのshow画面のstateについて、statesからではなくBookView.stateを使うようにしたい。
+Userを参考にする。
 
 ●本棚一覧で本棚名称やユーザー名が長い時、文字が下にはみ出てしまう場合がある。
 はみ出る場合はスクロールさせたい。
+
+●*Converterのformat*()について、日本書式専用になってしまっているのを直したい。
 
 ●book listのパーツ化。bookshelf list同様にパーツ化する。
 
