@@ -10,10 +10,11 @@
             <ul th:id="#{pagination.container.id}" class="pagination">
                 <th:block th:switch="${pages.first}">
                     <li th:case=true>
-                        <span>前</span>
+                        <span th:text="#{pagination.back}"></span>
                     </li>
                     <li th:case=false>
-                        <a th:href="${paginationUrl}+'?page='+${pages.number - 1}+${queryParam1}">前</a>
+                        <a th:href="${paginationUrl}+'?page='+${pages.number - 1}+${queryParam1}"
+                            th:text="#{pagination.back}"></a>
                     </li>
                 </th:block>
 
@@ -26,10 +27,11 @@
 
                 <th:block th:switch="${pages.last}">
                     <li th:case=true>
-                        <span>次</span>
+                        <span th:text="#{pagination.next}"></span>
                     </li>
                     <li th:case=false>
-                        <a th:href="${paginationUrl}+'?page='+${pages.number + 1}+${queryParam1}">次</a>
+                        <a th:href="${paginationUrl}+'?page='+${pages.number + 1}+${queryParam1}"
+                            th:text="#{pagination.next}"></a>
                     </li>
                 </th:block>
             </ul>

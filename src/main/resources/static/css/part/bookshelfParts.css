@@ -13,16 +13,20 @@
 
     cursor: pointer;
 
-    margin: 6px 12px 6px 0px;
-    width: 200px;
-    height: 246px;
+    width: 100%;
+    height: 100%;
     display: inline-block;
 }
 
+a.bookshelfListAnchor {
+    display: inline-block;
+    width: 200px;
+    height: 246px;
+    margin: 6px 12px 6px 0px;
+}
 a.bookshelfListAnchor:focus {
     outline: none;
 }
-
 a.bookshelfListAnchor:focus div,
 div.bookshelfList:hover {
     transition: all 0.2s;
