@@ -41,7 +41,7 @@ public interface JpaConst {
                                                         " order by bs.createdAt desc";
     public static final String BOOKSHELF_GETPAGES_SPECIFIED_USER = "select bs from " + ENTITY_BOOKSHELF + " as bs" +
                                                         " where bs.deleteFlag = " + DELETE_FLAG_FALSE +
-                                                        " and bs.user = " + PARAM_USER +
+                                                        " and bs.user = :" + PARAM_USER +
                                                         " order by bs.createdAt desc";
     public static final String BOOK_GETPAGES = "select b from " + ENTITY_BOOK + " as b" +
                                                         " order by b.createdAt desc";

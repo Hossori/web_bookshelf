@@ -6,7 +6,8 @@
     <body>
         <!-- @{}は変数内の「=」をクエリパラメータとして扱おうとして自動でエンコードしてしまうため使えない -->
         <div th:fragment="content(pages, paginationUrl)"
-             th:with="queryParam1 = ${queryParam1} ? ${'&'+#strings.replace(queryParam1, ':', '=')} : ''">
+             th:with="queryParam1 = ${queryParam1} ? ${'&'+#strings.replace(queryParam1, ':', '=')} : '',
+                      pageCount = ${pages.getTotalPages() == 0 ? 1 : pages.getTotalPages()}">
             <ul th:id="#{pagination.container.id}" class="pagination">
                 <th:block th:switch="${pages.first}">
                     <li th:case=true>

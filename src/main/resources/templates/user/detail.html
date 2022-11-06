@@ -7,6 +7,8 @@
         <meta th:id="#{meta.csrf.token.id}" th:content="${_csrf.token}">
         <meta th:id="#{meta.csrf.header.id}" th:content="${_csrf.headerName}">
         <link rel="stylesheet" th:href="@{/css/user.css}">
+        <link th:replace="part/bookshelfParts::bookshelfPartsCss">
+        <link th:replace="part/pagination::paginationCss">
         <script th:src="@{/js/util/dialog.js}" defer></script>
         <script th:src="@{/js/part/user.js}" defer></script>
         <script type="text/javascript">
@@ -147,6 +149,9 @@
                         th:title="#{user.edit.button.update.tooltip}"></button>
             </div>
 
+            <!-- bookshelf list -->
+            <div th:replace="part/bookshelfParts::list(${bookshelfViews}, ${bookshelfPages})"></div>
+            <div th:replace="part/pagination::content(pages=${bookshelfPages}, paginationUrl=detail, queryParam1='id='+${user.id})"></div>
         </div>
     </body>
 </html>

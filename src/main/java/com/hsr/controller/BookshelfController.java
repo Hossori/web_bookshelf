@@ -58,16 +58,15 @@ public class BookshelfController {
 
         List<Bookshelf> bookshelfList = bookshelfPages.getContent();
         List<BookshelfView> bookshelfViewList = BookshelfConverter.toViewList(bookshelfList);
+
         int pageCount =
                 bookshelfPages.getTotalPages() == 0 ? 1 : bookshelfPages.getTotalPages();
-
         if(pageCount-1 < page) {
             throw new IllegalArgumentException();
         }
 
         model.addAttribute("bookshelfPages", bookshelfPages);
         model.addAttribute("bookshelfViews", bookshelfViewList);
-        model.addAttribute("pageCount", pageCount);
 
         return PathConst.BOOKSHELF_INDEX.getValue();
 
@@ -87,9 +86,9 @@ public class BookshelfController {
         Page<Book> bookPages = bookService.getPagesInBookshelf(pageable, bookshelf);
         List<Book> bookList = bookPages.getContent();
         List<BookView> bookViewList = BookConverter.toViewList(bookList);
+
         int pageCount =
                 bookPages.getTotalPages() == 0 ? 1 : bookPages.getTotalPages();
-
         if(pageCount-1 < page) {
             throw new IllegalArgumentException();
         }
@@ -99,7 +98,6 @@ public class BookshelfController {
         model.addAttribute("states", states);
         model.addAttribute("bookPages", bookPages);
         model.addAttribute("bookViews", bookViewList);
-        model.addAttribute("pageCount", pageCount);
 
         return PathConst.BOOKSHELF_DETAIL.getValue();
     }
