@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hsr.domain.book.model.Book;
-import com.hsr.domain.book.model.validator.BookValidator;
 import com.hsr.domain.book.service.BookService;
 import com.hsr.domain.bookshelf.service.BookshelfService;
 import com.hsr.domain.user.model.User;
+import com.hsr.validation.FormValidator;
 
 @RestController
 @RequestMapping("/rest/book")
@@ -84,7 +84,7 @@ public class BookRestController {
 
         HttpStatus httpStatus;
 
-        Map<String, String> errors = BookValidator.validate(bindingResult, locale);
+        Map<String, String> errors = FormValidator.validate(bindingResult, locale);
         if(errors != null) {
             httpStatus = HttpStatus.BAD_REQUEST;
             return new Result(httpStatus.value(), errors);
@@ -107,7 +107,7 @@ public class BookRestController {
 
         HttpStatus httpStatus;
         if(loginUser.equals(book.getBookshelf().getUser())) {
-            Map<String, String> errors = BookValidator.validate(bindingResult, locale);
+            Map<String, String> errors = FormValidator.validate(bindingResult, locale);
             if(errors != null) {
                 httpStatus = HttpStatus.BAD_REQUEST;
                 return new Result(httpStatus.value(), errors);

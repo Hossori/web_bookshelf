@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hsr.domain.user.form.UserSignupForm;
 import com.hsr.domain.user.model.User;
 import com.hsr.domain.user.model.converter.UserConverter;
-import com.hsr.domain.user.model.validator.UserValidator;
 import com.hsr.domain.user.service.UserService;
+import com.hsr.validation.FormValidator;
 
 @RestController
 @RequestMapping("/rest/auth")
@@ -34,7 +34,7 @@ public class AuthRestController {
             Locale locale) {
         User user = UserConverter.toModel(userSignupForm);
 
-        Map<String, String> errors = UserValidator.validate(bindingResult, locale);
+        Map<String, String> errors = FormValidator.validate(bindingResult, locale);
         if(errors != null) {
             return new Result(HttpStatus.BAD_REQUEST.value(), errors);
         }

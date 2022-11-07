@@ -1,4 +1,4 @@
-package com.hsr.domain.user.model.validator;
+package com.hsr.validation;
 
 import java.util.HashMap;
 import java.util.Locale;
@@ -11,12 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 
 @Component
-public class UserValidator {
-
+public class FormValidator {
     private static MessageSource messageSource;
     @Autowired
-    public UserValidator(MessageSource messageSource) {
-        UserValidator.messageSource = messageSource;
+    public FormValidator(MessageSource messageSource) {
+        FormValidator.messageSource = messageSource;
     }
 
     public static Map<String, String> validate(BindingResult bindingResult, Locale locale) {
