@@ -93,8 +93,8 @@ table.bookShow tr td pre {
 }
 tr#showBookUserName td a {
     text-decoration: none;
-    color: tan;
     font-weight: bold;
+    color: khaki;
 }
 tr#showBookUserName td a:focus {
     outline: none;

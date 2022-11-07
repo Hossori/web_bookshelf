@@ -47,7 +47,7 @@ div#bookshelfShowUpdatedAt p.caption {
 div#bookshelfShowUserName a {
     text-decoration: none;
     font-weight: bold;
-    color: tan;
+    color: khaki;
 }
 div#bookshelfShowUserName a:focus {
     outline: none;

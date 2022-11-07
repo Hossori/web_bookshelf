@@ -17,7 +17,11 @@
                                 <td th:text="${bookshelfView.name}"></td>
                             </tr>
                             <tr th:title="#{bookshelf.list.userName.caption}">
-                                <td th:text="${bookshelfView.user.name}"></td>
+                                <td>
+                                    <span th:text="#{bookshelf.list.userName.prefix}"></span>
+                                    <br>
+                                    <span th:text="${bookshelfView.user.name}"></span>
+                                </td>
                             </tr>
                             <tr th:title="#{bookshelf.list.updatedAt.caption}">
                                 <td>
