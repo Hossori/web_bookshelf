@@ -11,16 +11,20 @@ h2#bookshelfDetailName {
     margin-bottom: 24px;
 }
 div#bookshelfShowContainer,
-div#bookshelfEditContainer {
+div#bookshelfEditContainer,
+form#bookshelfCreateForm {
     margin-bottom: 36px;
     color: white;
 }
 div#bookshelfShowContainer div p,
-div#bookshelfEditContainer div p {
+div#bookshelfShowContainer div a,
+div#bookshelfEditContainer div p,
+form#bookshelfCreateForm div p {
     font-size: 20px;
 }
 div#bookshelfShowDescription,
-div#bookshelfEditDescription {
+div#bookshelfEditDescription,
+div#bookshelfCreateDescription {
     margin: 20px 0;
 }
 div#bookshelfShowDescription pre {
@@ -29,33 +33,55 @@ div#bookshelfShowDescription pre {
     padding: 10px 0 10px 18px;
     border-left: double 4px white;
 }
+div#bookshelfShowUserName p,
 div#bookshelfShowCreatedAt p,
 div#bookshelfShowUpdatedAt p {
     display: inline-block;
     margin-bottom: 10px;
 }
+div#bookshelfShowUserName p.caption,
 div#bookshelfShowCreatedAt p.caption,
 div#bookshelfShowUpdatedAt p.caption {
     width: 140px;
 }
+div#bookshelfShowUserName a {
+    text-decoration: none;
+    font-weight: bold;
+    color: tan;
+}
+div#bookshelfShowUserName a:focus {
+    outline: none;
+}
+div#bookshelfShowUserName a:focus,
+div#bookshelfShowUserName a:hover {
+    color: orange;
+}
 div#bookshelfEditName p,
-div#bookshelfEditDescription p {
+div#bookshelfEditDescription p,
+div#bookshelfCreateName p,
+div#bookshelfCreateDescription p {
     margin-bottom: 10px;
 }
 div#bookshelfEditName input,
-div#bookshelfEditDescription textarea {
+div#bookshelfEditDescription textarea,
+div#bookshelfCreateName input,
+div#bookshelfCreateDescription textarea {
     font-family: meiryo;
     font-size: 20px;
     color: white;
 }
-div#bookshelfEditName input {
+div#bookshelfEditName input,
+div#bookshelfCreateName input {
     border-bottom: solid 1px white;
 }
-div#bookshelfEditDescription textarea {
+div#bookshelfEditDescription textarea,
+div#bookshelfCreateDescription textarea {
     border: solid 1px white;
 }
 div#bookshelfEditName p.caption,
-div#bookshelfEditDescription p.caption {
+div#bookshelfEditDescription p.caption,
+div#bookshelfCreateName p.caption,
+div#bookshelfCreateDescription p.caption {
     width: 170px;
     font-weight: bold;
 }

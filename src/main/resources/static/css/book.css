@@ -91,6 +91,18 @@ table.bookShow tr td pre {
     max-width: 500px;
     line-height: 1.2;
 }
+tr#showBookUserName td a {
+    text-decoration: none;
+    color: tan;
+    font-weight: bold;
+}
+tr#showBookUserName td a:focus {
+    outline: none;
+}
+tr#showBookUserName td a:focus,
+tr#showBookUserName td a:hover {
+    color: orange;
+}
 #editBookState td ol,
 #editBookEvaluation td ol,
 #createBookState td ol,

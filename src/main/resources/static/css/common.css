@@ -63,8 +63,6 @@ button.buttonDanger:focus {
     transform: translate(-50%, -50%);
     z-index: 11;
 
-    min-width: 600px;
-
     background-image: url("/image/brown-wooden-flooring.jpg");
 }
 .dialogTitle {

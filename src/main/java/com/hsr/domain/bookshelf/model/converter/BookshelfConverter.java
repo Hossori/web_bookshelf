@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.hsr.domain.bookshelf.form.BookshelfEditForm;
 import com.hsr.domain.bookshelf.model.Bookshelf;
 import com.hsr.domain.bookshelf.model.BookshelfView;
 
@@ -57,4 +58,25 @@ public class BookshelfConverter {
         return dateTime.format(formatter);
     }
 
+    /**
+     * convert bookshelf edit form to bookshelf.
+     * @param bookshelf edit form
+     * @return bookshelf
+     */
+    public static Bookshelf toModel(BookshelfEditForm bookshelfEditForm) {
+
+        Bookshelf bookshelf =
+                new Bookshelf(
+                    bookshelfEditForm.getId(),
+                    bookshelfEditForm.getUser(),
+                    bookshelfEditForm.getName(),
+                    bookshelfEditForm.getDescription(),
+                    null,
+                    null,
+                    null
+                );
+
+        return bookshelf;
+
+    }
 }

@@ -40,6 +40,8 @@ public class BookshelfServiceImpl implements BookshelfService {
     @Override
     @Transactional
     public HttpStatus create(Bookshelf bookshelf) {
+        bookshelf.setCreatedAt(LocalDateTime.now());
+        bookshelf.setUpdatedAt(LocalDateTime.now());
         bookshelf.setDeleteFlag(JpaConst.DELETE_FLAG_FALSE);
         HttpStatus httpStatus =
                 repository.save(bookshelf) != null

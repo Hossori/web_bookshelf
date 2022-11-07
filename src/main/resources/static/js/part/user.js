@@ -18,27 +18,28 @@ async function updateUser() {
         if(result.code === STATUS.OK) {
             location.reload();
         } else if(result.code === STATUS.BAD_REQUEST) {
-            applyUserValidationMessages(result.data, 'update');
+            applyUserValidationMessages(result.data, 'edit');
         } else if(result.code === STATUS.FORBIDDEN) {
             console.log(result.data);
         }
     });
 }
 
-function applyUserValidationMessages(errors, methodName) {
+function applyUserValidationMessages(errors, targetType) {
     let target = {};
-    for (let targetName of ['email', 'name', 'password', 'rePassword']) {
-        let id = '#'+getProperty('user.edit.'+targetName+'.id');
+    let targetNames = ['email', 'name', 'password', 'rePassword'];
+    for (let targetName of targetNames) {
+        let id = '#'+getProperty('user.'+targetType+'.'+targetName+'.id');
         target[targetName] = {
             messageWrapper : $(id+' td'),
             header : $(id+' th label'),
             form : $(id+' td input')
         };
+        target[targetName].header.css('color', 'white');
+        target[targetName].form.css('border-bottom', 'solid 1px white');
     }
 
     $('p.error').remove();
-    target['name'].header.css('color', 'white');
-    target['name'].form.css('border-bottom', 'solid 1px white');
 
     for(let key in errors) {
         if(errors[key]) {

@@ -90,6 +90,13 @@
                         <th th:text="#{book.detail.evaluation.caption}"></th>
                         <td th:text="${bookView.evaluation}"></td>
                     </tr>
+                    <tr th:id="#{book.show.userName.id}">
+                        <th th:text="#{book.show.userName.caption}"></th>
+                        <td>
+                            <a th:href="@{/user/detail(page=0, userId=${book.bookshelf.user.id})}"
+                                th:text="${book.bookshelf.user.name}"></a>
+                        </td>
+                    </tr>
                     <tr th:id="#{book.show.createdAt.id}">
                         <th th:text="#{book.detail.createdAt.caption}"></th>
                         <td th:text="${bookView.createdAt}"></td>

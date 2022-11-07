@@ -95,6 +95,11 @@
                 <div th:id="#{bookshelf.show.description.id}">
                     <pre th:text="${bookshelf.description}"></pre>
                 </div>
+                <div th:id="#{bookshelf.show.userName.id}">
+                    <p class="caption" th:text="#{bookshelf.show.userName.caption}"></p>
+                    <a th:href="@{/user/detail(page=0, userId=${bookshelf.user.id})}"
+                        th:text="${bookshelf.user.name}"></a>
+                </div>
                 <div th:id="#{bookshelf.show.createdAt.id}">
                     <p class="caption" th:text="#{bookshelf.show.createdAt.caption}"></p>
                     <p th:text="${#temporals.format(bookshelf.createdAt, 'yyyy/MM/dd HH:mm')}"></p>
@@ -177,10 +182,10 @@
                             </tr>
                         </table>
                         <div class="dialogButtonWrapper">
-                            <button class="dialogButton"
+                            <button class="dialogButton" type="button"
                                     th:id="#{book.create.dialog.buttons.cancel.id}"
                                     th:text="#{book.create.dialog.buttons.cancel.caption}"></button>
-                            <button class="dialogButton"
+                            <button class="dialogButton" type="button"
                                     th:id="#{book.create.dialog.buttons.register.id}"
                                     th:text="#{book.create.dialog.buttons.register.caption}"></button>
                         </div>

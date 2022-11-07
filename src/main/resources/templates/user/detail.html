@@ -7,25 +7,56 @@
         <meta th:id="#{meta.csrf.token.id}" th:content="${_csrf.token}">
         <meta th:id="#{meta.csrf.header.id}" th:content="${_csrf.headerName}">
         <link rel="stylesheet" th:href="@{/css/user.css}">
+        <link rel="stylesheet" th:href="@{/css/bookshelf.css}">
         <link th:replace="part/bookshelfParts::bookshelfPartsCss">
         <link th:replace="part/pagination::paginationCss">
         <script th:src="@{/js/util/dialog.js}" defer></script>
         <script th:src="@{/js/part/user.js}" defer></script>
+        <script th:src="@{/js/part/bookshelf.js}" defer></script>
         <script type="text/javascript">
             $(function() {
+                initializeBookshelfCreateDialog()
                 initializeButtons();
 
                 let genderRadios = $('#'+getProperty('user.edit.gender.id')).find('input');
                 controlGenderRadiosView(genderRadios);
 
-                let userId = $('#'+getProperty('user.id')).val();
+                let userId = $('#'+getProperty('user.detail.id.id')).val();
                 if(!isLoginUserId(userId)) {
                     $('#'+getProperty('user.show.button.toEdit.id')).remove();
                     $('#'+getProperty('user.edit.container.id')).remove();
+                    $('#'+getProperty('bookshelf.create.dialog.id')).remove();
+                    $('#'+getProperty('user.detail.button.bookshelfCreate.id')).remove();
                 }
 
                 showMain();
 
+                function initializeBookshelfCreateDialog() {
+                    let bookshelfCreateDialogShowButton = {
+                        element : $('#'+getProperty('user.detail.button.bookshelfCreate.id')),
+                        click : 'show'
+                    }
+                    let bookshelfCreateDialogRegisterButton = {
+                        element : $('#'+getProperty('bookshelf.create.dialog.buttons.register.id')),
+                        click : createBookshelf
+                    };
+                    let bookshelfCreateDialogCancelButton = {
+                        element : $('#'+getProperty('bookshelf.create.dialog.buttons.cancel.id')),
+                        click : 'hide'
+                    };
+                    let bookshelfCreateDialogButtons = [
+                        bookshelfCreateDialogShowButton,
+                        bookshelfCreateDialogRegisterButton,
+                        bookshelfCreateDialogCancelButton
+                    ]
+                    let bookshelfCreateDialogDef = {
+                        dialog : $('#'+getProperty('bookshelf.create.dialog.id')),
+                        titleText : getProperty('bookshelf.create.dialog.title'),
+                        firstElement : $('#'+getProperty('bookshelf.create.name.id')+' input'),
+                        buttons : bookshelfCreateDialogButtons
+                    }
+                    new CommonDialog(bookshelfCreateDialogDef);
+                }
                 function initializeButtons() {
                     let toEditButton = $('#'+getProperty('user.show.button.toEdit.id'));
                     toEditButton.click(toEdit);
@@ -74,7 +105,7 @@
             <h2 th:id="#{user.detail.name.id}" th:text="${userView.name}"></h2>
 
             <!-- user id -->
-            <input type="hidden" th:id="#{user.id}" th:value="${user.id}">
+            <input type="hidden" th:id="#{user.detail.id.id}" th:value="${user.id}">
 
             <!-- user show -->
             <div th:id="#{user.show.container.id}">
@@ -141,17 +172,50 @@
                         </tr>
                     </table>
                 </form>
-                <button th:id="#{user.edit.button.toShow.id}"
+                <button th:id="#{user.edit.button.toShow.id}" type="button"
                         th:text="#{user.edit.button.toShow.caption}"
                         th:title="#{user.edit.button.toShow.tooltip}"></button>
-                <button th:id="#{user.edit.button.update.id}"
+                <button th:id="#{user.edit.button.update.id}" type="button"
                         th:text="#{user.edit.button.update.caption}"
                         th:title="#{user.edit.button.update.tooltip}"></button>
             </div>
 
+            <button th:id="#{user.detail.button.bookshelfCreate.id}" type="button"
+                    th:text="#{user.detail.button.bookshelfCreate.caption}"
+                    th:title="#{user.detail.button.bookshelfCreate.tooltip}"></button>
+
+            <!-- overlay -->
+            <div id="overlay"></div>
+
+            <!-- bookshelf create dialog -->
+            <div th:id="#{bookshelf.create.dialog.id}" class="dialog">
+                <div class="dialogContent">
+                    <form th:id="#{bookshelf.create.form.id}" th:object="${bookshelfEditForm}" th:action method="post"
+                            autocomplete="off" onSubmit="return false;">
+                        <input type="hidden" th:field="*{user}">
+                        <div th:id="#{bookshelf.create.name.id}">
+                            <p class="caption" th:text="#{bookshelf.create.name.caption}"></p>
+                            <input type="text" th:field="*{name}">
+                        </div>
+                        <div th:id="#{bookshelf.create.description.id}">
+                            <p class="caption" th:text="#{bookshelf.create.description.caption}"></p>
+                            <textarea th:field="*{description}"></textarea>
+                        </div>
+                        <div class="dialogButtonWrapper">
+                            <button class="dialogButton" type="button"
+                                    th:id="#{bookshelf.create.dialog.buttons.cancel.id}"
+                                    th:text="#{bookshelf.create.dialog.buttons.cancel.caption}"></button>
+                            <button class="dialogButton" type="button"
+                                    th:id="#{bookshelf.create.dialog.buttons.register.id}"
+                                    th:text="#{bookshelf.create.dialog.buttons.register.caption}"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
             <!-- bookshelf list -->
             <div th:replace="part/bookshelfParts::list(${bookshelfViews}, ${bookshelfPages})"></div>
-            <div th:replace="part/pagination::content(pages=${bookshelfPages}, paginationUrl=detail, queryParam1='id='+${user.id})"></div>
+            <div th:replace="part/pagination::content(pages=${bookshelfPages}, paginationUrl=detail, queryParam1='userId='+${user.id})"></div>
         </div>
     </body>
 </html>
