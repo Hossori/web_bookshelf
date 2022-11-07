@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+* {
+    font-family: meiryo;
+}
+
 body {
     background-image: url("/image/wood-texture_00035.jpg");
 }

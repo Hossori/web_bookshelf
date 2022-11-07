@@ -28,7 +28,6 @@ div#bookshelfCreateDescription {
     margin: 20px 0;
 }
 div#bookshelfShowDescription pre {
-    font-family: meiryo;
     font-size: 20px;
     padding: 10px 0 10px 18px;
     border-left: double 4px white;
@@ -66,7 +65,6 @@ div#bookshelfEditName input,
 div#bookshelfEditDescription textarea,
 div#bookshelfCreateName input,
 div#bookshelfCreateDescription textarea {
-    font-family: meiryo;
     font-size: 20px;
     color: white;
 }

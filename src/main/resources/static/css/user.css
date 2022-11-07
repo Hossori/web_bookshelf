@@ -19,7 +19,6 @@ tr#userEditIntroduction {
     margin: 20px 0;
 }
 div#userShowIntroduction pre {
-    font-family: meiryo;
     font-size: 20px;
     padding: 10px 0 10px 18px;
     border-left: double 4px white;
@@ -79,18 +78,15 @@ tr#userEditPassword th label,
 tr#userEditRePassword th label,
 tr#userEditBirthday th label,
 tr#userEditIntroduction th label {
-    font-family: meiryo;
     font-size: 20px;
     color: white;
 }
 tr#userEditGender td ol li label span {
-    font-family: meiryo;
     font-size: 16px;
     color: white;
 }
 tr#userEditPassword td input::placeholder,
 tr#userEditRePassword td input::placeholder {
-    font-family: meiryo;
     color: white;
     opacity: 0.6;
 }
