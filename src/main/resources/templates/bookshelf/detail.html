@@ -22,7 +22,7 @@
                 let bookEvaluationRadios = $('#'+getProperty('book.create.evaluation.id')).find('input');
                 controlBookEvaluationRadioView(bookEvaluationRadios);
 
-                let userId = $('#'+getProperty('bookshelf.user.id')).val();
+                let userId = $('#'+getProperty('bookshelf.user.id.id')).val();
                 if(!isLoginUserId(userId)) {
                     $('#'+getProperty('bookshelf.show.button.toEdit.id')).remove();
                     $('#'+getProperty('bookshelf.edit.container.id')).remove();
@@ -37,11 +37,11 @@
                         click : 'show'
                     }
                     let bookCreateDialogRegisterButton = {
-                        element : $('#'+getProperty('book.create.dialog.buttons.register.id')),
+                        element : $('#'+getProperty('book.create.dialog.button.register.id')),
                         click : createBook
                     };
                     let bookCreateDialogCancelButton = {
-                        element : $('#'+getProperty('book.create.dialog.buttons.cancel.id')),
+                        element : $('#'+getProperty('book.create.dialog.button.cancel.id')),
                         click : 'hide'
                     };
                     let bookCreateDialogButtons = [
@@ -88,7 +88,7 @@
         <div layout:fragment="content">
             <h2 th:id="#{bookshelf.detail.name.id}" th:text="${bookshelf.name}"></h2>
             <!-- bookshelf user -->
-            <input type="hidden" th:id="#{bookshelf.user.id}"
+            <input type="hidden" th:id="#{bookshelf.user.id.id}"
                     th:value="${bookshelf.user.id}">
             <!-- bookshelf show -->
             <div th:id="#{bookshelf.show.container.id}">
@@ -183,10 +183,10 @@
                         </table>
                         <div class="dialogButtonWrapper">
                             <button class="dialogButton" type="button"
-                                    th:id="#{book.create.dialog.buttons.cancel.id}"
+                                    th:id="#{book.create.dialog.button.cancel.id}"
                                     th:text="#{book.create.dialog.buttons.cancel.caption}"></button>
                             <button class="dialogButton" type="button"
-                                    th:id="#{book.create.dialog.buttons.register.id}"
+                                    th:id="#{book.create.dialog.button.register.id}"
                                     th:text="#{book.create.dialog.buttons.register.caption}"></button>
                         </div>
                     </form>
@@ -199,10 +199,10 @@
                     <pre class="confirmDialogMessage"></pre>
                     <div class="dialogButtonWrapper">
                         <button class="dialogButton"
-                                th:id="#{confirm.dialog.buttons.cancel.id}"
+                                th:id="#{confirm.dialog.button.cancel.id}"
                                 th:text="#{confirm.dialog.buttons.cancel.caption}"></button>
                         <button class="dialogButton"
-                                th:id="#{confirm.dialog.buttons.ok.id}"
+                                th:id="#{confirm.dialog.button.ok.id}"
                                 th:text="#{confirm.dialog.buttons.ok.caption}"></button>
                     </div>
                 </div>

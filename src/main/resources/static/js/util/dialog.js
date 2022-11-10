@@ -131,11 +131,11 @@ class ConfirmDialog extends Dialog {
 
 function displayConfirm(message, isDanger) {
     let confirmDialogOkButton = {
-        element : $('#'+getProperty('confirm.dialog.buttons.ok.id')),
+        element : $('#'+getProperty('confirm.dialog.button.ok.id')),
         click : 'ok'
     }
     let confirmDialogCancelButton = {
-        element : $('#'+getProperty('confirm.dialog.buttons.cancel.id')),
+        element : $('#'+getProperty('confirm.dialog.button.cancel.id')),
         click : 'cancel'
     };
     let confirmDialogButtons = [

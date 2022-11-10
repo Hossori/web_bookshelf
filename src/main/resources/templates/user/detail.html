@@ -37,11 +37,11 @@
                         click : 'show'
                     }
                     let bookshelfCreateDialogRegisterButton = {
-                        element : $('#'+getProperty('bookshelf.create.dialog.buttons.register.id')),
+                        element : $('#'+getProperty('bookshelf.create.dialog.button.register.id')),
                         click : createBookshelf
                     };
                     let bookshelfCreateDialogCancelButton = {
-                        element : $('#'+getProperty('bookshelf.create.dialog.buttons.cancel.id')),
+                        element : $('#'+getProperty('bookshelf.create.dialog.button.cancel.id')),
                         click : 'hide'
                     };
                     let bookshelfCreateDialogButtons = [
@@ -93,10 +93,10 @@
                     <pre class="confirmDialogMessage"></pre>
                     <div class="dialogButtonWrapper">
                         <button class="dialogButton"
-                                th:id="#{confirm.dialog.buttons.cancel.id}"
+                                th:id="#{confirm.dialog.button.cancel.id}"
                                 th:text="#{confirm.dialog.buttons.cancel.caption}"></button>
                         <button class="dialogButton"
-                                th:id="#{confirm.dialog.buttons.ok.id}"
+                                th:id="#{confirm.dialog.button.ok.id}"
                                 th:text="#{confirm.dialog.buttons.ok.caption}"></button>
                     </div>
                 </div>
@@ -203,10 +203,10 @@
                         </div>
                         <div class="dialogButtonWrapper">
                             <button class="dialogButton" type="button"
-                                    th:id="#{bookshelf.create.dialog.buttons.cancel.id}"
+                                    th:id="#{bookshelf.create.dialog.button.cancel.id}"
                                     th:text="#{bookshelf.create.dialog.buttons.cancel.caption}"></button>
                             <button class="dialogButton" type="button"
-                                    th:id="#{bookshelf.create.dialog.buttons.register.id}"
+                                    th:id="#{bookshelf.create.dialog.button.register.id}"
                                     th:text="#{bookshelf.create.dialog.buttons.register.caption}"></button>
                         </div>
                     </form>

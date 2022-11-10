@@ -90,57 +90,57 @@ table.bookShow tr td pre {
     max-width: 500px;
     line-height: 1.2;
 }
-tr#showBookUserName td a {
+tr#bookShowUserName td a {
     text-decoration: none;
     font-weight: bold;
     color: khaki;
 }
-tr#showBookUserName td a:focus {
+tr#bookShowUserName td a:focus {
     outline: none;
 }
-tr#showBookUserName td a:focus,
-tr#showBookUserName td a:hover {
+tr#bookShowUserName td a:focus,
+tr#bookShowUserName td a:hover {
     color: orange;
 }
-#editBookState td ol,
-#editBookEvaluation td ol,
-#createBookState td ol,
-#createBookEvaluation td ol {
+#bookEditState td ol,
+#bookEditEvaluation td ol,
+#bookCreateState td ol,
+#bookCreateEvaluation td ol {
     font-size: 0;
 }
-#editBookState td ol li,
-#editBookEvaluation td ol li,
-#createBookState td ol li,
-#createBookEvaluation td ol li {
+#bookEditState td ol li,
+#bookEditEvaluation td ol li,
+#bookCreateState td ol li,
+#bookCreateEvaluation td ol li {
     list-style-type: none;
     display: inline-block;
 }
-#editBookState td ol li,
-#createBookState td ol li {
+#bookEditState td ol li,
+#bookCreateState td ol li {
     margin-right: 12px;
 }
-#editBookState td ol li label,
-#editBookEvaluation td ol li label,
-#createBookState td ol li label,
-#createBookEvaluation td ol li label {
+#bookEditState td ol li label,
+#bookEditEvaluation td ol li label,
+#bookCreateState td ol li label,
+#bookCreateEvaluation td ol li label {
     list-style-type: none;
     display: inline-block;
     text-align: center;
 }
-#editBookState td ol li label,
-#createBookState td ol li label {
+#bookEditState td ol li label,
+#bookCreateState td ol li label {
     width: 70px;
     padding: 6px 3px;
     background-color: sienna;
     border-radius: 6px;
 }
-#editBookState td ol li label span,
-#createBookState td ol li label span {
+#bookEditState td ol li label span,
+#bookCreateState td ol li label span {
     font-size: 16px;
     color: white;
 }
-#editBookEvaluation td ol li label span,
-#createBookEvaluation td ol li label span {
+#bookEditEvaluation td ol li label span,
+#bookCreateEvaluation td ol li label span {
     font-size: 20px;
     color: white;
 }

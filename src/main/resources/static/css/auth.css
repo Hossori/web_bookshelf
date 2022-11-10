@@ -22,7 +22,7 @@ input:-webkit-autofill {
     box-shadow: 0 0 0 1000px tan inset;
     -webkit-text-fill-color: white;
 }
-button#loginButton {
+button#authLoginButton {
     margin-top: 20px;
 }
 

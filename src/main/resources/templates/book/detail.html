@@ -18,7 +18,7 @@
                 let bookEvaluationRadios = $('#'+getProperty('book.edit.evaluation.id')).find('input');
                 controlBookEvaluationRadioView(bookEvaluationRadios);
 
-                let userId = $('#'+getProperty('book.user.id')).val();
+                let userId = $('#'+getProperty('book.user.id.id')).val();
                 if(!isLoginUserId(userId)) {
                     $('#'+getProperty('book.show.button.toEdit.id')).remove();
                     $('#'+getProperty('book.edit.container.id')).remove();
@@ -63,17 +63,17 @@
                     <pre class="confirmDialogMessage"></pre>
                     <div class="dialogButtonWrapper">
                         <button class="dialogButton"
-                                th:id="#{confirm.dialog.buttons.cancel.id}"
+                                th:id="#{confirm.dialog.button.cancel.id}"
                                 th:text="#{confirm.dialog.buttons.cancel.caption}"></button>
                         <button class="dialogButton"
-                                th:id="#{confirm.dialog.buttons.ok.id}"
+                                th:id="#{confirm.dialog.button.ok.id}"
                                 th:text="#{confirm.dialog.buttons.ok.caption}"></button>
                     </div>
                 </div>
             </div>
 
             <!-- book user -->
-            <input type="hidden" th:id="#{book.user.id}"
+            <input type="hidden" th:id="#{book.user.id.id}"
                     th:value="${book.bookshelf.user.id}">
             <!-- show -->
             <div th:id="#{book.show.container.id}">
