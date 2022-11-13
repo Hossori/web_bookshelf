@@ -32,16 +32,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public User getByEmailNotDeleted(String email) {
+        return userRepository.getByEmailNotDeleted(email);
+    }
+
+    @Override
     public HttpStatus signup(User user) {
+        if (userRepository.getByEmail(user.getEmail()) != null) {
+            return HttpStatus.CONFLICT;
+        }
+
         String password = encoder.encode(user.getPassword());
         user.setPassword(password);
         user.setCreatedAt(LocalDateTime.now());
         user.setDeleteFlag(JpaConst.DELETE_FLAG_FALSE);
-        HttpStatus httpStatus =
-                userRepository.save(user) != null
-                    ? HttpStatus.OK
-                    : HttpStatus.FORBIDDEN;
-        return httpStatus;
+        return userRepository.save(user) != null
+                ? HttpStatus.OK
+                : HttpStatus.FORBIDDEN;
     }
 
     @Override

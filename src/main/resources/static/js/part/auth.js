@@ -37,6 +37,9 @@ function signup() {
         } else if(result.code === STATUS.BAD_REQUEST) {
             let errors = result.data;
             applyFormValidationResultOfAuth(errors, 'signup');
+        } else if(result.code === STATUS.CONFLICT) {
+            let errors = result.data;
+            applyFormValidationResultOfAuth(errors, 'signup');
         } else if(result.code === STATUS.FORBIDDEN) {
 
         }

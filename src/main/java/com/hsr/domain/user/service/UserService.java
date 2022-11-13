@@ -16,6 +16,13 @@ public interface UserService {
     public User getById(Integer id);
 
     /**
+     * get not deleted user specified by email.
+     * @param email
+     * @return user
+     */
+    public User getByEmailNotDeleted(String email);
+
+    /**
      * register user.
      * @param user
      * @return http status

@@ -4,6 +4,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 import com.hsr.annotation.SameString;
+import com.hsr.annotation.UnregisteredEmail;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 public class UserSignupForm {
     @Email
     @NotBlank
+    @UnregisteredEmail
     private String email;
     @NotBlank
     private String name;

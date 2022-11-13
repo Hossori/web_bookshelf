@@ -3,7 +3,8 @@
 var STATUS = {
     OK : getStatusCode('OK'),
     BAD_REQUEST : getStatusCode('BAD_REQUEST'),
-    FORBIDDEN : getStatusCode('FORBIDDEN')
+    FORBIDDEN : getStatusCode('FORBIDDEN'),
+    CONFLICT : getStatusCode('CONFLICT')
 };
 
 function getProperty(key) {
