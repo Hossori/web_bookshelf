@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hsr.domain.book.form.BookCreateForm;
 import com.hsr.domain.book.form.BookEditForm;
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.model.converter.BookConverter;
@@ -80,7 +81,7 @@ public class BookRestController {
 
     @PutMapping("/create")
     public Result create(
-            @ModelAttribute @Validated BookEditForm bookEditForm,
+            @ModelAttribute @Validated BookCreateForm bookCreateForm,
             BindingResult bindingResult,
             Locale locale) {
 
@@ -92,7 +93,7 @@ public class BookRestController {
             return new Result(httpStatus.value(), errors);
         }
 
-        Book book = BookConverter.toModel(bookEditForm);
+        Book book = BookConverter.toModel(bookCreateForm);
         httpStatus = bookService.create(book);
 
         return new Result(httpStatus.value(), null);

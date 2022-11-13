@@ -1,9 +1,9 @@
-package com.hsr.domain.bookshelf.form;
+package com.hsr.domain.book.form;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.hsr.domain.user.model.User;
+import com.hsr.domain.bookshelf.model.Bookshelf;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,11 +12,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookshelfEditForm {
-    private Integer id;
+public class BookCreateForm {
     @NotNull
-    private User user;
+    private Bookshelf bookshelf;
     @NotBlank
     private String name;
-    private String description;
+    private Integer state;
+    private Integer evaluation;
+    private String memo;
 }

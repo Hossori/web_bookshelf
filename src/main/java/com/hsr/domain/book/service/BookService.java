@@ -11,12 +11,19 @@ import com.hsr.domain.bookshelf.model.Bookshelf;
 @Service
 public interface BookService {
 
-	/**
-	 * get book specified by id.
-	 * @param id
-	 * @return book
-	 */
+    /**
+     * get book specified by id.
+     * @param id
+     * @return book
+     */
     public Book getById(Integer id);
+
+    /**
+     * get not deleted book specified by id.
+     * @param id
+     * @return book
+     */
+    public Book getByIdNotDeleted(Integer id);
 
     /**
      * get page of all books.

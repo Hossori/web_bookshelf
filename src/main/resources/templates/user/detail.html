@@ -184,13 +184,10 @@
                     th:text="#{user.detail.button.bookshelfCreate.caption}"
                     th:title="#{user.detail.button.bookshelfCreate.tooltip}"></button>
 
-            <!-- overlay -->
-            <div id="overlay"></div>
-
             <!-- bookshelf create dialog -->
             <div th:id="#{bookshelf.create.dialog.id}" class="dialog">
                 <div class="dialogContent">
-                    <form th:id="#{bookshelf.create.form.id}" th:object="${bookshelfEditForm}" th:action method="post"
+                    <form th:id="#{bookshelf.create.form.id}" th:object="${bookshelfCreateForm}" th:action method="post"
                             autocomplete="off" onSubmit="return false;">
                         <input type="hidden" th:field="*{user}">
                         <div th:id="#{bookshelf.create.name.id}">

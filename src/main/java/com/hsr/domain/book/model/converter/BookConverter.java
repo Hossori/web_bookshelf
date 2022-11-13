@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
+import com.hsr.domain.book.form.BookCreateForm;
 import com.hsr.domain.book.form.BookEditForm;
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.model.BookView;
@@ -62,6 +63,30 @@ public class BookConverter {
     }
 
     /**
+     * convert book create form to book.
+     * @param book create form
+     * @return book
+     */
+    public static Book toModel(BookCreateForm bookCreateForm) {
+
+        Book book =
+                new Book(
+                    null,
+                    bookCreateForm.getBookshelf(),
+                    bookCreateForm.getName(),
+                    bookCreateForm.getState(),
+                    bookCreateForm.getEvaluation(),
+                    bookCreateForm.getMemo(),
+                    null,
+                    null,
+                    null
+                );
+
+        return book;
+
+    }
+
+    /**
      * convert book edit form to book.
      * @param book edit form
      * @return book
@@ -82,6 +107,47 @@ public class BookConverter {
                 );
 
         return book;
+
+    }
+
+    /**
+     * convert book to book create form.
+     * @param book
+     * @return book create form
+     */
+    public static BookCreateForm toCreateForm(Book book) {
+
+        BookCreateForm bookCreateForm =
+                new BookCreateForm(
+                    book.getBookshelf(),
+                    book.getName(),
+                    book.getState(),
+                    book.getEvaluation(),
+                    book.getMemo()
+                );
+
+        return bookCreateForm;
+
+    }
+
+    /**
+     * convert book to book edit form.
+     * @param book
+     * @return book edit form
+     */
+    public static BookEditForm toEditForm(Book book) {
+
+        BookEditForm bookEditForm =
+                new BookEditForm(
+                    book.getId(),
+                    book.getBookshelf(),
+                    book.getName(),
+                    book.getState(),
+                    book.getEvaluation(),
+                    book.getMemo()
+                );
+
+        return bookEditForm;
 
     }
 

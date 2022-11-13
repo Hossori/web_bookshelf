@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hsr.domain.bookshelf.form.BookshelfCreateForm;
 import com.hsr.domain.bookshelf.form.BookshelfEditForm;
 import com.hsr.domain.bookshelf.model.Bookshelf;
 import com.hsr.domain.bookshelf.model.converter.BookshelfConverter;
@@ -46,13 +47,13 @@ public class BookshelfRestController {
 
     @PutMapping("/create")
     public Result create(
-            @ModelAttribute @Validated BookshelfEditForm bookshelfEditForm,
+            @ModelAttribute @Validated BookshelfCreateForm bookshelfCreateForm,
             BindingResult bindingResult,
             Locale locale) {
 
         HttpStatus httpStatus;
 
-        Bookshelf bookshelf = BookshelfConverter.toModel(bookshelfEditForm);
+        Bookshelf bookshelf = BookshelfConverter.toModel(bookshelfCreateForm);
 
         Map<String, String> errors = FormValidator.validate(bindingResult, locale);
         if(errors != null) {
@@ -68,18 +69,29 @@ public class BookshelfRestController {
 
     @PutMapping("/update")
     public Result update(
+            @AuthenticationPrincipal User loginUser,
             @ModelAttribute @Validated BookshelfEditForm bookshelfEditForm,
-            @AuthenticationPrincipal User loginUser) {
+            BindingResult bindingResult,
+            Locale locale) {
 
         Bookshelf bookshelf = bookshelfService.getById(bookshelfEditForm.getId());
         Bookshelf newBookshelf = BookshelfConverter.toModel(bookshelfEditForm);
 
         HttpStatus httpStatus;
-        if(loginUser.equals(bookshelf.getUser())) {
-            httpStatus = bookshelfService.update(bookshelf, newBookshelf);
-        } else {
+
+        if (!loginUser.equals(bookshelf.getUser())) {
             httpStatus = HttpStatus.FORBIDDEN;
+            return new Result(httpStatus.value(), null);
         }
+
+        Map<String, String> errors = FormValidator.validate(bindingResult, locale);
+        if (errors != null) {
+            httpStatus = HttpStatus.BAD_REQUEST;
+            return new Result(httpStatus.value(), errors);
+        }
+
+        httpStatus = bookshelfService.update(bookshelf, newBookshelf);
+
         return new Result(httpStatus.value(), null);
 
     }

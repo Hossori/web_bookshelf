@@ -12,8 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookshelfEditForm {
-    private Integer id;
+public class BookshelfCreateForm {
     @NotNull
     private User user;
     @NotBlank

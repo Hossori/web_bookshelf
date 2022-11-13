@@ -11,12 +11,19 @@ import com.hsr.domain.user.model.User;
 @Service
 public interface BookshelfService {
 
-	/**
-	 * get bookshelf specified by id.
-	 * @param bookshelf id
-	 * @return bookshelf
-	 */
+    /**
+     * get bookshelf specified by id.
+     * @param bookshelf id
+     * @return bookshelf
+     */
     public Bookshelf getById(Integer id);
+
+    /**
+     * get not deleted bookshelf specified by id.
+     * @param bookshelf id
+     * @return bookshelf
+     */
+    public Bookshelf getByIdNotDeleted(Integer id);
 
     /**
      * get page of all bookshelfs.

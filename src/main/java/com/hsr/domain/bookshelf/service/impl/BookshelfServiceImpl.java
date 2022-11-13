@@ -28,6 +28,11 @@ public class BookshelfServiceImpl implements BookshelfService {
     }
 
     @Override
+    public Bookshelf getByIdNotDeleted(Integer id) {
+        return repository.getByIdNotDeleted(id);
+    }
+
+    @Override
     public Page<Bookshelf> getPages(Pageable pageable) {
         return repository.getPages(pageable);
     }

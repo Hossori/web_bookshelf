@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hsr.constant.GlobalConst;
 import com.hsr.constant.PathConst;
+import com.hsr.domain.book.form.BookCreateForm;
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.model.BookView;
 import com.hsr.domain.book.model.converter.BookConverter;
 import com.hsr.domain.book.service.BookService;
+import com.hsr.domain.bookshelf.form.BookshelfEditForm;
 import com.hsr.domain.bookshelf.model.Bookshelf;
 import com.hsr.domain.bookshelf.model.BookshelfView;
 import com.hsr.domain.bookshelf.model.converter.BookshelfConverter;
@@ -79,9 +81,13 @@ public class BookshelfController {
             @RequestParam int id,
             @RequestParam int page) {
 
-        Bookshelf bookshelf = bookshelfService.getById(id);
-        Book book = new Book(); // for register book
-        book.setBookshelf(bookshelf);
+        Bookshelf bookshelf = bookshelfService.getByIdNotDeleted(id);
+        if (bookshelf == null) {
+            return PathConst.ERROR.getValue();
+        }
+        BookshelfEditForm bookshelfEditForm = BookshelfConverter.toEditForm(bookshelf);
+        BookCreateForm bookCreateForm = new BookCreateForm(); // for register book
+        bookCreateForm.setBookshelf(bookshelf);
         List<String> states = List.of(messageSource.getMessage("book.state.array", null, Locale.getDefault()).split(", "));
         Page<Book> bookPages = bookService.getPagesInBookshelf(pageable, bookshelf);
         List<Book> bookList = bookPages.getContent();
@@ -94,7 +100,8 @@ public class BookshelfController {
         }
 
         model.addAttribute(bookshelf);
-        model.addAttribute(book);
+        model.addAttribute("bookshelfEditForm", bookshelfEditForm);
+        model.addAttribute("bookCreateForm", bookCreateForm);
         model.addAttribute("states", states);
         model.addAttribute("bookPages", bookPages);
         model.addAttribute("bookViews", bookViewList);

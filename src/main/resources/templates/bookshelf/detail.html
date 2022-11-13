@@ -114,9 +114,10 @@
             </div>
             <!-- bookshelf edit -->
             <div th:id="#{bookshelf.edit.container.id}" style="display:none;">
-                <form th:id="#{bookshelf.edit.form.id}" th:object="${bookshelf}" th:action method="post"
+                <form th:id="#{bookshelf.edit.form.id}" th:object="${bookshelfEditForm}" th:action method="post"
                         autocomplete="off" onSubmit="return false;">
                     <input type="hidden" th:id="#{bookshelf.edit.id.id}" th:field="*{id}">
+                    <input type="hidden" th:id="#{bookshelf.edit.user.id}" th:field="*{user}">
                     <div th:id="#{bookshelf.edit.name.id}">
                         <p class="caption" th:text="#{bookshelf.detail.name.caption}"></p>
                         <input type="text" th:field="*{name}">
@@ -144,7 +145,7 @@
             <!-- book create dialog -->
             <div th:id="#{book.create.dialog.id}" class="dialog">
                 <div class="dialogContent">
-                    <form th:id="#{book.create.form.id}" th:object="${book}" th:action method="post"
+                    <form th:id="#{book.create.form.id}" th:object="${bookCreateForm}" th:action method="post"
                             autocomplete="off" onSubmit="return false;">
                         <input type="hidden" th:field="*{bookshelf}">
                         <table class="bookCreate">
@@ -158,7 +159,7 @@
                                     <li th:each="i:${#numbers.sequence(0, states.size()-1)}">
                                         <label th:for="'state'+${i}">
                                             <input type="radio" th:id="'state'+${i}" name="state"
-                                                th:value="${i}" th:checked="${book.state eq i}">
+                                                th:value="${i}" th:checked="${bookCreateForm.state eq i}">
                                             <span th:text="${states[i]}"></span>
                                         </label>
                                     </li>
@@ -170,7 +171,7 @@
                                     <li th:each="i:${#numbers.sequence(1, 5)}">
                                         <label th:for="'evaluation'+${i}">
                                             <input type="radio" th:id="'evaluation'+${i}" name="evaluation"
-                                                    th:value="${i}" th:checked="${book.evaluation eq i}">
+                                                    th:value="${i}" th:checked="${bookCreateForm.evaluation eq i}">
                                             <span>☆</span>
                                         </label>
                                      </li>

@@ -28,6 +28,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public Book getByIdNotDeleted(Integer id) {
+        return repository.getByIdNotDeleted(id);
+    }
+
+    @Override
     public Page<Book> getPages(Pageable pageable) {
         return repository.getPages(pageable);
     }

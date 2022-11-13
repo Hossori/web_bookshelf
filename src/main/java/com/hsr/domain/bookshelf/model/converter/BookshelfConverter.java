@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.hsr.domain.bookshelf.form.BookshelfCreateForm;
 import com.hsr.domain.bookshelf.form.BookshelfEditForm;
 import com.hsr.domain.bookshelf.model.Bookshelf;
 import com.hsr.domain.bookshelf.model.BookshelfView;
@@ -39,7 +40,6 @@ public class BookshelfConverter {
      * @param bookshelf list
      * @return bookshelf view list
      */
-
     public static List<BookshelfView> toViewList(List<Bookshelf> bookshelf) {
 
         return bookshelf.stream()
@@ -77,6 +77,65 @@ public class BookshelfConverter {
                 );
 
         return bookshelf;
+
+    }
+
+    /**
+     * convert bookshelf create form to bookshelf.
+     * @param bookshelf create form
+     * @return bookshelf
+     */
+    public static Bookshelf toModel(BookshelfCreateForm bookshelfCreateForm) {
+
+        Bookshelf bookshelf =
+                new Bookshelf(
+                    null,
+                    bookshelfCreateForm.getUser(),
+                    bookshelfCreateForm.getName(),
+                    bookshelfCreateForm.getDescription(),
+                    null,
+                    null,
+                    null
+                );
+
+        return bookshelf;
+
+    }
+
+    /**
+     * convert bookshelf to bookshelf edit form.
+     * @param bookshelf
+     * @return bookshelf edit form
+     */
+    public static BookshelfEditForm toEditForm(Bookshelf bookshelf) {
+
+        BookshelfEditForm bookshelfEditForm =
+                new BookshelfEditForm(
+                    bookshelf.getId(),
+                    bookshelf.getUser(),
+                    bookshelf.getName(),
+                    bookshelf.getDescription()
+                );
+
+        return bookshelfEditForm;
+
+    }
+
+    /**
+     * convert bookshelf to bookshelf create form.
+     * @param bookshelf
+     * @return bookshelf create form
+     */
+    public static BookshelfCreateForm toCreateForm(Bookshelf bookshelf) {
+
+        BookshelfCreateForm bookshelfCreateForm =
+                new BookshelfCreateForm(
+                    bookshelf.getUser(),
+                    bookshelf.getName(),
+                    bookshelf.getDescription()
+                );
+
+        return bookshelfCreateForm;
 
     }
 }

@@ -15,6 +15,14 @@ import com.hsr.domain.user.model.User;
 public interface BookshelfRepository extends JpaRepository<Bookshelf, Integer> {
 
     /**
+     * get bookshelf by id not deleted.
+     * @param id
+     * @return book
+     */
+    @Query(JpaConst.BOOKSHELF_GET_BY_ID_NOT_DELETED)
+    public Bookshelf getByIdNotDeleted(Integer id);
+
+    /**
      * get page of all bookshelfs
      * @param pageable
      * @return page of bookshelf

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.hsr.constant.PathConst;
-import com.hsr.domain.bookshelf.form.BookshelfEditForm;
+import com.hsr.domain.bookshelf.form.BookshelfCreateForm;
 import com.hsr.domain.bookshelf.model.Bookshelf;
 import com.hsr.domain.bookshelf.model.BookshelfView;
 import com.hsr.domain.bookshelf.model.converter.BookshelfConverter;
@@ -57,8 +57,8 @@ public class UserController {
         Page<Bookshelf> bookshelfPages = bookshelfService.getPagesSpecifiedUser(pageable, user);
         List<BookshelfView> bookshelfViews = BookshelfConverter.toViewList(bookshelfPages.getContent());
 
-        BookshelfEditForm bookshelfEditForm = new BookshelfEditForm(); // for register bookshelf
-        bookshelfEditForm.setUser(user);
+        BookshelfCreateForm bookshelfCreateForm = new BookshelfCreateForm(); // for register bookshelf
+        bookshelfCreateForm.setUser(user);
 
         model.addAttribute("user", user);
         model.addAttribute("userEditForm", userEditForm);
@@ -66,7 +66,7 @@ public class UserController {
         model.addAttribute("genders", genders);
         model.addAttribute("bookshelfViews", bookshelfViews);
         model.addAttribute("bookshelfPages", bookshelfPages);
-        model.addAttribute("bookshelfEditForm", bookshelfEditForm);
+        model.addAttribute("bookshelfCreateForm", bookshelfCreateForm);
 
         return PathConst.USER_DETAIL.getValue();
 
