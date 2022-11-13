@@ -2,6 +2,7 @@ package com.hsr.domain.user.form;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.hsr.annotation.SameString;
 
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @SameString(field1="password", field2="rePassword")
 public class UserEditForm {
+    @NotNull
     private Integer id;
     @Email
     @NotBlank

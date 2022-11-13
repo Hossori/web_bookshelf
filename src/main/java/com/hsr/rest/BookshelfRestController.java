@@ -68,10 +68,12 @@ public class BookshelfRestController {
 
     @PutMapping("/update")
     public Result update(
-            @ModelAttribute Bookshelf newBookshelf,
+            @ModelAttribute @Validated BookshelfEditForm bookshelfEditForm,
             @AuthenticationPrincipal User loginUser) {
 
-        Bookshelf bookshelf = bookshelfService.getById(newBookshelf.getId());
+        Bookshelf bookshelf = bookshelfService.getById(bookshelfEditForm.getId());
+        Bookshelf newBookshelf = BookshelfConverter.toModel(bookshelfEditForm);
+
         HttpStatus httpStatus;
         if(loginUser.equals(bookshelf.getUser())) {
             httpStatus = bookshelfService.update(bookshelf, newBookshelf);

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
+import com.hsr.domain.book.form.BookEditForm;
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.model.BookView;
 
@@ -57,6 +58,30 @@ public class BookConverter {
         return bookList.stream()
                     .map(BookConverter::toView)
                     .collect(Collectors.toList());
+
+    }
+
+    /**
+     * convert book edit form to book.
+     * @param book edit form
+     * @return book
+     */
+    public static Book toModel(BookEditForm bookEditForm) {
+
+        Book book =
+                new Book(
+                    bookEditForm.getId(),
+                    bookEditForm.getBookshelf(),
+                    bookEditForm.getName(),
+                    bookEditForm.getState(),
+                    bookEditForm.getEvaluation(),
+                    bookEditForm.getMemo(),
+                    null,
+                    null,
+                    null
+                );
+
+        return book;
 
     }
 

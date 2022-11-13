@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hsr.domain.book.form.BookEditForm;
 import com.hsr.domain.book.model.Book;
+import com.hsr.domain.book.model.converter.BookConverter;
 import com.hsr.domain.book.service.BookService;
 import com.hsr.domain.bookshelf.service.BookshelfService;
 import com.hsr.domain.user.model.User;
@@ -78,7 +80,7 @@ public class BookRestController {
 
     @PutMapping("/create")
     public Result create(
-            @ModelAttribute @Validated Book book,
+            @ModelAttribute @Validated BookEditForm bookEditForm,
             BindingResult bindingResult,
             Locale locale) {
 
@@ -90,6 +92,7 @@ public class BookRestController {
             return new Result(httpStatus.value(), errors);
         }
 
+        Book book = BookConverter.toModel(bookEditForm);
         httpStatus = bookService.create(book);
 
         return new Result(httpStatus.value(), null);
@@ -98,12 +101,13 @@ public class BookRestController {
 
     @PutMapping("/update")
     public Result update(
-            @ModelAttribute @Validated Book newBook,
+            @ModelAttribute @Validated BookEditForm bookEditForm,
             BindingResult bindingResult,
             Locale locale,
             @AuthenticationPrincipal User loginUser) {
 
-        Book book = bookService.getById(newBook.getId());
+        Book book = bookService.getById(bookEditForm.getId());
+        Book newBook = BookConverter.toModel(bookEditForm);
 
         HttpStatus httpStatus;
         if(loginUser.equals(book.getBookshelf().getUser())) {
