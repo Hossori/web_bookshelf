@@ -12,7 +12,7 @@ function login() {
             location.href = '/bookshelf/index?page=0';
         } else if(result.code === STATUS.BAD_REQUEST) {
             let errors = result.data;
-            applyLoginValidation(errors);
+            applyFormValidationResultOfAuth(errors, 'login');
         } else if(result.code === STATUS.FORBIDDEN) {
             console.log(result.data);
         }
@@ -36,7 +36,7 @@ function signup() {
             location.href = '/login'
         } else if(result.code === STATUS.BAD_REQUEST) {
             let errors = result.data;
-            applySignupValidation(errors);
+            applyFormValidationResultOfAuth(errors, 'signup');
         } else if(result.code === STATUS.FORBIDDEN) {
 
         }
@@ -46,42 +46,22 @@ function signup() {
     });
 }
 
-function applyLoginValidation(errors) {
-    let trs = {
-        email : $('#'+getProperty('auth.email.id')),
-        password : $('#'+getProperty('auth.password.id')),
-    };
-    applyAuthValidation(trs, errors);
-}
-
-function applySignupValidation(errors) {
-    let trs = {
-        email : $('#'+getProperty('auth.email.id')),
-        password : $('#'+getProperty('auth.password.id')),
-        rePassword : $('#'+getProperty('auth.rePassword.id')),
-        name : $('#'+getProperty('auth.name.id'))
-    };
-    applyAuthValidation(trs, errors);
-}
-
-function applyAuthValidation(trs, errors) {
-    $('.errorMsg').remove();
-    for(let trId in trs) {
-        let label = trs[trId].find('label');
-        let input = trs[trId].find('input');
-        label.css({color : 'white'});
-        input.css({borderBottom : 'solid 1px white'});
+function applyFormValidationResultOfAuth(errors, targetType) {
+    let targets = {};
+    let targetNames;
+    if (targetType === 'login') {
+        targetNames = ['email', 'password'];
+    } else if (targetType === 'signup') {
+        targetNames = ['email', 'password', 'rePassword', 'name'];
     }
-    for(let errorName in errors) {
-        let label = trs[errorName].find('label');
-        let input = trs[errorName].find('input');
-        let errorMsg = $('<p class="errorMsg">'+errors[errorName]+'</p>');
-        errorMsg.css({
-            color : 'yellow',
-            padding : '6px 0'
-        });
-        label.css({color : 'yellow'});
-        input.css({borderBottom : 'solid 1px yellow'});
-        input.after(errorMsg);
+
+    for (let targetName of targetNames) {
+        let id = '#'+getProperty('auth.'+targetName+'.id');
+        targets[targetName] = {
+            messageWrapper : $(id+' td'),
+            header : $(id+' th label'),
+            form : $(id+' td input')
+        };
     }
+    applyFormValidationResult(targets, errors);
 }

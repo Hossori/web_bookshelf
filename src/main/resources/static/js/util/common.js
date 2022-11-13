@@ -65,3 +65,39 @@ function isLoginUserId(userId) {
 function showMain() {
     $('div#main').show();
 }
+
+/**
+    apply result of form validation to form html and css.
+    @param targets
+    'targets' is object like following.
+    {
+        value of name attribute of element : {
+            messageWrapper : element added 'p' displaying error message by jquery selector,
+            label : label element applied css by jquery selector,
+            form : form element applied css by jquery selector
+        }
+    }
+    @param errors
+    'errors' is return value of ajax when occuring validation error.
+*/
+function applyFormValidationResult(targets, errors) {
+    // reset validation result
+    $('p.error').remove();
+    for (let key in targets) {
+        targets[key].header.css('color', 'white');
+        targets[key].form.css('border-bottom', 'solid 1px white');
+    }
+
+    // apply validation result
+    for (let key in errors) {
+        if (targets[key]) {
+            let errorMsg = $('<p class="error">').append(errors[key]);
+            targets[key].messageWrapper.append(errorMsg);
+            errorMsg.css('color', 'yellow');
+            errorMsg.css('font-size', '16px');
+            errorMsg.css('margin-top', '6px');
+            targets[key].header.css('color', 'yellow');
+            targets[key].form.css('border-bottom', 'solid 1px yellow');
+        }
+    }
+}

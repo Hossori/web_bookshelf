@@ -12,7 +12,7 @@ function createBookshelf() {
         if(result.code === STATUS.OK) {
             location.reload();
         } else if(result.code === STATUS.BAD_REQUEST) {
-            applyBookshelfValidationMessages(result.data, 'create');
+            applyFormValidationResultOfBookshelf(result.data, 'create');
         } else if(result.code === STATUS.FORBIDDEN) {
             console.log(result.data);
         }
@@ -45,7 +45,7 @@ async function updateBookshelf() {
         if(result.code === STATUS.OK) {
             location.reload();
         } else if (result.code === STATUS.BAD_REQUEST) {
-            applyBookshelfValidationMessages(result.data, 'edit');
+            applyFormValidationResultOfBookshelf(result.data, 'edit');
         }
     });
 }
@@ -69,36 +69,21 @@ async function deleteBookshelf() {
         dataType : 'json'
     }).done(function(result) {
         if(result.code === STATUS.OK) {
-            location.href = '/bookshelf/index?page=0&user=-1';
+            history.back();
         }
     });
 }
 
-function applyBookshelfValidationMessages(errors, targetType) {
-    let target = {};
+function applyFormValidationResultOfBookshelf(errors, targetType) {
+    let targets = {};
     let targetNames = ['name'];
     for (let targetName of targetNames) {
         let id = '#'+getProperty('bookshelf.'+targetType+'.'+targetName+'.id');
-        target[targetName] = {
+        targets[targetName] = {
             messageWrapper : $(id),
             header : $(id+' p.caption'),
             form : $(id+' input')
         };
-        target[targetName].header.css('color', 'white');
-        target[targetName].form.css('border-bottom', 'solid 1px white');
     }
-
-    $('p.error').remove();
-
-    for(let key in errors) {
-        if(errors[key]) {
-            let errorMsg = $('<p class="error">').append(errors[key]);
-            target[key].messageWrapper.append(errorMsg);
-            errorMsg.css('color', 'yellow');
-            errorMsg.css('font-size', '16px');
-            errorMsg.css('margin-top', '6px');
-            target[key].header.css('color', 'yellow');
-            target[key].form.css('border-bottom', 'solid 1px yellow');
-        }
-    }
+    applyFormValidationResult(targets, errors);
 }

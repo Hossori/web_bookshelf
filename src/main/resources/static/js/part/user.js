@@ -18,39 +18,25 @@ async function updateUser() {
         if(result.code === STATUS.OK) {
             location.reload();
         } else if(result.code === STATUS.BAD_REQUEST) {
-            applyUserValidationMessages(result.data, 'edit');
+            applyFormValidationResultOfUser(result.data, 'edit');
         } else if(result.code === STATUS.FORBIDDEN) {
             console.log(result.data);
         }
     });
 }
 
-function applyUserValidationMessages(errors, targetType) {
-    let target = {};
+function applyFormValidationResultOfUser(errors, targetType) {
+    let targets = {};
     let targetNames = ['email', 'name', 'password', 'rePassword'];
     for (let targetName of targetNames) {
         let id = '#'+getProperty('user.'+targetType+'.'+targetName+'.id');
-        target[targetName] = {
+        targets[targetName] = {
             messageWrapper : $(id+' td'),
             header : $(id+' th label'),
             form : $(id+' td input')
         };
-        target[targetName].header.css('color', 'white');
-        target[targetName].form.css('border-bottom', 'solid 1px white');
     }
-
-    $('p.error').remove();
-
-    for(let key in errors) {
-        if(errors[key]) {
-            let errorMsg = $('<p class="error">').append(errors[key]);
-            target[key].messageWrapper.append(errorMsg);
-            errorMsg.css('color', 'yellow');
-            errorMsg.css('margin-top', '6px');
-            target[key].header.css('color', 'yellow');
-            target[key].form.css('border-bottom', 'solid 1px yellow');
-        }
-    }
+    applyFormValidationResult(targets, errors);
 }
 
 function controlGenderRadiosView(genderRadios) {

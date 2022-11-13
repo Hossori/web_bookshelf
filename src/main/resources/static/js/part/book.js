@@ -14,7 +14,7 @@ function createBook() {
         if(result.code === STATUS.OK) {
             location.reload();
         } else if(result.code === STATUS.BAD_REQUEST) {
-            applyValidationMessages(result.data, 'create');
+            applyFormValidationResultOfBook(result.data, 'create');
         } else if(result.code === STATUS.FORBIDDEN) {
             console.log(result.data);
         }
@@ -47,7 +47,7 @@ async function updateBook() {
         if(result.code === STATUS.OK) {
             location.reload();
         } else if(result.code === STATUS.BAD_REQUEST) {
-            applyValidationMessages(result.data, 'update');
+            applyFormValidationResultOfBook(result.data, 'edit');
         } else if(result.code === STATUS.FORBIDDEN) {
             console.log(result.data);
         }
@@ -78,36 +78,18 @@ async function deleteBook() {
     });
 }
 
-function applyValidationMessages(errors, methodName) {
-    let id;
-    if(methodName === 'create') {
-        id = '#'+getProperty('book.create.name.id');
-    } else if(methodName === 'update') {
-        id = '#'+getProperty('book.edit.name.id');
-    }
-
-    let target = {
-        name : {
+function applyFormValidationResultOfBook(errors, targetType) {
+    let targets = {};
+    let targetNames = ['name'];
+    for (let targetName of targetNames) {
+        let id = '#'+getProperty('book.'+targetType+'.'+targetName+'.id');
+        targets[targetName] = {
             messageWrapper : $(id+' td'),
             header : $(id+' th'),
             form : $(id+' td input')
-        }
-    };
-
-    $('p.error').remove();
-    target['name'].header.css('color', 'white');
-    target['name'].form.css('border-bottom', 'solid 1px white');
-
-    for(let key in errors) {
-        if(errors[key]) {
-            let errorMsg = $('<p class="error">').append(errors[key]);
-            target[key].messageWrapper.append(errorMsg);
-            errorMsg.css('color', 'yellow');
-            errorMsg.css('margin-top', '6px');
-            target[key].header.css('color', 'yellow');
-            target[key].form.css('border-bottom', 'solid 1px yellow');
-        }
+        };
     }
+    applyFormValidationResult(targets, errors);
 }
 
 function controlBookStateRadioView(bookStateRadios) {
