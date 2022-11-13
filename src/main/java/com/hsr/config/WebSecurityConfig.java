@@ -34,7 +34,7 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.hsr.domain.user.model.User;
+import com.hsr.domain.user.form.UserLoginForm;
 import com.hsr.rest.Result;
 
 import lombok.extern.slf4j.Slf4j;
@@ -153,17 +153,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 
     private Map<String, String> validateLoginForm(String email, String password, Locale locale) {
         Map<String, String> errors = new HashMap<>();
-        User user = new User();
-        user.setEmail(email);
-        user.setPassword(password);
-        Consumer<ConstraintViolation<User>> errorsPutFunc = (cv) -> {
+        UserLoginForm userLoginForm = new UserLoginForm(email, password);
+        Consumer<ConstraintViolation<UserLoginForm>> errorsPutFunc = (cv) -> {
             String message = messageSource.getMessage(
                     cv.getMessageTemplate().replaceAll("[{}]", ""), null, locale
             );
             errors.put(cv.getPropertyPath().toString(), message);
         };
         List.of("email", "password").forEach((property) -> {
-            validator.validateProperty(user, property).stream().findFirst().ifPresent(errorsPutFunc);
+            validator.validateProperty(userLoginForm, property).stream().findFirst().ifPresent(errorsPutFunc);
         });
         return errors;
     }
