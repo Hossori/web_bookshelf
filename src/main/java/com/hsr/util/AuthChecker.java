@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hsr.constant.GlobalConst;
 import com.hsr.domain.user.model.User;
 import com.hsr.rest.Result;
 
@@ -18,23 +19,23 @@ import com.hsr.rest.Result;
 @RequestMapping("/rest/authChecker")
 public class AuthChecker {
 
-	/**
-	 * check logged in or don't.
-	 * @param request
-	 * @return login:true, not login:flase
-	 */
+    /**
+     * check logged in or don't.
+     * @param request
+     * @return login:true, not login:flase
+     */
     public static boolean isLogin(HttpServletRequest request) {
         return request.getSession().getAttribute("loginUser") != null;
     }
 
     @GetMapping("/getLoginUserId")
-    public Result getLoginUserId(@AuthenticationPrincipal User loginUser ) {
+    public Result getLoginUserId(@AuthenticationPrincipal User loginUser) {
         Map<String, String> resultMap = new HashMap<>();
-        if(loginUser != null) {
+        if (loginUser != null) {
             resultMap.put("loginUserId", loginUser.getId().toString());
+        } else if (loginUser == null) {
+            resultMap.put("loginUserId", GlobalConst.INVALID_ID.toString());
         }
-
         return new Result(HttpStatus.OK.value(), resultMap);
     }
-
 }
