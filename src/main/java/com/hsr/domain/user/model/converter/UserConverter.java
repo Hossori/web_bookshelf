@@ -1,21 +1,19 @@
 package com.hsr.domain.user.model.converter;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Component;
 
+import com.hsr.domain.converter.DomainConverter;
 import com.hsr.domain.user.form.UserEditForm;
 import com.hsr.domain.user.form.UserSignupForm;
 import com.hsr.domain.user.model.User;
 import com.hsr.domain.user.model.UserView;
 
 @Component
-public class UserConverter {
+public class UserConverter extends DomainConverter {
 
     private static MessageSource messageSource;
     @Autowired
@@ -117,33 +115,4 @@ public class UserConverter {
         return genders[gender];
     }
 
-    private static String formatDate(LocalDate date) {
-        if (date == null) {
-            return "-";
-        }
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        return date.format(formatter);
-    }
-
-    private static String formatDateTime(LocalDateTime dateTime) {
-        if (dateTime == null) {
-            return "-";
-        }
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        return dateTime.format(formatter);
-    }
-
-    private static LocalDate toLocalDate(String dateString) {
-        if (dateString == null) {
-            return null;
-        }
-
-        try {
-            return LocalDate.parse(dateString);
-        } catch(Exception e) {
-            return null;
-        }
-    }
 }

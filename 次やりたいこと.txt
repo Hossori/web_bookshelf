@@ -14,8 +14,6 @@
 ●未ログインでも閲覧可能にしたいが、csrfトークン使用・loginUser確認等をしようとすると問題発生し難しい。
  Spring Securityの理解が必要そう。
 
-●*Converterのformat*()について、日本書式専用になってしまっているのを直したい。
-
 ●book listのパーツ化。bookshelf list同様にパーツ化する。
 
 ●bookshelf listの検索機能

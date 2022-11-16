@@ -1,8 +1,5 @@
 package com.hsr.domain.book.model.converter;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -15,9 +12,10 @@ import com.hsr.domain.book.form.BookCreateForm;
 import com.hsr.domain.book.form.BookEditForm;
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.model.BookView;
+import com.hsr.domain.converter.DomainConverter;
 
 @Component
-public class BookConverter {
+public class BookConverter extends DomainConverter {
 
     private static MessageSource messageSource;
     @Autowired
@@ -177,15 +175,4 @@ public class BookConverter {
         }
         return evaluationString;
     }
-
-    private static String formatDate(LocalDate date) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
-        return date.format(formatter);
-    }
-
-    private static String formatDateTime(LocalDateTime dateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");
-        return dateTime.format(formatter);
-    }
-
 }
