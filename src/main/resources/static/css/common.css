@@ -56,6 +56,19 @@ button.buttonDanger:focus {
     background-color: darkred;
 }
 
+/* scroll bar */
+::-webkit-scrollbar{
+    width: 9px;
+}
+::-webkit-scrollbar-track{
+
+    background-color: rgba(0, 0, 0, 0.3);
+}
+::-webkit-scrollbar-thumb{
+    border-radius: 8px;
+    background-color: rgba(188, 188, 188, 0.5);
+}
+
 /* dialog */
 .dialog {
     display: none;
