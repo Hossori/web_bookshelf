@@ -16,8 +16,6 @@
     width: 100%;
     height: 100%;
     display: inline-block;
-
-    overflow-y: auto;
 }
 
 a.bookshelfListAnchor {
@@ -44,6 +42,8 @@ table.bookshelfListInfo {
     table-layout: fixed;
     border-collapse: separate;
     border-spacing: 0 8px;
+
+    overflow-y: auto;
 }
 
 table.bookshelfListInfo td {

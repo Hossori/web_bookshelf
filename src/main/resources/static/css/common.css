@@ -61,12 +61,12 @@ button.buttonDanger:focus {
     width: 9px;
 }
 ::-webkit-scrollbar-track{
-
-    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    background-color: rgba(50, 50, 50, 0.8);
 }
 ::-webkit-scrollbar-thumb{
     border-radius: 8px;
-    background-color: rgba(188, 188, 188, 0.5);
+    background-color: rgba(188, 188, 188, 0.8);
 }
 
 /* dialog */

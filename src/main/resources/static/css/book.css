@@ -43,6 +43,12 @@ table.bookListInfo {
     table-layout: fixed;
     border-collapse: separate;
     border-spacing: 0 8px;
+
+    overflow-y: auto;
+}
+
+table.bookListInfo td {
+    word-break: break-all;
 }
 
 /* book create, book detail */
