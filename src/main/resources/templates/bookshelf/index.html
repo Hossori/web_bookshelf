@@ -7,6 +7,9 @@
         <link rel="stylesheet" th:href="@{/css/bookshelf.css}">
         <link th:replace="part/bookshelfParts::bookshelfPartsCss">
         <link th:replace="part/pagination::paginationCss">
+        <script th:src="@{/js/util/dialog.js}" defer></script>
+        <script th:src="@{/js/part/bookshelf.js}" defer></script>
+        <script th:replace="part/bookshelfParts::bookshelfPartsJs" defer></script>
         <script type="text/javascript">
             $(function() {
                 showMain();
@@ -16,6 +19,11 @@
     <body>
         <div layout:fragment="content">
             <h2 id="bookshelfIndexH2" th:text="#{bookshelf.index.h2}"></h2>
+
+            <!-- bookshelf create dialog -->
+            <div th:replace="part/bookshelfParts::createDialog(${bookshelfCreateForm})"></div>
+
+            <!-- bookshelf list -->
             <div th:replace="part/bookshelfParts::list(${bookshelfViews}, ${bookshelfPages})"></div>
             <div th:replace="part/pagination::content(pages=${bookshelfPages}, paginationUrl=index)"></div>
         </div>

@@ -8,7 +8,6 @@ h2#bookshelfIndexH2 {
 /* bookshelf show, bookshelf edit */
 h2#bookshelfDetailName {
     color: white;
-    margin-bottom: 24px;
 }
 div#bookshelfShowContainer,
 div#bookshelfEditContainer,

@@ -2,6 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <link th:fragment="bookshelfPartsCss" rel="stylesheet" th:href="@{/css/part/bookshelfParts.css}">
+        <script th:fragment="bookshelfPartsJs" type="text/javascript">
+            $(function() {
+                initializeBookshelfCreateDialog();
+            });
+
+            function initializeBookshelfCreateDialog() {
+                let bookshelfCreateDialogShowButton = {
+                    element : $('#'+getProperty('bookshelf.create.dialog.button.show.id')),
+                    click : 'show'
+                }
+                let bookshelfCreateDialogRegisterButton = {
+                    element : $('#'+getProperty('bookshelf.create.dialog.button.register.id')),
+                    click : createBookshelf
+                };
+                let bookshelfCreateDialogCancelButton = {
+                    element : $('#'+getProperty('bookshelf.create.dialog.button.cancel.id')),
+                    click : 'hide'
+                };
+                let bookshelfCreateDialogButtons = [
+                    bookshelfCreateDialogShowButton,
+                    bookshelfCreateDialogRegisterButton,
+                    bookshelfCreateDialogCancelButton
+                ]
+                let bookshelfCreateDialogDef = {
+                    dialog : $('#'+getProperty('bookshelf.create.dialog.id')),
+                    titleText : getProperty('bookshelf.create.dialog.title'),
+                    firstElement : $('#'+getProperty('bookshelf.create.name.id')+' input'),
+                    buttons : bookshelfCreateDialogButtons
+                }
+                new CommonDialog(bookshelfCreateDialogDef);
+            }
+        </script>
     </head>
     <body>
         <div th:fragment="list(bookshelfViews, bookshelfPages)" th:remove="tag">
@@ -34,6 +66,36 @@
                     </div>
                 </a>
             </div>
+        </div>
+        <div th:fragment="createDialog(bookshelfCreateForm)" th:remove="tag"
+            th:if="${session.loginUser.id == bookshelfCreateForm.user.id}">
+            <div th:id="#{bookshelf.create.dialog.id}" class="dialog">
+                <div class="dialogContent">
+                    <form th:id="#{bookshelf.create.form.id}" th:object="${bookshelfCreateForm}" th:action method="post"
+                            autocomplete="off" onSubmit="return false;">
+                        <input type="hidden" th:field="*{user}">
+                        <div th:id="#{bookshelf.create.name.id}">
+                            <p class="caption" th:text="#{bookshelf.create.name.caption}"></p>
+                            <input type="text" th:field="*{name}">
+                        </div>
+                        <div th:id="#{bookshelf.create.description.id}">
+                            <p class="caption" th:text="#{bookshelf.create.description.caption}"></p>
+                            <textarea th:field="*{description}"></textarea>
+                        </div>
+                        <div class="dialogButtonWrapper">
+                            <button class="dialogButton" type="button"
+                                    th:id="#{bookshelf.create.dialog.button.cancel.id}"
+                                    th:text="#{bookshelf.create.dialog.button.cancel.caption}"></button>
+                            <button class="dialogButton" type="button"
+                                    th:id="#{bookshelf.create.dialog.button.register.id}"
+                                    th:text="#{bookshelf.create.dialog.button.register.caption}"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <button th:id="#{bookshelf.create.dialog.button.show.id}" type="button"
+                    th:text="#{bookshelf.create.dialog.button.show.caption}"
+                    th:title="#{bookshelf.create.dialog.button.show.tooltip}"></button>
         </div>
     </body>
 </html>

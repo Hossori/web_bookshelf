@@ -3,7 +3,6 @@
 /* user show, user edit */
 h2#userDetailName {
     color: white;
-    margin-bottom: 24px;
 }
 div#userShowContainer,
 div#userEditContainer {

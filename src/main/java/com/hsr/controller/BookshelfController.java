@@ -7,6 +7,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.model.BookView;
 import com.hsr.domain.book.model.converter.BookConverter;
 import com.hsr.domain.book.service.BookService;
+import com.hsr.domain.bookshelf.form.BookshelfCreateForm;
 import com.hsr.domain.bookshelf.form.BookshelfEditForm;
 import com.hsr.domain.bookshelf.model.Bookshelf;
 import com.hsr.domain.bookshelf.model.BookshelfView;
@@ -44,6 +46,7 @@ public class BookshelfController {
     public String index(
             Model model,
             @PageableDefault(size=10) Pageable pageable,
+            @AuthenticationPrincipal User loginUser,
             @RequestParam int page,
             @RequestParam(defaultValue="-1") int userId) {
 
@@ -67,8 +70,12 @@ public class BookshelfController {
             throw new IllegalArgumentException();
         }
 
+        BookshelfCreateForm bookshelfCreateForm = new BookshelfCreateForm();
+        bookshelfCreateForm.setUser(loginUser);
+
         model.addAttribute("bookshelfPages", bookshelfPages);
         model.addAttribute("bookshelfViews", bookshelfViewList);
+        model.addAttribute("bookshelfCreateForm", bookshelfCreateForm);
 
         return PathConst.BOOKSHELF_INDEX.getValue();
 
