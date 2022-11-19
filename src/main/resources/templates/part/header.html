@@ -7,7 +7,7 @@
             <h1 th:text="#{header.h1}"></h1>
             <nav id="headerNavLeft">
                 <a th:text="#{header.nav.bookshelfIndex}" th:href="@{/bookshelf/index(page=0)}"></a>
-                <a th:text="#{header.nav.bookIndex}"></a>
+                <!-- <a th:text="#{header.nav.bookIndex}"></a> -->
             </nav>
             <nav id="headerNavRight">
                 <th:block th:if="${session.loginUser == null}">

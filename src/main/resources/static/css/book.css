@@ -1,56 +1,5 @@
 @charset "UTF-8";
 
-/* book list */
-div#bookListContainer {
-    margin: 24px 0;
-}
-
-a.bookListAnchor {
-    text-decoration: none;
-}
-
-a.bookListAnchor:focus {
-    outline:none;
-}
-
-a.bookListAnchor:focus div,
-div.bookList:hover {
-    transition: all 0.2s;
-    color: orange;
-}
-
-div.bookList {
-    background-image: url("/image/book.png");
-    background-repeat: no-repeat;
-    color: white;
-    font-weight: bold;
-    font-size: 20px;
-
-    cursor: pointer;
-
-    margin: 6px 12px 6px 0px;
-    width: 200px;
-    height: 250px;
-    display: inline-block;
-}
-
-table.bookListInfo {
-    margin: 10%;
-    width: 80%;
-    height: 80%;
-    display: inline-block;
-
-    table-layout: fixed;
-    border-collapse: separate;
-    border-spacing: 0 8px;
-
-    overflow-y: auto;
-}
-
-table.bookListInfo td {
-    word-break: break-all;
-}
-
 /* book create, book detail */
 table.bookShow tr th,
 table.bookShow tr td,

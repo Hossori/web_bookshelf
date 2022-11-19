@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <link th:fragment="bookPartsCss" rel="stylesheet" th:href="@{/css/part/bookParts.css}">
+    </head>
+    <body>
+        <div th:fragment="list(bookViews, bookPages)" th:remove="tag">
+            <div th:id="#{book.list.container.id}">
+                <a th:each="bookView:${bookViews}" th:href="@{/book/detail(id=${bookView.id}, page=0)}" class="bookListAnchor">
+                    <div th:id="'book'+${bookView.id}" class="bookList">
+                        <table class="bookListInfo">
+                            <tr th:title="#{book.list.name.caption}">
+                                <td th:text="${bookView.name}"></td>
+                            </tr>
+                            <tr th:title="#{book.list.state.caption}">
+                                <td th:text="${bookView.state}"></td>
+                            </tr>
+                            <tr th:title="#{book.list.evaluation.caption}">
+                                <td th:text="${bookView.evaluation}"></td>
+                            </tr>
+                            <tr th:title="#{book.list.createdAt.caption}">
+                                <td>
+                                    <span th:text="#{book.list.createdAt.prefix}"></span>
+                                    <br>
+                                    <span th:text="${bookView.createdDate}"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </body>
+</html>

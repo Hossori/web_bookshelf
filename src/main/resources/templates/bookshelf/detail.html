@@ -8,6 +8,7 @@
         <meta th:id="#{meta.csrf.header.id}" th:content="${_csrf.headerName}">
         <link rel="stylesheet" th:href="@{/css/bookshelf.css}">
         <link rel="stylesheet" th:href="@{/css/book.css}">
+        <link th:replace="part/bookParts::bookPartsCss">
         <link th:replace="part/pagination::paginationCss">
         <script th:src="@{/js/util/dialog.js}" defer></script>
         <script th:src="@{/js/part/bookshelf.js}" defer></script>
@@ -212,7 +213,7 @@
             <button th:id="#{bookshelf.detail.button.bookCreate.id}"
                     th:text="#{bookshelf.detail.button.bookCreate.caption}"
                     th:title="#{bookshelf.detail.button.bookCreate.tooltip}"></button>
-            <div th:id="#{book.list.container.id}">
+            <!-- <div th:id="#{book.list.container.id}">
                 <a th:each="bookView:${bookViews}" th:href="@{/book/detail(id=${bookView.id})}" class="bookListAnchor">
                     <div th:id="'book'+${bookView.id}" class="bookList">
                         <table class="bookListInfo">
@@ -235,7 +236,8 @@
                         </table>
                     </div>
                 </a>
-            </div>
+            </div> -->
+            <div th:replace="part/bookParts::list(bookViews=${bookViews}, bookPages=${bookPages})"></div>
             <div th:replace="part/pagination::content(pages=${bookPages}, paginationUrl=detail, queryParam1='id='+${bookshelf.id})"></div>
             <button th:text="#{button.browserBack.caption}" th:title="#{button.browserBack.tooltip}"
                     th:onclick="#{button.browserBack.script}"></button>

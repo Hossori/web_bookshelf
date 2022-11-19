@@ -4,7 +4,7 @@
         <link th:fragment="bookshelfPartsCss" rel="stylesheet" th:href="@{/css/part/bookshelfParts.css}">
     </head>
     <body>
-        <div th:fragment="list(bookshelfs, bookshelfPages)" th:remove="tag">
+        <div th:fragment="list(bookshelfViews, bookshelfPages)" th:remove="tag">
             <!-- <form>
                 <input type="text" th:id="#{bookshelf.searchBox.id}">
                 <input type="submit" th:id="#{bookshelf.searchButton.id}" th:value="#{bookshelf.searchButton.caption}">
