@@ -75,6 +75,13 @@
             <!-- show -->
             <div th:id="#{book.show.container.id}">
                 <table class="bookShow">
+                    <tr th:id="#{book.show.bookshelfName.id}">
+                        <th th:text="#{book.show.bookshelfName.caption}"></th>
+                        <td>
+                            <a th:href="@{/bookshelf/detail(page=0, id=${book.bookshelf.id})}"
+                                th:text="${book.bookshelf.name}"></a>
+                        </td>
+                    </tr>
                     <tr th:id="#{book.show.name.id}">
                         <th th:text="#{book.detail.name.caption}"></th>
                         <td th:text="${bookView.name}"></td>

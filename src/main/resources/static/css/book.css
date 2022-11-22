@@ -45,14 +45,18 @@ table.bookShow tr td pre {
     max-width: 500px;
     line-height: 1.2;
 }
+tr#bookShowBookshelfName td a,
 tr#bookShowUserName td a {
     text-decoration: none;
     font-weight: bold;
     color: khaki;
 }
+tr#bookShowBookshelfName td a:focus,
 tr#bookShowUserName td a:focus {
     outline: none;
 }
+tr#bookShowBookshelfName td a:focus,
+tr#bookShowBookshelfName td a:hover,
 tr#bookShowUserName td a:focus,
 tr#bookShowUserName td a:hover {
     color: orange;
