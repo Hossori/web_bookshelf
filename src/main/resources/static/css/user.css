@@ -1,9 +1,6 @@
 @charset "UTF-8";
 
 /* user show, user edit */
-h2#userDetailName {
-    color: white;
-}
 div#userShowContainer,
 div#userEditContainer {
     margin-bottom: 36px;

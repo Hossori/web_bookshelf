@@ -37,7 +37,8 @@ public interface JpaConst {
     // query
     public static final String USER_GET_BY_EMAIL =
             "select u from " + ENTITY_USER + " as u" +
-            " where u.email = :" + PARAM_EMAIL;
+            " where u.email = :" + PARAM_EMAIL +
+            " and u.deleteFlag = " + DELETE_FLAG_FALSE;
     public static final String USER_GET_BY_EMAIL_NOT_DELETED =
             "select u from " + ENTITY_USER + " as u" +
             " where u.email = :" + PARAM_EMAIL +
@@ -61,10 +62,16 @@ public interface JpaConst {
             " and b.deleteFlag = " + DELETE_FLAG_FALSE;
     public static final String BOOK_GETPAGES =
             "select b from " + ENTITY_BOOK + " as b" +
+            " where b.deleteFlag = " + DELETE_FLAG_FALSE +
             " order by b.createdAt desc";
     public static final String BOOK_GETPAGES_IN_BOOKSHELF =
             "select b from " + ENTITY_BOOK + " as b" +
             " where b.bookshelf = :" + PARAM_BOOKSHELF +
             " and b.deleteFlag = " + DELETE_FLAG_FALSE +
+            " order by b.createdAt desc";
+    public static final String BOOK_GETPAGES_SPECIFIED_USER =
+            "select b from " + ENTITY_BOOK + " as b" +
+            " where b.deleteFlag = " + DELETE_FLAG_FALSE +
+            " and b.bookshelf.user = :" + PARAM_USER +
             " order by b.createdAt desc";
 }

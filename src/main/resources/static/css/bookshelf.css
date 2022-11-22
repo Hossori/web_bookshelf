@@ -1,14 +1,8 @@
 @charset "UTF-8";
 
 /* bookshelf index */
-h2#bookshelfIndexH2 {
-    color: white;
-}
 
 /* bookshelf show, bookshelf edit */
-h2#bookshelfDetailName {
-    color: white;
-}
 div#bookshelfShowContainer,
 div#bookshelfEditContainer,
 form#bookshelfCreateForm {

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.hsr.constant.JpaConst;
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.bookshelf.model.Bookshelf;
+import com.hsr.domain.user.model.User;
 
 @Repository
 public interface BookRepository extends JpaRepository<Book, Integer> {
@@ -40,5 +41,17 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
     public Page<Book> getPagesInBookshelf(
             Pageable pageable,
             @Param(JpaConst.PARAM_BOOKSHELF) Bookshelf bookshelf
+    );
+
+    /**
+     * get page of books specified by user.
+     * @param pageable
+     * @param book
+     * @return page of book
+     */
+    @Query(JpaConst.BOOK_GETPAGES_SPECIFIED_USER)
+    public Page<Book> getPagesSpecifiedUser(
+            Pageable pageable,
+            @Param(JpaConst.PARAM_USER) User user
     );
 }

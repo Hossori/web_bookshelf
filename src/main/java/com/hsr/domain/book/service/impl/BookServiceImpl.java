@@ -14,6 +14,7 @@ import com.hsr.constant.JpaConst;
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.service.BookService;
 import com.hsr.domain.bookshelf.model.Bookshelf;
+import com.hsr.domain.user.model.User;
 import com.hsr.repository.BookRepository;
 
 @Service
@@ -40,6 +41,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public Page<Book> getPagesInBookshelf(Pageable pageable, Bookshelf bookshelf) {
         return repository.getPagesInBookshelf(pageable, bookshelf);
+    }
+
+    @Override
+    public Page<Book> getPagesSpecifiedUser(Pageable pageable, User user) {
+        return repository.getPagesSpecifiedUser(pageable, user);
     }
 
     @Override

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{part/layout}">
+    <head>
+        <title th:text="#{title.book.index}+#{title.postfix}"></title>
+        <link rel="stylesheet" th:href="@{/css/book.css}">
+        <link th:replace="part/bookParts::bookPartsCss">
+        <link th:replace="part/pagination::paginationCss">
+        <script th:src="@{/js/part/book.js}" defer></script>
+        <!-- <script th:replace="part/bookParts::bookPartsJs" defer></script> -->
+        <script type="text/javascript">
+            $(function() {
+                showMain();
+            });
+        </script>
+    </head>
+    <body>
+        <div layout:fragment="content">
+            <h2 th:text="#{book.index.h2}"></h2>
+
+            <!-- book list -->
+            <div th:replace="part/bookParts::list(${bookViews}, ${bookPages})"></div>
+            <div th:replace="part/pagination::content(pages=${bookPages}, paginationUrl=index)"></div>
+        </div>
+    </body>
+</html>

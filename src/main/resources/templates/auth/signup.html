@@ -17,7 +17,7 @@
     </head>
     <body>
         <div layout:fragment="content">
-            <h2 th:id="signupH2" th:text="#{auth.signup.h2}"></h2>
+            <h2 th:text="#{auth.signup.h2}"></h2>
             <form th:id="#{auth.signup.form.id}" method="post" th:action onSubmit="return false;">
                 <table>
                     <tr th:id="#{auth.email.id}">

@@ -25,7 +25,3 @@ input:-webkit-autofill {
 button#authLoginButton {
     margin-top: 20px;
 }
-
-h2#loginH2, h2#signupH2 {
-    color: white;
-}

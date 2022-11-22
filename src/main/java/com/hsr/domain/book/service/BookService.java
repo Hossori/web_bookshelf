@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.bookshelf.model.Bookshelf;
+import com.hsr.domain.user.model.User;
 
 @Service
 public interface BookService {
@@ -39,6 +40,14 @@ public interface BookService {
      * @return page of book
      */
     public Page<Book> getPagesInBookshelf(Pageable pageable, Bookshelf bookshelf);
+
+    /**
+     * get page of books specified by user.
+     * @param pageable
+     * @param user
+     * @return page of book
+     */
+    public Page<Book> getPagesSpecifiedUser(Pageable pageable, User user);
 
     /**
      * register book.
