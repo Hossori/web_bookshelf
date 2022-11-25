@@ -1,5 +1,6 @@
 package com.hsr.rest;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hsr.domain.book.model.Book;
+import com.hsr.domain.book.service.BookService;
 import com.hsr.domain.bookshelf.form.BookshelfCreateForm;
 import com.hsr.domain.bookshelf.form.BookshelfEditForm;
 import com.hsr.domain.bookshelf.model.Bookshelf;
@@ -29,6 +32,8 @@ public class BookshelfRestController {
 
     @Autowired
     private BookshelfService bookshelfService;
+    @Autowired
+    private BookService bookService;
     @Autowired
     private MessageSource messageSource;
 
@@ -101,9 +106,11 @@ public class BookshelfRestController {
             @RequestParam int bookshelfId,
             @AuthenticationPrincipal User loginUser) {
         Bookshelf bookshelf = bookshelfService.getById(bookshelfId);
+        List<Book> bookListInBookshelf = bookService.getBookListInBookshelf(bookshelf);
         Integer resultCode;
         if(loginUser.equals(bookshelf.getUser())) {
             bookshelfService.delete(bookshelf);
+            bookListInBookshelf.forEach(bookService::delete);
             resultCode = HttpStatus.OK.value();
         } else {
             resultCode = HttpStatus.FORBIDDEN.value();

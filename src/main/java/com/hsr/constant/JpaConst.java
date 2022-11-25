@@ -60,6 +60,10 @@ public interface JpaConst {
             "select b from " + ENTITY_BOOK + " as b" +
             " where b.id = :" + PARAM_ID +
             " and b.deleteFlag = " + DELETE_FLAG_FALSE;
+    public static final String BOOK_GET_BOOK_LIST_IN_BOOKSHELF =
+            "select b from " + ENTITY_BOOK + " as b" +
+            " where b.bookshelf = :" + PARAM_BOOKSHELF +
+            " and b.deleteFlag = " + DELETE_FLAG_FALSE;
     public static final String BOOK_GETPAGES =
             "select b from " + ENTITY_BOOK + " as b" +
             " where b.deleteFlag = " + DELETE_FLAG_FALSE +

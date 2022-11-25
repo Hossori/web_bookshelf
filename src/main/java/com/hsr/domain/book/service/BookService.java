@@ -1,5 +1,7 @@
 package com.hsr.domain.book.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -25,6 +27,13 @@ public interface BookService {
      * @return book
      */
     public Book getByIdNotDeleted(Integer id);
+
+    /**
+     * get book list specified in bookshelf.
+     * @param bookshelf
+     * @return book list
+     */
+    public List<Book> getBookListInBookshelf(Bookshelf bookshelf);
 
     /**
      * get page of all books.

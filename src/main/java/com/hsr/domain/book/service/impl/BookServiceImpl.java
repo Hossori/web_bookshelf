@@ -1,6 +1,7 @@
 package com.hsr.domain.book.service.impl;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.transaction.Transactional;
 
@@ -31,6 +32,11 @@ public class BookServiceImpl implements BookService {
     @Override
     public Book getByIdNotDeleted(Integer id) {
         return repository.getByIdNotDeleted(id);
+    }
+
+    @Override
+    public List<Book> getBookListInBookshelf(Bookshelf bookshelf) {
+        return repository.getBookListInBookshelf(bookshelf);
     }
 
     @Override

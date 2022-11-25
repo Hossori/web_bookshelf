@@ -1,5 +1,7 @@
 package com.hsr.repository;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -22,6 +24,14 @@ public interface BookRepository extends JpaRepository<Book, Integer> {
      */
     @Query(JpaConst.BOOK_GET_BY_ID_NOT_DELETED)
     public Book getByIdNotDeleted(Integer id);
+
+    /**
+     * get book list specified in bookshelf.
+     * @param bookshelf
+     * @return book list
+     */
+    @Query(JpaConst.BOOK_GET_BOOK_LIST_IN_BOOKSHELF)
+    public List<Book> getBookListInBookshelf(Bookshelf bookshelf);
 
     /**
      * get page of all books.
