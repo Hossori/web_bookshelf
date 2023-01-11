@@ -29,15 +29,15 @@ public class BookConverter extends DomainConverter {
      * @param book
      * @return book view
      */
-    public static BookView toView(Book book, ZoneId zoneId) {
+    public static BookView toView(Book book, Locale locale, ZoneId zoneId) {
 
         BookView bookView =
                 new BookView(
                     String.valueOf(book.getId()),
                     book.getBookshelf(),
                     book.getName(),
-                    formatState(book.getState()),
-                    formatEvaluation(book.getEvaluation()),
+                    formatState(book.getState(), locale),
+                    formatEvaluation(book.getEvaluation(), locale),
                     book.getMemo(),
                     formatDateTime(toLocalDateTime(book.getCreatedEpochSecond(), zoneId)),
                     formatDate(toLocalDate(book.getCreatedEpochSecond(), zoneId)),
@@ -53,10 +53,10 @@ public class BookConverter extends DomainConverter {
      * @param book list
      * @return book view list
      */
-    public static List<BookView> toViewList(List<Book> bookList, ZoneId zoneId) {
+    public static List<BookView> toViewList(List<Book> bookList, Locale locale, ZoneId zoneId) {
 
         return bookList.stream()
-                    .map(b -> BookConverter.toView(b, zoneId))
+                    .map(b -> BookConverter.toView(b, locale, zoneId))
                     .collect(Collectors.toList());
 
     }
@@ -150,21 +150,21 @@ public class BookConverter extends DomainConverter {
 
     }
 
-    private static String formatState(Integer state) {
+    private static String formatState(Integer state, Locale locale) {
         String stateString ="";
-        String[] states = messageSource.getMessage("book.state.array", null, Locale.getDefault()).split(", ");
+        String[] states = messageSource.getMessage("book.state.array", null, locale).split(", ");
         if(state == null) {
-            stateString = messageSource.getMessage("book.state.unset", null, Locale.getDefault());
+            stateString = messageSource.getMessage("book.state.unset", null, locale);
         } else {
             stateString = states[state];
         }
         return stateString;
     }
 
-    private static String formatEvaluation(Integer evaluation) {
+    private static String formatEvaluation(Integer evaluation, Locale locale) {
         String evaluationString = "";
         if(evaluation == null) {
-            evaluationString = messageSource.getMessage("book.evaluation.unset", null, Locale.getDefault());
+            evaluationString = messageSource.getMessage("book.evaluation.unset", null, locale);
         } else {
             for(int i = 0; i < 5; i++) {
                 if(i < evaluation) {

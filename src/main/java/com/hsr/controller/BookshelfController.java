@@ -91,6 +91,7 @@ public class BookshelfController {
     @GetMapping("/detail")
     public String detail(
             Model model,
+            Locale locale,
             HttpServletRequest request,
             @PageableDefault(size=10) Pageable pageable,
             @RequestParam int id,
@@ -106,10 +107,10 @@ public class BookshelfController {
         BookshelfEditForm bookshelfEditForm = BookshelfConverter.toEditForm(bookshelf);
         BookCreateForm bookCreateForm = new BookCreateForm(); // for register book
         bookCreateForm.setBookshelf(bookshelf);
-        List<String> states = List.of(messageSource.getMessage("book.state.array", null, Locale.getDefault()).split(", "));
+        List<String> states = List.of(messageSource.getMessage("book.state.array", null, locale).split(", "));
         Page<Book> bookPages = bookService.getPagesInBookshelf(pageable, bookshelf);
         List<Book> bookList = bookPages.getContent();
-        List<BookView> bookViewList = BookConverter.toViewList(bookList, clientZoneId);
+        List<BookView> bookViewList = BookConverter.toViewList(bookList, locale, clientZoneId);
 
         int pageCount =
                 bookPages.getTotalPages() == 0 ? 1 : bookPages.getTotalPages();

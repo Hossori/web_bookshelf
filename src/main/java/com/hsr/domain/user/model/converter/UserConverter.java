@@ -27,12 +27,12 @@ public class UserConverter extends DomainConverter {
      * @param user
      * @return user view
      */
-    public static UserView toView(User user, ZoneId zoneId) {
+    public static UserView toView(User user, Locale locale, ZoneId zoneId) {
         UserView userView =
                 new UserView(
                     user.getEmail(),
                     user.getName(),
-                    convertGender(user.getGender()),
+                    convertGender(user.getGender(), locale),
                     formatDate(user.getBirthday()),
                     user.getIntroduction(),
                     formatDateTime(toLocalDateTime(user.getCreatedEpochSecond(), zoneId))
@@ -104,12 +104,12 @@ public class UserConverter extends DomainConverter {
         return user;
     }
 
-    private static String convertGender(Integer gender) {
+    private static String convertGender(Integer gender, Locale locale) {
         if (gender == null) {
             return "-";
         }
 
-        String[] genders = messageSource.getMessage("user.gender.array", null, Locale.getDefault()).split(", ");
+        String[] genders = messageSource.getMessage("user.gender.array", null, locale).split(", ");
         if (gender < 0 || gender > genders.length - 1) {
             return "-";
         }

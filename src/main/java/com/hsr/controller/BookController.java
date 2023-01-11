@@ -43,6 +43,7 @@ public class BookController {
     @GetMapping("/index")
     public String idnex(
             Model model,
+            Locale locale,
             HttpServletRequest request,
             @PageableDefault(size=10) Pageable pageable,
             @AuthenticationPrincipal User loginUser,
@@ -63,7 +64,7 @@ public class BookController {
         }
 
         List<Book> bookList = bookPages.getContent();
-        List<BookView> bookViewList = BookConverter.toViewList(bookList, clientZoneId);
+        List<BookView> bookViewList = BookConverter.toViewList(bookList, locale, clientZoneId);
 
         int pageCount =
                 bookPages.getTotalPages() == 0 ? 1 : bookPages.getTotalPages();
@@ -82,6 +83,7 @@ public class BookController {
     public String detail(
             Model model,
             HttpServletRequest request,
+            Locale locale,
             @RequestParam int id) {
 
         ZoneId clientZoneId = SessionAttributeManager.getClientZoneId(request);
@@ -91,8 +93,8 @@ public class BookController {
             return PathConst.ERROR.getValue();
         }
         BookEditForm bookEditForm = BookConverter.toEditForm(book);
-        BookView bookView = BookConverter.toView(book, clientZoneId);
-        List<String> states = List.of(messageSource.getMessage("book.state.array", null, Locale.getDefault()).split(", "));
+        BookView bookView = BookConverter.toView(book, locale, clientZoneId);
+        List<String> states = List.of(messageSource.getMessage("book.state.array", null, locale).split(", "));
 
         model.addAttribute("book", book);
         model.addAttribute("bookEditForm", bookEditForm);

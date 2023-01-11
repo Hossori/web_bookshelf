@@ -55,7 +55,7 @@ public class UserController {
             throw new IllegalArgumentException();
         }
         UserEditForm userEditForm = UserConverter.toEditForm(user);
-        UserView userView = UserConverter.toView(user, clientZoneId);
+        UserView userView = UserConverter.toView(user, locale, clientZoneId);
 
         String[] genders = messageSource.getMessage("user.gender.array", null, locale).split(", ");
 
