@@ -164,6 +164,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
         List.of("email", "password").forEach((property) -> {
             validator.validateProperty(userLoginForm, property).stream().findFirst().ifPresent(errorsPutFunc);
         });
+
+        if (errors.isEmpty()) {
+            errors.put("email", "");
+            errors.put("password", messageSource.getMessage("login.fail", null, locale));
+        }
+
         return errors;
     }
     // -------------------------------------------------------
