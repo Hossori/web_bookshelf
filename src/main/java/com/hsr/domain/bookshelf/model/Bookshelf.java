@@ -1,7 +1,5 @@
 package com.hsr.domain.bookshelf.model;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,8 +31,8 @@ public class Bookshelf {
     private User user;
     private String name;
     private String description;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Long createdEpochSecond;
+    private Long updatedEpochSecond;
     private Integer deleteFlag;
 
 }

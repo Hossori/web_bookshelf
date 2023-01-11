@@ -1,7 +1,6 @@
 package com.hsr.domain.user.model;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collection;
 
 import javax.persistence.Entity;
@@ -37,7 +36,7 @@ public class User implements UserDetails {
     private Integer gender;
     private LocalDate birthday;
     private String introduction;
-    private LocalDateTime createdAt;
+    private Long createdEpochSecond;;
     private Integer deleteFlag;
 
     @Override

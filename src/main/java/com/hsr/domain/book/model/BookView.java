@@ -19,8 +19,8 @@ public class BookView {
     private String state;
     private String evaluation;
     private String memo;
-    private String createdAt;
+    private String createdDateTime;
     private String createdDate;
-    private String updatedAt;
+    private String updatedDateTime;
 
 }

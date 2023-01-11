@@ -1,7 +1,5 @@
 package com.hsr.domain.book.model;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -35,8 +33,8 @@ public class Book {
     private Integer state;
     private Integer evaluation;
     private String memo;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private Long createdEpochSecond;
+    private Long updatedEpochSecond;
     private Integer deleteFlag;
 
 }

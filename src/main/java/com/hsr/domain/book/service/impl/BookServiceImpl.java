@@ -1,6 +1,6 @@
 package com.hsr.domain.book.service.impl;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.List;
 
 import javax.transaction.Transactional;
@@ -58,8 +58,8 @@ public class BookServiceImpl implements BookService {
     @Transactional
     public HttpStatus create(Book book) {
 
-        book.setCreatedAt(LocalDateTime.now());
-        book.setUpdatedAt(LocalDateTime.now());
+        book.setCreatedEpochSecond(Instant.now().getEpochSecond());
+        book.setUpdatedEpochSecond(Instant.now().getEpochSecond());
         book.setDeleteFlag(JpaConst.DELETE_FLAG_FALSE);
         HttpStatus httpStatus =
                 repository.save(book) != null
@@ -77,7 +77,7 @@ public class BookServiceImpl implements BookService {
         book.setState(newBook.getState());
         book.setEvaluation(newBook.getEvaluation());
         book.setMemo(newBook.getMemo());
-        book.setUpdatedAt(LocalDateTime.now());
+        book.setUpdatedEpochSecond(Instant.now().getEpochSecond());
         HttpStatus httpStatus =
                 repository.save(book) != null
                     ? HttpStatus.OK

@@ -1,6 +1,6 @@
 package com.hsr.domain.user.service.impl;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import javax.transaction.Transactional;
 
@@ -44,7 +44,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         String password = encoder.encode(user.getPassword());
         user.setPassword(password);
-        user.setCreatedAt(LocalDateTime.now());
+        user.setCreatedEpochSecond(Instant.now().getEpochSecond());
         user.setDeleteFlag(JpaConst.DELETE_FLAG_FALSE);
         return userRepository.save(user) != null
                 ? HttpStatus.OK

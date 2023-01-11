@@ -1,7 +1,10 @@
 package com.hsr.controller;
 
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
@@ -24,6 +27,7 @@ import com.hsr.domain.user.model.User;
 import com.hsr.domain.user.model.UserView;
 import com.hsr.domain.user.model.converter.UserConverter;
 import com.hsr.domain.user.service.UserService;
+import com.hsr.util.SessionAttributeManager;
 
 import lombok.RequiredArgsConstructor;
 
@@ -40,22 +44,23 @@ public class UserController {
     public String detail(
             Model model,
             Locale locale,
+            HttpServletRequest request,
             @PageableDefault(size=10) Pageable pageable,
             @RequestParam int page,
             @RequestParam int userId) {
 
+        ZoneId clientZoneId = SessionAttributeManager.getClientZoneId(request);
         User user = userService.getById(userId);
         if(user == null) {
             throw new IllegalArgumentException();
         }
-
         UserEditForm userEditForm = UserConverter.toEditForm(user);
-        UserView userView = UserConverter.toView(user);
+        UserView userView = UserConverter.toView(user, clientZoneId);
 
         String[] genders = messageSource.getMessage("user.gender.array", null, locale).split(", ");
 
         Page<Bookshelf> bookshelfPages = bookshelfService.getPagesSpecifiedUser(pageable, user);
-        List<BookshelfView> bookshelfViews = BookshelfConverter.toViewList(bookshelfPages.getContent());
+        List<BookshelfView> bookshelfViews = BookshelfConverter.toViewList(bookshelfPages.getContent(), clientZoneId);
 
         BookshelfCreateForm bookshelfCreateForm = new BookshelfCreateForm(); // for register bookshelf
         bookshelfCreateForm.setUser(user);

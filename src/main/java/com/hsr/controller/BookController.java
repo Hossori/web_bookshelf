@@ -1,7 +1,10 @@
 package com.hsr.controller;
 
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -24,6 +27,7 @@ import com.hsr.domain.book.model.converter.BookConverter;
 import com.hsr.domain.book.service.BookService;
 import com.hsr.domain.user.model.User;
 import com.hsr.domain.user.service.UserService;
+import com.hsr.util.SessionAttributeManager;
 
 @Controller
 @RequestMapping("/book")
@@ -39,10 +43,13 @@ public class BookController {
     @GetMapping("/index")
     public String idnex(
             Model model,
+            HttpServletRequest request,
             @PageableDefault(size=10) Pageable pageable,
             @AuthenticationPrincipal User loginUser,
             @RequestParam int page,
             @RequestParam(defaultValue="-1") int userId) {
+
+        ZoneId clientZoneId = SessionAttributeManager.getClientZoneId(request);
 
         Page<Book> bookPages;
         if(userId == GlobalConst.INVALID_ID) {
@@ -56,7 +63,7 @@ public class BookController {
         }
 
         List<Book> bookList = bookPages.getContent();
-        List<BookView> bookViewList = BookConverter.toViewList(bookList);
+        List<BookView> bookViewList = BookConverter.toViewList(bookList, clientZoneId);
 
         int pageCount =
                 bookPages.getTotalPages() == 0 ? 1 : bookPages.getTotalPages();
@@ -74,14 +81,17 @@ public class BookController {
     @GetMapping("/detail")
     public String detail(
             Model model,
+            HttpServletRequest request,
             @RequestParam int id) {
+
+        ZoneId clientZoneId = SessionAttributeManager.getClientZoneId(request);
 
         Book book = bookService.getByIdNotDeleted(id);
         if (book == null) {
             return PathConst.ERROR.getValue();
         }
         BookEditForm bookEditForm = BookConverter.toEditForm(book);
-        BookView bookView = BookConverter.toView(book);
+        BookView bookView = BookConverter.toView(book, clientZoneId);
         List<String> states = List.of(messageSource.getMessage("book.state.array", null, Locale.getDefault()).split(", "));
 
         model.addAttribute("book", book);

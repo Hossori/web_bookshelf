@@ -1,5 +1,6 @@
 package com.hsr.domain.user.model.converter;
 
+import java.time.ZoneId;
 import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,7 @@ public class UserConverter extends DomainConverter {
      * @param user
      * @return user view
      */
-    public static UserView toView(User user) {
+    public static UserView toView(User user, ZoneId zoneId) {
         UserView userView =
                 new UserView(
                     user.getEmail(),
@@ -34,7 +35,7 @@ public class UserConverter extends DomainConverter {
                     convertGender(user.getGender()),
                     formatDate(user.getBirthday()),
                     user.getIntroduction(),
-                    formatDateTime(user.getCreatedAt())
+                    formatDateTime(toLocalDateTime(user.getCreatedEpochSecond(), zoneId))
                 );
         return userView;
     }

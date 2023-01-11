@@ -1,13 +1,30 @@
 'use strict';
 
 function login() {
-    let formData = $('#'+getProperty('auth.login.form.id')).serializeArray();
-    $.ajax({
-        type : 'post',
-        url : '/login',
-        data : formData,
-        dataType : 'json'
-    }).done((result) => {
+    let postLoginFunc = function() {
+        let formData = $('#'+getProperty('auth.login.form.id')).serializeArray();
+        return $.ajax({
+            type : 'post',
+            url : '/login',
+            data : formData,
+            dataType : 'json'
+        });
+    };
+    let saveClientZoneIdToServerSessionFunc = function() {
+        let zoneId = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        return $.ajax({
+            type : 'put',
+            url : '/rest/session/put/zoneId',
+            data : {zoneId : zoneId},
+            dataType : 'json'
+        });
+    };
+
+    saveClientZoneIdToServerSessionFunc()
+    .then((result) => {
+        return postLoginFunc();
+    })
+    .then((result) => {
         if(result.code === STATUS.OK) {
             location.href = '/bookshelf/index?page=0';
         } else if(result.code === STATUS.BAD_REQUEST) {
@@ -16,8 +33,8 @@ function login() {
         } else if(result.code === STATUS.FORBIDDEN) {
             console.log(result.data);
         }
-    }).fail((XMLHttpRequest, textStatus, errorThrown) => {
-        console.log(XMLHttpRequest);
+    }).catch((jqXHR, textStatus, errorThrown) => {
+        console.log(jqXHR);
         console.log(textStatus);
         console.log(errorThrown);
     });

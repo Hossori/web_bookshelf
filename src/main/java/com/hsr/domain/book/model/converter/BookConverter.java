@@ -1,5 +1,6 @@
 package com.hsr.domain.book.model.converter;
 
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -28,7 +29,7 @@ public class BookConverter extends DomainConverter {
      * @param book
      * @return book view
      */
-    public static BookView toView(Book book) {
+    public static BookView toView(Book book, ZoneId zoneId) {
 
         BookView bookView =
                 new BookView(
@@ -38,9 +39,9 @@ public class BookConverter extends DomainConverter {
                     formatState(book.getState()),
                     formatEvaluation(book.getEvaluation()),
                     book.getMemo(),
-                    formatDateTime(book.getCreatedAt()),
-                    formatDate(book.getCreatedAt().toLocalDate()),
-                    formatDateTime(book.getUpdatedAt())
+                    formatDateTime(toLocalDateTime(book.getCreatedEpochSecond(), zoneId)),
+                    formatDate(toLocalDate(book.getCreatedEpochSecond(), zoneId)),
+                    formatDateTime(toLocalDateTime(book.getUpdatedEpochSecond(), zoneId))
                 );
 
         return bookView;
@@ -52,10 +53,10 @@ public class BookConverter extends DomainConverter {
      * @param book list
      * @return book view list
      */
-    public static List<BookView> toViewList(List<Book> bookList) {
+    public static List<BookView> toViewList(List<Book> bookList, ZoneId zoneId) {
 
         return bookList.stream()
-                    .map(BookConverter::toView)
+                    .map(b -> BookConverter.toView(b, zoneId))
                     .collect(Collectors.toList());
 
     }

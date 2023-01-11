@@ -15,6 +15,6 @@ public class UserView {
     private String gender;
     private String birthday;
     private String introduction;
-    private String createdAt;
+    private String createdDateTime;
 
 }

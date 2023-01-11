@@ -103,11 +103,11 @@
                 </div>
                 <div th:id="#{bookshelf.show.createdAt.id}">
                     <p class="caption" th:text="#{bookshelf.show.createdAt.caption}"></p>
-                    <p th:text="${#temporals.format(bookshelf.createdAt, 'yyyy/MM/dd HH:mm')}"></p>
+                    <p th:text="${bookshelfView.createdDateTime}"></p>
                 </div>
                 <div th:id="#{bookshelf.show.updatedAt.id}">
                     <p class="caption" th:text="#{bookshelf.show.updatedAt.caption}"></p>
-                    <p th:text="${#temporals.format(bookshelf.updatedAt, 'yyyy/MM/dd HH:mm')}"></p>
+                    <p th:text="${bookshelfView.updatedDateTime}"></p>
                 </div>
                 <button type="button" th:id="#{bookshelf.show.button.toEdit.id}"
                         th:text="#{bookshelf.show.button.toEdit.caption}"

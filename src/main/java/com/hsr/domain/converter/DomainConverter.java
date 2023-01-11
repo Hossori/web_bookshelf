@@ -1,7 +1,9 @@
 package com.hsr.domain.converter;
 
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 public abstract class DomainConverter {
@@ -23,6 +25,17 @@ public abstract class DomainConverter {
         return dateTime.format(formatter);
     }
 
+    protected static LocalDateTime toLocalDateTime(Long epochSecond, ZoneId zoneId) {
+        if (epochSecond == null) {
+            return null;
+        }
+        if (zoneId == null) {
+            zoneId = ZoneId.systemDefault();
+        }
+
+        return Instant.ofEpochSecond(epochSecond).atZone(zoneId).toLocalDateTime();
+    }
+
     protected static LocalDate toLocalDate(String dateString) {
         if (dateString == null) {
             return null;
@@ -33,5 +46,16 @@ public abstract class DomainConverter {
         } catch(Exception e) {
             return null;
         }
+    }
+
+    protected static LocalDate toLocalDate(Long epochSecond, ZoneId zoneId) {
+        if (epochSecond == null) {
+            return null;
+        }
+        if (zoneId == null) {
+            zoneId = ZoneId.systemDefault();
+        }
+
+        return Instant.ofEpochSecond(epochSecond).atZone(zoneId).toLocalDate();
     }
 }

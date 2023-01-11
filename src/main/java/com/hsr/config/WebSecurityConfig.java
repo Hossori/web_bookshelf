@@ -64,7 +64,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             "/signup",
             "/rest/auth/signup",
             "/rest/property/get",
-            "/rest/property/get/statusCode"
+            "/rest/property/get/statusCode",
+            "/rest/session/put/zoneId"
         );
     }
 

@@ -1,6 +1,6 @@
 package com.hsr.domain.bookshelf.service.impl;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 
 import javax.transaction.Transactional;
 
@@ -45,8 +45,8 @@ public class BookshelfServiceImpl implements BookshelfService {
     @Override
     @Transactional
     public HttpStatus create(Bookshelf bookshelf) {
-        bookshelf.setCreatedAt(LocalDateTime.now());
-        bookshelf.setUpdatedAt(LocalDateTime.now());
+        bookshelf.setCreatedEpochSecond(Instant.now().getEpochSecond());
+        bookshelf.setUpdatedEpochSecond(Instant.now().getEpochSecond());
         bookshelf.setDeleteFlag(JpaConst.DELETE_FLAG_FALSE);
         HttpStatus httpStatus =
                 repository.save(bookshelf) != null
@@ -60,7 +60,7 @@ public class BookshelfServiceImpl implements BookshelfService {
     public HttpStatus update(Bookshelf bookshelf, Bookshelf newBookshelf) {
         bookshelf.setName(newBookshelf.getName());
         bookshelf.setDescription(newBookshelf.getDescription());
-        bookshelf.setUpdatedAt(LocalDateTime.now());
+        bookshelf.setUpdatedEpochSecond(Instant.now().getEpochSecond());
         HttpStatus httpStatus =
                 repository.save(bookshelf) != null
                     ? HttpStatus.OK

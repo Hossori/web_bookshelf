@@ -1,7 +1,10 @@
 package com.hsr.controller;
 
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Locale;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Page;
@@ -29,6 +32,7 @@ import com.hsr.domain.bookshelf.model.converter.BookshelfConverter;
 import com.hsr.domain.bookshelf.service.BookshelfService;
 import com.hsr.domain.user.model.User;
 import com.hsr.domain.user.service.UserService;
+import com.hsr.util.SessionAttributeManager;
 
 import lombok.RequiredArgsConstructor;
 
@@ -45,10 +49,13 @@ public class BookshelfController {
     @GetMapping("/index")
     public String index(
             Model model,
+            HttpServletRequest request,
             @PageableDefault(size=10) Pageable pageable,
             @AuthenticationPrincipal User loginUser,
             @RequestParam int page,
             @RequestParam(defaultValue="-1") int userId) {
+
+        ZoneId clientZoneId = SessionAttributeManager.getClientZoneId(request);
 
         Page<Bookshelf> bookshelfPages;
         if(userId == GlobalConst.INVALID_ID) {
@@ -62,7 +69,7 @@ public class BookshelfController {
         }
 
         List<Bookshelf> bookshelfList = bookshelfPages.getContent();
-        List<BookshelfView> bookshelfViewList = BookshelfConverter.toViewList(bookshelfList);
+        List<BookshelfView> bookshelfViewList = BookshelfConverter.toViewList(bookshelfList, clientZoneId);
 
         int pageCount =
                 bookshelfPages.getTotalPages() == 0 ? 1 : bookshelfPages.getTotalPages();
@@ -84,21 +91,25 @@ public class BookshelfController {
     @GetMapping("/detail")
     public String detail(
             Model model,
+            HttpServletRequest request,
             @PageableDefault(size=10) Pageable pageable,
             @RequestParam int id,
             @RequestParam int page) {
+
+        ZoneId clientZoneId = SessionAttributeManager.getClientZoneId(request);
 
         Bookshelf bookshelf = bookshelfService.getByIdNotDeleted(id);
         if (bookshelf == null) {
             return PathConst.ERROR.getValue();
         }
+        BookshelfView bookshelfView = BookshelfConverter.toView(bookshelf, clientZoneId);
         BookshelfEditForm bookshelfEditForm = BookshelfConverter.toEditForm(bookshelf);
         BookCreateForm bookCreateForm = new BookCreateForm(); // for register book
         bookCreateForm.setBookshelf(bookshelf);
         List<String> states = List.of(messageSource.getMessage("book.state.array", null, Locale.getDefault()).split(", "));
         Page<Book> bookPages = bookService.getPagesInBookshelf(pageable, bookshelf);
         List<Book> bookList = bookPages.getContent();
-        List<BookView> bookViewList = BookConverter.toViewList(bookList);
+        List<BookView> bookViewList = BookConverter.toViewList(bookList, clientZoneId);
 
         int pageCount =
                 bookPages.getTotalPages() == 0 ? 1 : bookPages.getTotalPages();
@@ -107,6 +118,7 @@ public class BookshelfController {
         }
 
         model.addAttribute(bookshelf);
+        model.addAttribute("bookshelfView", bookshelfView);
         model.addAttribute("bookshelfEditForm", bookshelfEditForm);
         model.addAttribute("bookCreateForm", bookCreateForm);
         model.addAttribute("states", states);

@@ -1,5 +1,6 @@
 package com.hsr.domain.bookshelf.model.converter;
 
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,7 +17,7 @@ public class BookshelfConverter extends DomainConverter {
      * @param bookshelf
      * @return bookshelf view
      */
-    public static BookshelfView toView(Bookshelf bookshelf) {
+    public static BookshelfView toView(Bookshelf bookshelf, ZoneId zoneId) {
 
         BookshelfView bookshelfView =
                 new BookshelfView(
@@ -24,9 +25,15 @@ public class BookshelfConverter extends DomainConverter {
                     bookshelf.getUser(),
                     bookshelf.getName(),
                     bookshelf.getDescription(),
-                    formatDateTime(bookshelf.getCreatedAt()),
-                    formatDateTime(bookshelf.getUpdatedAt()),
-                    formatDate(bookshelf.getUpdatedAt().toLocalDate())
+                    formatDateTime(
+                        toLocalDateTime(bookshelf.getCreatedEpochSecond(), zoneId)
+                    ),
+                    formatDateTime(
+                        toLocalDateTime(bookshelf.getUpdatedEpochSecond(), zoneId)
+                    ),
+                    formatDate(
+                        toLocalDate(bookshelf.getUpdatedEpochSecond(), zoneId)
+                    )
                 );
 
         return bookshelfView;
@@ -38,10 +45,10 @@ public class BookshelfConverter extends DomainConverter {
      * @param bookshelf list
      * @return bookshelf view list
      */
-    public static List<BookshelfView> toViewList(List<Bookshelf> bookshelf) {
+    public static List<BookshelfView> toViewList(List<Bookshelf> bookshelf, ZoneId zoneId) {
 
         return bookshelf.stream()
-                    .map(BookshelfConverter::toView)
+                    .map(bs -> BookshelfConverter.toView(bs, zoneId))
                     .collect(Collectors.toList());
 
     }

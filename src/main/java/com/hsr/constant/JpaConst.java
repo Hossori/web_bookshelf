@@ -50,12 +50,12 @@ public interface JpaConst {
     public static final String BOOKSHELF_GETPAGES =
             "select bs from " + ENTITY_BOOKSHELF + " as bs" +
             " where bs.deleteFlag = " + DELETE_FLAG_FALSE +
-            " order by bs.createdAt desc";
+            " order by bs.createdEpochSecond desc";
     public static final String BOOKSHELF_GETPAGES_SPECIFIED_USER =
             "select bs from " + ENTITY_BOOKSHELF + " as bs" +
             " where bs.deleteFlag = " + DELETE_FLAG_FALSE +
             " and bs.user = :" + PARAM_USER +
-            " order by bs.createdAt desc";
+            " order by bs.createdEpochSecond desc";
     public static final String BOOK_GET_BY_ID_NOT_DELETED =
             "select b from " + ENTITY_BOOK + " as b" +
             " where b.id = :" + PARAM_ID +
@@ -67,15 +67,15 @@ public interface JpaConst {
     public static final String BOOK_GETPAGES =
             "select b from " + ENTITY_BOOK + " as b" +
             " where b.deleteFlag = " + DELETE_FLAG_FALSE +
-            " order by b.createdAt desc";
+            " order by b.createdEpochSecond desc";
     public static final String BOOK_GETPAGES_IN_BOOKSHELF =
             "select b from " + ENTITY_BOOK + " as b" +
             " where b.bookshelf = :" + PARAM_BOOKSHELF +
             " and b.deleteFlag = " + DELETE_FLAG_FALSE +
-            " order by b.createdAt desc";
+            " order by b.createdEpochSecond desc";
     public static final String BOOK_GETPAGES_SPECIFIED_USER =
             "select b from " + ENTITY_BOOK + " as b" +
             " where b.deleteFlag = " + DELETE_FLAG_FALSE +
             " and b.bookshelf.user = :" + PARAM_USER +
-            " order by b.createdAt desc";
+            " order by b.createdEpochSecond desc";
 }
