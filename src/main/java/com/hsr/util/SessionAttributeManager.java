@@ -22,12 +22,13 @@ public class SessionAttributeManager {
             zoneId = ZoneId.systemDefault().toString();
         }
         request.getSession().setAttribute(GlobalConst.CLIENT_ZONE_ID_KEY, zoneId);
-
         return new Result(HttpStatus.OK.value(), null);
     }
 
     public static ZoneId getClientZoneId(HttpServletRequest request) {
-        String clientZoneId = request.getSession().getAttribute(GlobalConst.CLIENT_ZONE_ID_KEY).toString();
+        String clientZoneId = String.valueOf(
+                request.getSession().getAttribute(GlobalConst.CLIENT_ZONE_ID_KEY)
+        );
         return ZoneId.of(clientZoneId);
     }
 
