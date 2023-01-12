@@ -39,6 +39,18 @@ public class User implements UserDetails {
     private Long createdEpochSecond;;
     private Integer deleteFlag;
 
+    public void reflectProperties(User anotherInstance) {
+        anotherInstance.setId(this.getId());
+        anotherInstance.setEmail(this.getEmail());
+        anotherInstance.setName(this.getName());
+        anotherInstance.setPassword(this.getPassword());
+        anotherInstance.setGender(this.getGender());
+        anotherInstance.setBirthday(this.getBirthday());
+        anotherInstance.setIntroduction(this.getIntroduction());
+        anotherInstance.setCreatedEpochSecond(this.getCreatedEpochSecond());
+        anotherInstance.setDeleteFlag(this.getDeleteFlag());
+    }
+
     @Override
     public String getUsername() {
         return this.getEmail();

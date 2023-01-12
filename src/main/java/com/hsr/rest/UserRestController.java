@@ -3,6 +3,8 @@ package com.hsr.rest;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,6 +32,7 @@ public class UserRestController {
     public Result update(
             @ModelAttribute @Validated UserEditForm userEditForm,
             BindingResult bindingResult,
+            HttpServletRequest request,
             Locale locale,
             @AuthenticationPrincipal User loginUser) {
         User user = userService.getById(userEditForm.getId());
@@ -48,7 +51,8 @@ public class UserRestController {
                 return new Result(httpStatus.value(), errors);
             }
 
-            httpStatus = userService.update(user, newUser);
+                httpStatus = userService.update(user, newUser);
+                user.reflectProperties(loginUser);
         } else {
             httpStatus = HttpStatus.FORBIDDEN;
         }
