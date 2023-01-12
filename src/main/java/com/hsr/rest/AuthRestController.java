@@ -35,7 +35,7 @@ public class AuthRestController {
         User user = UserConverter.toModel(userSignupForm);
 
         Map<String, String> errors = FormValidator.validate(bindingResult, locale);
-        if(errors != null) {
+        if(!errors.isEmpty()) {
             return new Result(HttpStatus.BAD_REQUEST.value(), errors);
         }
 

@@ -61,7 +61,7 @@ public class BookshelfRestController {
         Bookshelf bookshelf = BookshelfConverter.toModel(bookshelfCreateForm);
 
         Map<String, String> errors = FormValidator.validate(bindingResult, locale);
-        if(errors != null) {
+        if(!errors.isEmpty()) {
             httpStatus = HttpStatus.BAD_REQUEST;
             return new Result(httpStatus.value(), errors);
         }
@@ -90,7 +90,7 @@ public class BookshelfRestController {
         }
 
         Map<String, String> errors = FormValidator.validate(bindingResult, locale);
-        if (errors != null) {
+        if (!errors.isEmpty()) {
             httpStatus = HttpStatus.BAD_REQUEST;
             return new Result(httpStatus.value(), errors);
         }

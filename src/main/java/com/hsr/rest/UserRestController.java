@@ -37,8 +37,13 @@ public class UserRestController {
 
         HttpStatus httpStatus;
         if(loginUser.equals(user)) {
-            Map<String, String> errors = FormValidator.validate(bindingResult, locale);
-            if(errors != null) {
+            Map<String, String> errors;
+            if(userEditForm.getEmail().equals(user.getEmail())) {
+                errors = FormValidator.validate(bindingResult, locale, "email");
+            } else {
+                errors = FormValidator.validate(bindingResult, locale);
+            }
+            if(!errors.isEmpty()) {
                 httpStatus = HttpStatus.BAD_REQUEST;
                 return new Result(httpStatus.value(), errors);
             }

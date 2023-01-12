@@ -88,7 +88,7 @@ public class BookRestController {
         HttpStatus httpStatus;
 
         Map<String, String> errors = FormValidator.validate(bindingResult, locale);
-        if(errors != null) {
+        if(!errors.isEmpty()) {
             httpStatus = HttpStatus.BAD_REQUEST;
             return new Result(httpStatus.value(), errors);
         }
@@ -113,7 +113,7 @@ public class BookRestController {
         HttpStatus httpStatus;
         if(loginUser.equals(book.getBookshelf().getUser())) {
             Map<String, String> errors = FormValidator.validate(bindingResult, locale);
-            if(errors != null) {
+            if(!errors.isEmpty()) {
                 httpStatus = HttpStatus.BAD_REQUEST;
                 return new Result(httpStatus.value(), errors);
             }

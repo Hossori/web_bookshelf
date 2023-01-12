@@ -5,6 +5,7 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.hsr.annotation.SameString;
+import com.hsr.annotation.UnregisteredEmail;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,7 @@ public class UserEditForm {
     private Integer id;
     @Email
     @NotBlank
+    @UnregisteredEmail
     private String email;
     @NotBlank
     private String name;
