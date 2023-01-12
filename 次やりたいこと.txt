@@ -4,11 +4,6 @@
 ▼ → 作業中項目
 -------------------
 
-□validationMessages_ja.propertiesをコメントインし、
-日本語環境でログインに失敗した場合、バリデーションメッセージが????になる。
-ログイン時のみ、JavaConfigで日本語対応させたものと違う型のValidatorが使われていることが原因。
-対応させたものを継承した新しいValidatorを作る…？
-
 □本の作成ボタン及びダイアログのパーツ化。
 
 □確認ダイアログのパーツ化。
@@ -155,3 +150,15 @@ bookshelf.jsのメソッドが最新かな。
  それに伴い、本棚作成ボタン及びダイアログのhtml等をパーツ化する。
 
 ■本の一覧画面の実装
+
+■validationMessages_ja.propertiesをコメントインし、
+日本語環境でログインに失敗した場合、バリデーションメッセージが????になる。
+ログイン時のみ、JavaConfigで日本語対応させたものと違う型のValidatorが使われていることが原因。
+対応させたものを継承した新しいValidatorを作る…？
+→対応させたもの(org.springframework.validation.Validator)をそのまま使っていけた。
+UserLoginForm userLoginForm = new UserLoginForm(email, password);
+BindingResult bindingResult = new DataBinder(userLoginForm).getBindingResult();
+validator.validate(userLoginForm, bindingResult);
+→だが、それでは解決せず。この点は関係なかった。コンソールには日本語出力されるが画面で???になる状況。
+結果、response.getWriter()を使い日本語を出力する場合は文字コード指定が必要という話だった。
+response.setContentTypeでcharset=UTF-8を含む→文字列を指定して解決。

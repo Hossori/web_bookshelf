@@ -135,6 +135,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     @Autowired
     private MessageSource messageSource;
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onAuthenticationFailure(
         HttpServletRequest request,
@@ -147,7 +148,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             request.getLocale()
         );
 
-        response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+        // it is needed using this deprecated member. otherwise Japanese characters become like ???.
+        response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         response.getWriter().write(new ObjectMapper().writeValueAsString(new Result(HttpStatus.BAD_REQUEST.value(), errors)));
 
     }
