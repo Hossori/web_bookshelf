@@ -4,7 +4,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
@@ -20,7 +19,6 @@ import com.hsr.domain.book.form.BookEditForm;
 import com.hsr.domain.book.model.Book;
 import com.hsr.domain.book.model.converter.BookConverter;
 import com.hsr.domain.book.service.BookService;
-import com.hsr.domain.bookshelf.service.BookshelfService;
 import com.hsr.domain.user.model.User;
 import com.hsr.validation.FormValidator;
 
@@ -30,10 +28,10 @@ public class BookRestController {
 
     @Autowired
     private BookService bookService;
-    @Autowired
-    private BookshelfService bookshelfService;
-    @Autowired
-    private MessageSource messageSource;
+//    @Autowired
+//    private BookshelfService bookshelfService;
+//    @Autowired
+//    private MessageSource messageSource;
 
     /*
     @GetMapping("/getBookPages")

@@ -5,7 +5,6 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
@@ -34,8 +33,8 @@ public class BookshelfRestController {
     private BookshelfService bookshelfService;
     @Autowired
     private BookService bookService;
-    @Autowired
-    private MessageSource messageSource;
+//    @Autowired
+//    private MessageSource messageSource;
 
     /*@GetMapping("/getBookshelfPages")
     public Result getBookshelfPages(
