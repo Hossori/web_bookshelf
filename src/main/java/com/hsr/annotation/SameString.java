@@ -66,7 +66,11 @@ public @interface SameString {
             String value1 = (String) beanWrapper.getPropertyValue(field1);
             String value2 = (String) beanWrapper.getPropertyValue(field2);
 
-            return value1.equals(value2);
+            if (value1 == null || value2 == null) {
+                return value1 == value2;
+            } else {
+                return value1.equals(value2);
+            }
         }
 
     }
