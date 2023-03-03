@@ -11,11 +11,15 @@ function login() {
         });
     };
     let saveClientZoneIdToServerSessionFunc = function() {
-        let zoneId = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        let data = {};
+        let clientZoneIdKey = getKeyConst('CLIENT_ZONE_ID_KEY');
+        let clientZoneId = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        data[clientZoneIdKey] = clientZoneId;
+
         return $.ajax({
             type : 'put',
             url : '/rest/session/put/zoneId',
-            data : {zoneId : zoneId},
+            data : data,
             dataType : 'json'
         });
     };
@@ -26,7 +30,11 @@ function login() {
     })
     .then((result) => {
         if(result.code === STATUS.OK) {
-            location.href = '/bookshelf/index?page=0';
+            if(result.data.redirectUrl) {
+                location.href = result.data.redirectUrl;
+            } else {
+                location.href = '/bookshelf/index?page=0';
+            }
         } else if(result.code === STATUS.BAD_REQUEST) {
             let errors = result.data;
             applyFormValidationResultOfAuth(errors, 'login');

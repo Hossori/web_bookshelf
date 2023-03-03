@@ -19,6 +19,18 @@ function getProperty(key) {
     return res.data.value;
 }
 
+function getKeyConst(keyName) {
+    let res = $.ajax({
+        url : '/rest/property/get/keyConst',
+        type : 'get',
+        data : {keyName : keyName},
+        dataType : 'json',
+        async : false
+    }).responseText;
+    res = JSON.parse(res);
+    return res.data.key;
+}
+
 function getStatusCode(status) {
     let res = $.ajax({
         url : '/rest/property/get/statusCode',

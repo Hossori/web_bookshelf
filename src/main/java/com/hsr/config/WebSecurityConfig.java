@@ -32,8 +32,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.security.web.savedrequest.SimpleSavedRequest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.hsr.constant.KeyConst;
 import com.hsr.domain.user.form.UserLoginForm;
 import com.hsr.rest.Result;
 
@@ -47,6 +50,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
 
     @Autowired
     private UserDetailsService userService;
+    @Autowired
+    private MessageSource messageSource;
+    @Autowired
+    private Validator validator;
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
@@ -64,6 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             "/signup",
             "/rest/auth/signup",
             "/rest/property/get",
+            "/rest/property/get/keyConst",
             "/rest/property/get/statusCode",
             "/rest/session/put/zoneId"
         );
@@ -111,12 +119,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             return;
         }
 
+        Map<String, String> loginSuccessParameters = getLoginSuccessParameters(request);
+        Result restResult = new Result(HttpStatus.OK.value(), loginSuccessParameters);
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        response.getWriter().write(new ObjectMapper().writeValueAsString(new Result(HttpStatus.OK.value(), null)));
+        response.getWriter().write(new ObjectMapper().writeValueAsString(restResult));
         clearAuthenticationAttributes(request);
 
         request.getSession().setAttribute("loginUser", authentication.getPrincipal());
 
+    }
+
+    private Map<String, String> getLoginSuccessParameters(HttpServletRequest request) {
+        Map<String, String> loginSuccessParameters = new HashMap<>();
+        loginSuccessParameters.put("redirectUrl", getSavedRedirectUrl(request));
+
+        return loginSuccessParameters;
+    }
+
+    private String getSavedRedirectUrl(HttpServletRequest request) {
+        Object savedRequestObject = request.getSession().getAttribute(KeyConst.SAVED_REQUEST_KEY.getKey());
+        if (savedRequestObject == null) {
+            return null;
+        }
+        SimpleSavedRequest savedRequest = new SimpleSavedRequest((SavedRequest) savedRequestObject);
+
+        return savedRequest.getRedirectUrl();
     }
 
     private void clearAuthenticationAttributes(HttpServletRequest request) {
@@ -130,11 +157,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
     // -------------------------------------------------------
 
     // implementation of AuthenticationFailureHandler --------
-    @Autowired
-    private Validator validator;
-    @Autowired
-    private MessageSource messageSource;
-
     @SuppressWarnings("deprecation")
     @Override
     public void onAuthenticationFailure(
@@ -147,10 +169,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter
             request.getParameter("password"),
             request.getLocale()
         );
+        Result restResult = new Result(HttpStatus.BAD_REQUEST.value(), errors);
 
         // it is needed using this deprecated member. otherwise Japanese characters become like ???.
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-        response.getWriter().write(new ObjectMapper().writeValueAsString(new Result(HttpStatus.BAD_REQUEST.value(), errors)));
+        response.getWriter().write(new ObjectMapper().writeValueAsString(restResult));
 
     }
 

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.hsr.constant.GlobalConst;
+import com.hsr.constant.KeyConst;
 import com.hsr.rest.Result;
 
 @RestController
@@ -21,13 +21,13 @@ public class SessionAttributeManager {
         if (zoneId == null || !ZoneId.getAvailableZoneIds().contains(zoneId)) {
             zoneId = ZoneId.systemDefault().toString();
         }
-        request.getSession().setAttribute(GlobalConst.CLIENT_ZONE_ID_KEY, zoneId);
+        request.getSession().setAttribute(KeyConst.CLIENT_ZONE_ID_KEY.getKey(), zoneId);
         return new Result(HttpStatus.OK.value(), null);
     }
 
     public static ZoneId getClientZoneId(HttpServletRequest request) {
         String clientZoneId = String.valueOf(
-                request.getSession().getAttribute(GlobalConst.CLIENT_ZONE_ID_KEY)
+                request.getSession().getAttribute(KeyConst.CLIENT_ZONE_ID_KEY.getKey())
         );
         return ZoneId.of(clientZoneId);
     }
